@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ExUST</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_thread_list">ThreadList</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Enter course code or course name</string>
+    <string name="detail">Detail:</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+
+    <string name="frequency_prompt">Frequency:</string>
+    <string-array name="frequency_choice">
+        <item>Once</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Bi-weekly</item>
+        <item>Monthly</item>
+    </string-array>
+</resources>

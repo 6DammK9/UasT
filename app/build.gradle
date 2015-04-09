@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "hk.ust.comp4521.exust"
+        minSdkVersion 16
+        targetSdkVersion 19
+
+        testApplicationId "hk.ust.comp4521.exust.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.google.android.gms:play-services:+'
+    compile files('libs/android-async-http-1.4.4.jar')
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
+}

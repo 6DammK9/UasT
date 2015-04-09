@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/match"
+        android:icon="@drawable/icon_action_calendar"
+        android:showAsAction="always"
+        android:title="Match">
+    </item>
+
+</menu>

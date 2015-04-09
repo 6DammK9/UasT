@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hk.ust.comp4521.exust.ChatCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:paddingBottom="10dp" >
+
+    <LinearLayout
+        android:id="@+id/bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_bg"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2sp"
+            android:text="Subtitle"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="8sp"
+            android:text="Title"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/match_gp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="8sp"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join" />
+
+            <Button
+                android:id="@+id/match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Match" />
+        </LinearLayout>
+    </LinearLayout>
+
+</hk.ust.comp4521.exust.ChatCardView>

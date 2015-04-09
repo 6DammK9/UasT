@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hk.ust.comp4521.exust.ThreadCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:rotation="90"
+                android:src="@drawable/chat_triangle" />
+
+            <TextView
+                android:id="@+id/sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last Chat"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</hk.ust.comp4521.exust.ThreadCardView>

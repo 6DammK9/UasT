@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hk.ust.comp4521.exust.GroupHeaderCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/header_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="1dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff86e241"
+            android:padding="8dp"
+            android:text="Group Name"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:text="Group Description"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</hk.ust.comp4521.exust.GroupHeaderCardView>
