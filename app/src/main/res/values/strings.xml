@@ -10,6 +10,11 @@
     <string name="detail">Detail:</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="scheduled_events">Scheduled Events:</string>
+    <string name="new_event">New</string>
+    <string name="create">Create</string>
+    <string name="modify">Modify</string>
+    <string name="delete">Delete</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">

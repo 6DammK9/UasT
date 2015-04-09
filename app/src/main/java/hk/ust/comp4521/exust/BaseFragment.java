@@ -24,8 +24,10 @@ public abstract class BaseFragment extends Fragment {
 		super.onAttach(activity);
 		if(fragments != null && fragments.length > 1) {
 			bar = activity.getActionBar();
-			bar.setDisplayShowTitleEnabled(false);
-			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            if (bar != null) {
+                bar.setDisplayShowTitleEnabled(false);
+                bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            }
 			bar.setListNavigationCallbacks(new ArrayAdapter<BaseFragment>(activity, R.layout.view_navigation, fragments), new OnNavigationListener() {
 				@Override
 				public boolean onNavigationItemSelected(int itemPosition,

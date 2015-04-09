@@ -17,7 +17,6 @@ import hk.ust.comp4521.exust.data.Database;
 
 public class Record extends BaseFragment
 {
-    final static long ONE_HOUR = 1000*60*60;
     private View view;
     private Spinner freqSpin;
 	private EditText TitleText;
@@ -30,12 +29,15 @@ public class Record extends BaseFragment
     private Date ToTime;
 	int CalEventsSelectedIndex;
 	CalendarFragment calendarFragment;
+    boolean createMode;
 
-	public void setParam(int position, CalendarFragment calendarFragment)
-	{
-		this.calendarFragment = calendarFragment;
-        this.CalEventsSelectedIndex = calendarFragment.CalEventsFilteredIndex[position];
-	}
+	public void setParam(Boolean create, int position, CalendarFragment calendarFragment)
+    {
+        this.createMode = create;
+        this.calendarFragment = calendarFragment;
+        if (create) {this.CalEventsSelectedIndex = position;}
+            else {this.CalEventsSelectedIndex = calendarFragment.CalEventsFilteredIndex.get(position);}
+    }
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
@@ -55,19 +57,22 @@ public class Record extends BaseFragment
 		confirmButton.setOnClickListener(confirmButtonListener);
 		deleteButton.setOnClickListener(deleteButtonListener);
 
-        freqSpin.setSelection(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFreqIndex());
-
-        TitleText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTitle());
-        BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
-
-        /**
-                FromTime = new Date(calendarFragment.cal_m.getDate());
-                    FromText.setText(FromTime.toString());
-                 ToTime = new Date(calendarFragment.cal_m.getDate() + ONE_HOUR);
-                ToText.setText(ToTime.toString());
-                **/
-        FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
-        ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
+        if (createMode) {
+            freqSpin.setSelection(0);
+            TitleText.setText("NEW EVENT");
+            BodyText.setText("Detail:");
+            FromText.setText(new Date(calendarFragment.cal_m.getDate()).toString());
+            ToText.setText(new Date(calendarFragment.cal_m.getDate() + CalendarEvent.ONE_HOUR).toString());
+            confirmButton.setText("Create");
+        }
+        else {
+            freqSpin.setSelection(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFreqIndex());
+            TitleText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTitle());
+            BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
+            FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
+            ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
+            confirmButton.setText("Modify");
+        }
 
 		return view;
 	}
@@ -87,18 +92,16 @@ public class Record extends BaseFragment
             ToTime = CalendarEvent.StringToDate(FromText.getText().toString());
 
             CalendarEvent cal_e = new CalendarEvent();
-            cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(),String.valueOf(freqSpin.getSelectedItem()));
+            cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()));
 
-            if (!cal_e.toString().equals("")) {
-                calendarFragment.CalEvents.add(cal_e);
+            if (createMode) {calendarFragment.CalEvents.add(cal_e);}
+                else {calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);}
 
-                Database.getUser().setCalendar(new String[7 * 24]);
-                Database.getUser().setCalendar2(calendarFragment.CalEvents);
-                Database.commitUser();
-            }
+            Database.getUser().setCalendar(new String[7 * 24]);
+            Database.getUser().setCalendar2(calendarFragment.CalEvents);
+            Database.commitUser();
 
-             ((MainActivity) getActivity()).popFragment();
-
+            ((MainActivity) getActivity()).popFragment();
 		}
 	};
 

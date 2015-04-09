@@ -15,6 +15,7 @@ public class CalendarEvent {
     public final static long ONE_DAY = 1000*60*60*24;
     public final static long ONE_WEEK = 1000*60*60*24*7;
     public final static long TWO_WEEK = 1000*60*60*24*7*2;
+    //static final String TAG = "exust.CalendarEvent";
 
     public CalendarEvent() {
         //EMPTY CONSTRUCTOR
@@ -89,10 +90,11 @@ public class CalendarEvent {
         if ((Freq.equals("Weekly")) && (From.getDay() == target.getDay())) {return true;}
         if ((Freq.equals("Bi-weekly")) && (From.getDay() == target.getDay()) &&
                 (dif(From.getTime(),time)%TWO_WEEK < ONE_WEEK)) {return true;}
-        return (Freq.equals("Monthly")) && (From.getDate() == target.getDate());
+        if ((Freq.equals("Monthly")) && (From.getDate() == target.getDate())) {return true;}
+        return false;
     }
 
-    public long dif(long a, long b) {
+    public static long dif(long a, long b) {
         if (a>b) {return a-b;}
         else {return b-a;}
     }
@@ -104,7 +106,7 @@ public class CalendarEvent {
         String[] prase2 = prase1[3].split(":");
 
         int mon = 0;
-        while ((!prase1[1].equals(MonStr[mon])) || mon > 11) {
+        while ((!prase1[1].equals(MonStr[mon])) || mon >= 11) {
             mon++;
         }
 

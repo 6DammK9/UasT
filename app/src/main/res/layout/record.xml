@@ -95,7 +95,7 @@
             android:id="@+id/submitbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/accept"
+            android:text="@string/create"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp" />
 
@@ -103,7 +103,7 @@
             android:id="@+id/deletebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/decline"
+            android:text="@string/delete"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp" />
     </LinearLayout>
