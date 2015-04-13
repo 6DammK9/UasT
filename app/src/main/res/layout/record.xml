@@ -22,7 +22,8 @@
             android:inputType="time"
             android:ems="8"
             android:id="@+id/time_from"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -45,8 +46,32 @@
             android:inputType="time"
             android:ems="8"
             android:id="@+id/time_to"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:textSize="12sp"
+            android:textIsSelectable="false" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/location"
+            android:id="@+id/loc_label"
+            android:layout_marginLeft="5dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationText"
+            android:layout_gravity="right"
+            android:textSize="12sp"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,22 +81,55 @@
 
         <EditText
             android:id="@+id/titleText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="@android:string/untitled"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.2">
         </EditText>
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/freqSpin"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
             android:clickable="true"
-            android:entries="@array/frequency_choice" />
+            android:entries="@array/frequency_choice"
+            android:layout_weight="0.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/reminder"
+            android:id="@+id/rem_label"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/rem_inf"
+            android:hint="@string/reminder"
+            android:layout_weight="0.4" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/remSpin"
+            android:layout_weight="0.5"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:entries="@string/rem_prompt" />
+
     </LinearLayout>
 
     <EditText
@@ -83,29 +141,29 @@
         android:hint="@string/detail"
         android:layout_weight="0.08"
         android:layout_gravity="top|left"
-        android:layout_margin="20dp"
+        android:layout_margin="5dp"
         android:textAlignment="gravity" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/submitbutton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/create"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_weight="0.5"
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/deletebutton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_weight="0.5"
+            android:layout_margin="10dp" />
     </LinearLayout>
 
 </LinearLayout>

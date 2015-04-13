@@ -15,6 +15,9 @@
     <string name="create">Create</string>
     <string name="modify">Modify</string>
     <string name="delete">Delete</string>
+    <string name="location">Location:</string>
+    <string name="reminder">Reminder:</string>
+    <string name="choose_time">Choose Time:</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">
@@ -23,5 +26,11 @@
         <item>Weekly</item>
         <item>Bi-weekly</item>
         <item>Monthly</item>
+    </string-array>
+    <string name="rem_prompt">Mode:</string>
+    <string-array name="rem_choice">
+        <item>Off</item>
+        <item>On</item>
+        <item>Before</item>
     </string-array>
 </resources>

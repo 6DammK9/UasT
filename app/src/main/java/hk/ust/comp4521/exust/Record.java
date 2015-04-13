@@ -23,6 +23,7 @@ public class Record extends BaseFragment
 	private TextView BodyText;
     private EditText FromText;
     private EditText ToText;
+    private EditText LocText;
 	private Button confirmButton;
 	private Button deleteButton;
     private Date FromTime;
@@ -50,6 +51,7 @@ public class Record extends BaseFragment
         BodyText = (TextView) view.findViewById(R.id.bodyText);
         FromText = (EditText) view.findViewById(R.id.time_from);
         ToText = (EditText) view.findViewById(R.id.time_to);
+        LocText = (EditText) view.findViewById(R.id.locationText);
 
 		confirmButton = (Button) view.findViewById(R.id.submitbutton);
 		deleteButton = (Button) view.findViewById(R.id.deletebutton);
@@ -64,6 +66,7 @@ public class Record extends BaseFragment
             FromText.setText(new Date(calendarFragment.cal_m.getDate()).toString());
             ToText.setText(new Date(calendarFragment.cal_m.getDate() + CalendarEvent.ONE_HOUR).toString());
             confirmButton.setText("Create");
+            LocText.setText("");
         }
         else {
             freqSpin.setSelection(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFreqIndex());
@@ -72,6 +75,7 @@ public class Record extends BaseFragment
             FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
             ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
             confirmButton.setText("Modify");
+            LocText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getLoc());
         }
 
 		return view;
@@ -92,7 +96,7 @@ public class Record extends BaseFragment
             ToTime = CalendarEvent.StringToDate(FromText.getText().toString());
 
             CalendarEvent cal_e = new CalendarEvent();
-            cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()));
+            cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString());
 
             if (createMode) {calendarFragment.CalEvents.add(cal_e);}
                 else {calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);}

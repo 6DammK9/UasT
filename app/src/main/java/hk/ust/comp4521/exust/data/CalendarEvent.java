@@ -11,6 +11,7 @@ public class CalendarEvent {
     private String Title;
     private String Body;
     private String Freq;
+    private String Loc;
     public final static long ONE_HOUR = 1000*60*60;
     public final static long ONE_DAY = 1000*60*60*24;
     public final static long ONE_WEEK = 1000*60*60*24*7;
@@ -20,11 +21,11 @@ public class CalendarEvent {
     public CalendarEvent() {
         //EMPTY CONSTRUCTOR
         From = new Date();
-        From.setTime(From.getTime()+ONE_DAY);
         To = new Date(From.getTime()+ONE_HOUR);
         Title = "ADD NEW";
         Body = "BLANK EVENT";
         Freq = "Once";
+        Loc = "SOMEWHERE";
     }
 
     public CalendarEvent(String in) {
@@ -34,20 +35,23 @@ public class CalendarEvent {
         Title = pro[2];
         Body = pro[3];
         Freq = pro[4];
+        Loc = pro[5];
     }
 
-    public void setCalEvent(Date a, Date b, String c, String d, String e) {
+    public void setCalEvent(Date a, Date b, String c, String d, String e, String f) {
         From = a;
         To = b;
         Title = c;
         Body = d;
         Freq = e;
+        Loc = f;
     }
 
     public Date getFrom() {return From;}
     public Date getTo() {return To;}
     public String getTitle() {return Title;}
     public String getBody() {return Body;}
+    public String getLoc() {return Loc;}
 
     @Override
     public String toString() {
@@ -55,7 +59,8 @@ public class CalendarEvent {
                 To.toString() + "\n" +
                 Title + "\n" +
                 Body + "\n" +
-                Freq;
+                Freq + "\n" +
+                Loc;
     }
 
     public int getFreqIndex() {
