@@ -23,7 +23,7 @@ public class ApiManager {
 
 	public static final String TAG = "exust.data";
 	//public static final String API_HOST = "http://192.168.1.245:5001/api";
-    public static final String API_HOST = "http://192.168.1.243:5001/api";
+    public static final String API_HOST = "http://143.89.225.94:5001/api";
 	public static final String RES_HOST = "http://127.0.0.1:5001/res/";
 
 	static AsyncHttpClient client = new AsyncHttpClient();

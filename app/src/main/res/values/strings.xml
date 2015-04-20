@@ -18,6 +18,13 @@
     <string name="location">Location:</string>
     <string name="reminder">Reminder:</string>
     <string name="choose_time">Choose Time:</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="second">Second</string>
+    <string name="reminder_prompt">Click to set reminder…</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">

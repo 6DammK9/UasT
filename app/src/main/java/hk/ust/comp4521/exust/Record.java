@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,64 +21,74 @@ public class Record extends BaseFragment
 {
     private View view;
     private Spinner freqSpin;
+    private Spinner remSpin;
 	private EditText TitleText;
 	private TextView BodyText;
-    private EditText FromText;
-    private EditText ToText;
+    private TextView FromText;
+    private TextView ToText;
+    private TextView rem_inf;
     private EditText LocText;
 	private Button confirmButton;
 	private Button deleteButton;
     private Date FromTime;
     private Date ToTime;
+    private Date Remind;
 	int CalEventsSelectedIndex;
 	CalendarFragment calendarFragment;
     boolean createMode;
+
+    static final String TAG = "exust.Record";
 
 	public void setParam(Boolean create, int position, CalendarFragment calendarFragment)
     {
         this.createMode = create;
         this.calendarFragment = calendarFragment;
-        if (create) {this.CalEventsSelectedIndex = position;}
+        if (create) {
+            calendarFragment.CalEvents.add(new CalendarEvent(new Date(calendarFragment.cal_m.getDate()).getTime()));
+            this.CalEventsSelectedIndex = calendarFragment.CalEvents.size() - 1;}
             else {this.CalEventsSelectedIndex = calendarFragment.CalEventsFilteredIndex.get(position);}
     }
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+        //Log.i(TAG, "onCreateView");
 		view = inflater.inflate(R.layout.record, null);
 
         freqSpin = (Spinner) view.findViewById(R.id.freqSpin);
+        remSpin = (Spinner) view.findViewById(R.id.remSpin);
 
 		TitleText = (EditText) view.findViewById(R.id.titleText);
         BodyText = (TextView) view.findViewById(R.id.bodyText);
-        FromText = (EditText) view.findViewById(R.id.time_from);
-        ToText = (EditText) view.findViewById(R.id.time_to);
+        FromText = (TextView) view.findViewById(R.id.time_from);
+        ToText = (TextView) view.findViewById(R.id.time_to);
         LocText = (EditText) view.findViewById(R.id.locationText);
-
+        rem_inf = (TextView) view.findViewById(R.id.rem_inf);
 		confirmButton = (Button) view.findViewById(R.id.submitbutton);
 		deleteButton = (Button) view.findViewById(R.id.deletebutton);
 
-		confirmButton.setOnClickListener(confirmButtonListener);
+        FromText.setOnClickListener(FromTimeListener);
+        ToText.setOnClickListener(ToTimeListener);
+        rem_inf.setOnClickListener(ReminderListener);
+        remSpin.setOnItemSelectedListener(remSpinListener);
+        confirmButton.setOnClickListener(confirmButtonListener);
 		deleteButton.setOnClickListener(deleteButtonListener);
 
-        if (createMode) {
-            freqSpin.setSelection(0);
-            TitleText.setText("NEW EVENT");
-            BodyText.setText("Detail:");
-            FromText.setText(new Date(calendarFragment.cal_m.getDate()).toString());
-            ToText.setText(new Date(calendarFragment.cal_m.getDate() + CalendarEvent.ONE_HOUR).toString());
-            confirmButton.setText("Create");
-            LocText.setText("");
+        if (createMode) {confirmButton.setText("Create");} //Has been created in setParam
+        else {confirmButton.setText("Modify");}
+
+        freqSpin.setSelection(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFreqIndex());
+        TitleText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTitle());
+        BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
+        FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
+        ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
+        LocText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getLoc());
+        if (calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind() != null) {
+            rem_inf.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind().toString());
+            remSpin.setSelection(1);
         }
-        else {
-            freqSpin.setSelection(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFreqIndex());
-            TitleText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTitle());
-            BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
-            FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
-            ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
-            confirmButton.setText("Modify");
-            LocText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getLoc());
-        }
+        else
+            rem_inf.setText("");
 
 		return view;
 	}
@@ -87,6 +99,49 @@ public class Record extends BaseFragment
 		return "Calendar";
 	}
 
+    public OnClickListener FromTimeListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            MainActivity main = (MainActivity) getActivity();
+            choose_time fragment = new choose_time();
+            fragment.setParam(FromText.getText().toString(), Record.this, "FromText");
+
+            main.gotoFragment(1, fragment);
+        }
+    };
+
+    public OnClickListener ToTimeListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            MainActivity main = (MainActivity) getActivity();
+            choose_time fragment = new choose_time();
+            fragment.setParam(ToText.getText().toString(), Record.this, "ToText");
+
+            main.gotoFragment(1, fragment);
+        }
+    };
+
+    public OnClickListener ReminderListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (remSpin.getSelectedItem().toString().equals("On")) {
+                MainActivity main = (MainActivity) getActivity();
+                choose_time fragment = new choose_time();
+                fragment.setParam(rem_inf.getText().toString(), Record.this, "rem_inf");
+
+                main.gotoFragment(1, fragment);
+            }
+
+            else if (remSpin.getSelectedItem().toString().equals("Before")) {
+                MainActivity main = (MainActivity) getActivity();
+                choose_before fragment = new choose_before();
+                fragment.setParam(FromText.getText().toString(), rem_inf.getText().toString(), Record.this);
+
+                main.gotoFragment(1, fragment);
+            }
+        }
+    };
+
 	public OnClickListener confirmButtonListener = new OnClickListener()
 	{
 		@Override
@@ -94,9 +149,13 @@ public class Record extends BaseFragment
 		{
 			FromTime = CalendarEvent.StringToDate(FromText.getText().toString());
             ToTime = CalendarEvent.StringToDate(FromText.getText().toString());
+            Remind = CalendarEvent.StringToDate(rem_inf.getText().toString());
 
             CalendarEvent cal_e = new CalendarEvent();
-            cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString());
+            if (remSpin.getSelectedItem().toString().equals("Off"))
+                cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), null);
+            else
+                cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), Remind);
 
             if (createMode) {calendarFragment.CalEvents.add(cal_e);}
                 else {calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);}
@@ -109,7 +168,22 @@ public class Record extends BaseFragment
 		}
 	};
 
-	private OnClickListener deleteButtonListener = new OnClickListener()
+    public OnItemSelectedListener remSpinListener = new OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            if (remSpin.getSelectedItem().toString().equals("Off")) {
+                rem_inf.setText("");
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+            rem_inf.setText("");
+            remSpin.setSelection(0);
+        }
+    };
+
+	public OnClickListener deleteButtonListener = new OnClickListener()
 	{
 		@Override
 		public void onClick(View v)
@@ -122,4 +196,18 @@ public class Record extends BaseFragment
 			((MainActivity) getActivity()).popFragment();
 		}
 	};
+
+    public void updateText (String target, Date date) {
+        if (target.equals("FromText")) {
+            calendarFragment.CalEvents.get(CalEventsSelectedIndex).setFrom(date);
+        } else if (target.equals("ToText")) {
+            calendarFragment.CalEvents.get(CalEventsSelectedIndex).setTo(date);
+        } else if (target.equals( "rem_inf")) {
+            calendarFragment.CalEvents.get(CalEventsSelectedIndex).setRemind(date);
+        }
+    }
+
+    public Date getFromTime() {
+        return CalendarEvent.StringToDate(FromText.getText().toString());
+    }
 }
