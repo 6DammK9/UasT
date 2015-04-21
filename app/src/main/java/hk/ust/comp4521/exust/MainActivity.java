@@ -50,6 +50,10 @@ public class MainActivity extends Activity {
 	Context context;
 	GoogleCloudMessaging gcm;
 	static String regid;
+    PlayReceiver ReminderService;
+    private GcmIntentService mBoundService;
+    boolean mIsBound;
+    boolean showError = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -254,8 +258,6 @@ public class MainActivity extends Activity {
 		setTitle(stacks.get(curTab).peek().getTitle());
 	}
 
-	boolean showError = false;
-
 	private boolean checkPlayServices() {
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(this);
@@ -281,6 +283,8 @@ public class MainActivity extends Activity {
 		checkPlayServices();
 		if(mBoundService != null)
 			mBoundService.setCallback(this);
+        if (ReminderService != null)
+            ReminderService.setCallback(this);
 	}
 
 	
@@ -289,6 +293,8 @@ public class MainActivity extends Activity {
 	protected void onPause() {
 		if(mBoundService != null)
 			mBoundService.setCallback(null);
+        if (ReminderService != null)
+            ReminderService.setCallback(this);
 		super.onPause();
 	}
 
@@ -380,9 +386,6 @@ public class MainActivity extends Activity {
 		editor.commit();
 	}
 
-	private GcmIntentService mBoundService;
-	boolean mIsBound;
-
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mBoundService = ((GcmIntentService.LocalBinder) service)
@@ -414,9 +417,9 @@ public class MainActivity extends Activity {
 	public void refreshChat(String chatId) {
 		if(curTab == 2) {
 			ThreadListFragment f = (ThreadListFragment)stacks.get(curTab).peek();
-			if(f.getType() == "chats")
+			if(f.getType().equals("chats"))
 				f.getThread();
-			else if(f.getType() == chatId)
+			else if(f.getType().equals(chatId))
 				f.getThread();
 		}
 	}

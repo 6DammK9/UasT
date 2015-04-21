@@ -46,12 +46,21 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="hk.ust.comp4521.exust.PlayReceiver">
+            <intent-filter>
+                <action android:name="hk.ust.comp4521.exust.reminder_alarm" />
+                <category android:name="hk.ust.comp4521.exust" />
+            </intent-filter>
+        </receiver>
+
         <service android:name="hk.ust.comp4521.exust.GcmIntentService" />
 
         <activity
             android:name="LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
+
     </application>
 
 </manifest>

@@ -69,8 +69,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/locationText"
             android:layout_gravity="right"
-            android:textSize="12sp"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textIsSelectable="false"
+            android:hint="@string/location" />
     </LinearLayout>
 
     <LinearLayout

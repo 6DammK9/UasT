@@ -1,5 +1,11 @@
 package hk.ust.comp4521.exust;
 
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import hk.ust.comp4521.exust.data.CalendarEvent;
@@ -36,6 +44,9 @@ public class Record extends BaseFragment
 	int CalEventsSelectedIndex;
 	CalendarFragment calendarFragment;
     boolean createMode;
+    PendingIntent pi; //For Reminder
+    AlarmManager am; //For Reminder
+    Intent ReminderIntent; //For Reminder
 
     static final String TAG = "exust.Record";
 
@@ -89,6 +100,16 @@ public class Record extends BaseFragment
         }
         else
             rem_inf.setText("");
+
+        //For deleting saved alarm
+        FromTime = CalendarEvent.StringToDate(FromText.getText().toString());
+        ReminderIntent = new Intent(view.getContext(), PlayReceiver.class);
+        ReminderIntent.putExtra("msg", "hk.ust.comp4521.exust.reminder_alarm");
+        ReminderIntent.putExtra("remTitle", TitleText.getText().toString());
+        ReminderIntent.putExtra("remTime", FromTime.toString());
+        ReminderIntent.addCategory(FromTime.toString());
+
+        pi = PendingIntent.getBroadcast(view.getContext(), 1, ReminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		return view;
 	}
@@ -144,7 +165,8 @@ public class Record extends BaseFragment
 
 	public OnClickListener confirmButtonListener = new OnClickListener()
 	{
-		@Override
+		@TargetApi(Build.VERSION_CODES.KITKAT)
+        @Override
 		public void onClick(View v)
 		{
 			FromTime = CalendarEvent.StringToDate(FromText.getText().toString());
@@ -152,13 +174,35 @@ public class Record extends BaseFragment
             Remind = CalendarEvent.StringToDate(rem_inf.getText().toString());
 
             CalendarEvent cal_e = new CalendarEvent();
-            if (remSpin.getSelectedItem().toString().equals("Off"))
-                cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), null);
-            else
-                cal_e.setCalEvent(FromTime,ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), Remind);
+            if (remSpin.getSelectedItem().toString().equals("Off")) {
+                cal_e.setCalEvent(FromTime, ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), null);
+                am = (AlarmManager) v.getContext().getSystemService(Context.ALARM_SERVICE);
+                if (pi != null) {
+                    am.cancel(pi);
+                    Toast.makeText(v.getContext(), "Reminder disabled.", Toast.LENGTH_LONG).show();
+                }
+            }
+            else {
+                cal_e.setCalEvent(FromTime, ToTime, TitleText.getText().toString(), BodyText.getText().toString(), String.valueOf(freqSpin.getSelectedItem()), LocText.getText().toString(), Remind);
 
-            if (createMode) {calendarFragment.CalEvents.add(cal_e);}
-                else {calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);}
+                if (Remind!=null) {
+                    Intent intent = new Intent(v.getContext(), PlayReceiver.class);
+                    intent.putExtra("msg", "hk.ust.comp4521.exust.reminder_alarm");
+                    intent.putExtra("remTitle", TitleText.getText().toString());
+                    intent.putExtra("remTime", FromTime.toString());
+                    intent.addCategory(FromTime.toString());
+
+                    pi = PendingIntent.getBroadcast(v.getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    am = (AlarmManager) v.getContext().getSystemService(Context.ALARM_SERVICE);
+                    am.setWindow(AlarmManager.RTC_WAKEUP, Remind.getTime(), Calendar.SECOND * 10, pi);
+                    Toast.makeText(v.getContext(), "Reminder Created on: \n" + Remind.toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(v.getContext(), "Reminder is not set properly.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);
 
             Database.getUser().setCalendar(new String[7 * 24]);
             Database.getUser().setCalendar2(calendarFragment.CalEvents);
