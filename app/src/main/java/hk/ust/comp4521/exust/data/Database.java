@@ -114,8 +114,7 @@ public class Database {
 				} else if (mdatas != null) {
 					obj = mdatas.getData();
 					if (saveJSON(file, obj)) {
-						pref.edit().putString(fullName, mdatas.getHash())
-								.commit();
+						pref.edit().putString(fullName, mdatas.getHash()).apply();
 					}
 				}
 				if (handler != null) {

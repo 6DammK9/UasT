@@ -18,12 +18,12 @@
             android:gravity="center_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/time_from"
             android:hint="@string/from"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical|right" />
 
     </LinearLayout>
 
@@ -42,12 +42,12 @@
             android:gravity="center_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/time_to"
             android:hint="@string/to"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical|right" />
 
     </LinearLayout>
 
@@ -127,13 +127,6 @@
             android:clickable="true"
             android:focusable="false"
             android:entries="@array/rem_choice" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
 
     </LinearLayout>
 

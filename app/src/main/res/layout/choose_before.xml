@@ -36,8 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/minute"
-                android:id="@+id/labelMinute"
+                android:text="@string/hour"
+                android:id="@+id/labelHour"
                 android:layout_weight="0.25"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
@@ -46,8 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/hour"
-                android:id="@+id/labelHour"
+                android:text="@string/minute"
+                android:id="@+id/labelMinute"
                 android:layout_weight="0.25"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />

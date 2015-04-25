@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import hk.ust.comp4521.exust.BaseFragment;
-import hk.ust.comp4521.exust.ChatFragment;
 import hk.ust.comp4521.exust.R;
 
 @ThreadItemInfo(sort = true, title = "Conversations", type = "chatDatas", typeName = "Chat", layout = R.layout.view_chat_item_card)
@@ -25,8 +24,10 @@ public class ChatItem extends ThreadPostItem {
 		title = obj.getString("content");
 		sub = obj.getString("userName");
 		authorId = obj.getString("user");
-		if (obj.has("match"))
-			matchId = obj.getString("match");
+		//if (obj.has("match"))
+			//matchId = obj.getString("match");
+        if (obj.has("match2"))
+            matchId = obj.getString("match2");
 		key = obj.getString("id");
 		time = obj.getLong("time");
 	}

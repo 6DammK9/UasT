@@ -25,6 +25,13 @@
     <string name="minute">Minute</string>
     <string name="second">Second</string>
     <string name="reminder_prompt">Click to set reminder…</string>
+    <string name="match_description">Proposed Event Details:</string>
+    <string name="match_prompt">Click to set…</string>
+    <string name="match_slot">Possible time slots:</string>
+    <string name="duration">Duration:</string>
+    <string name="range">Range:</string>
+    <string name="exit">Exit</string>
+    <string name="show">Show</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">
@@ -40,4 +47,7 @@
         <item>On</item>
         <item>Before</item>
     </string-array>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -22,8 +22,8 @@ import hk.ust.comp4521.exust.json.ApiResponseValidate;
 public class ApiManager {
 
 	public static final String TAG = "exust.data";
-	//public static final String API_HOST = "http://192.168.1.245:5001/api";
-    public static final String API_HOST = "http://143.89.225.94:5001/api";
+	public static final String API_HOST = "http://192.168.1.23:5001/api";
+    //public static final String API_HOST = "http://143.89.225.94:5001/api";
 	public static final String RES_HOST = "http://127.0.0.1:5001/res/";
 
 	static AsyncHttpClient client = new AsyncHttpClient();
@@ -258,7 +258,7 @@ public class ApiManager {
 		Api(obj, handler, ApiResponseBase.class, 1);
 	}
 
-	public static void match(String key, boolean[] avail,
+	public static void match0(String key, boolean[] avail,
 			ApiHandler<ApiResponseBase> handler) {
 		JSONObject obj = new JSONObject();
 		try {
@@ -279,7 +279,7 @@ public class ApiManager {
 		Api(obj, handler, ApiResponseBase.class, 1);
 	}
 
-	public static void joinMatch(String matchId, boolean[] avail,
+	public static void joinMatch0(String matchId, boolean[] avail,
 			ApiHandler<ApiResponseBase> handler) {
 		JSONObject obj = new JSONObject();
 		try {
@@ -300,4 +300,55 @@ public class ApiManager {
 		Api(obj, handler, ApiResponseBase.class, 1);
 		
 	}
+
+    public static void match2(String key, String[] CalStart, String[] CalEnd,
+                             ApiHandler<ApiResponseBase> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "match2");
+            obj.put("key", key);
+            obj.put("user", Database.getUser().getITSC());
+            obj.put("name", Database.getUser().getName());
+
+            JSONArray _CalStart = new JSONArray();
+            JSONArray _CalEnd = new JSONArray();
+            for(int i = 0; i < CalStart.length; i++) {
+                _CalStart.put(CalStart[i]);
+                _CalEnd.put(CalEnd[i]);
+            }
+
+            obj.put("calStart", _CalStart);
+            obj.put("calEnd", _CalEnd);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseBase.class, 1);
+    }
+
+    public static void joinMatch2(String matchId, String[] CalStart, String[] CalEnd,
+                                 ApiHandler<ApiResponseBase> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "joinMatch2");
+            obj.put("matchId", matchId);
+            obj.put("user", Database.getUser().getITSC());
+            obj.put("name", Database.getUser().getName());
+
+            JSONArray _CalStart = new JSONArray();
+            JSONArray _CalEnd = new JSONArray();
+            for(int i = 0; i < CalStart.length; i++) {
+                _CalStart.put(CalStart[i]);
+                _CalEnd.put(CalEnd[i]);
+            }
+
+            obj.put("calStart", _CalStart);
+            obj.put("calEnd", _CalEnd);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseBase.class, 1);
+
+    }
 }

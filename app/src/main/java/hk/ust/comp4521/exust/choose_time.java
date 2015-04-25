@@ -19,6 +19,7 @@ import hk.ust.comp4521.exust.data.CalendarEvent;
 public class choose_time extends BaseFragment {
     private String curStr;
     Record _parent;
+    MatchRecord _parent2;
     private String _target;
 
     private View view;
@@ -32,6 +33,14 @@ public class choose_time extends BaseFragment {
     public void setParam(String time, Record parent, String target) {
         this.curStr = time;
         this._parent = parent;
+        this._parent2 = null;
+        this._target = target;
+    }
+
+    public void setParam(String time, MatchRecord parent, String target) {
+        this.curStr = time;
+        this._parent = null;
+        this._parent2 = parent;
         this._target = target;
     }
 
@@ -46,8 +55,12 @@ public class choose_time extends BaseFragment {
         BtnDecline = (Button) view.findViewById(R.id.BtnDecline);
 
         cur = CalendarEvent.StringToDate(curStr);
-        if (cur == null)
-            cur = _parent.getFromTime();
+        if (cur == null) {
+            if (_parent != null)
+                cur = _parent.getFromTime();
+            else
+                cur = new Date();
+        }
         datePicker.init(cur.getYear() + 1900, cur.getMonth(), cur.getDate(), null);
         timePicker.setIs24HourView(true);
         timePicker.setCurrentHour(cur.getHours());
@@ -70,7 +83,8 @@ public class choose_time extends BaseFragment {
         public void onClick(View v)
         {
             cur = new Date(datePicker.getYear()-1900,datePicker.getMonth(),datePicker.getDayOfMonth(),timePicker.getCurrentHour(),timePicker.getCurrentMinute());
-            _parent.updateText(_target, cur);
+            if (_parent != null) _parent.updateText(_target, cur);
+            if (_parent2 != null) _parent2.updateText(_target, cur);
 
             ((MainActivity) getActivity()).popFragment();
         }

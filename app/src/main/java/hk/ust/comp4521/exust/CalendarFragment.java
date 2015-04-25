@@ -219,7 +219,7 @@ public class CalendarFragment extends BaseFragment
     }
 
     public void setEvents2(ArrayList<CalendarEvent> in) {
-        if (in.isEmpty()) {in.add(new CalendarEvent());}
+        //if (in.isEmpty()) {in.add(new CalendarEvent());}
         CalEvents = in;
     }
 

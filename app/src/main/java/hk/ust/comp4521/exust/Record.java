@@ -170,8 +170,13 @@ public class Record extends BaseFragment
 		public void onClick(View v)
 		{
 			FromTime = CalendarEvent.StringToDate(FromText.getText().toString());
-            ToTime = CalendarEvent.StringToDate(FromText.getText().toString());
+            ToTime = CalendarEvent.StringToDate(ToText.getText().toString());
             Remind = CalendarEvent.StringToDate(rem_inf.getText().toString());
+
+            if ((ToTime.getTime() <= FromTime.getTime()) || (Remind.getTime() >= FromTime.getTime())) {
+                Toast.makeText(v.getContext(), "Error: Invalid time setting", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             CalendarEvent cal_e = new CalendarEvent();
             if (remSpin.getSelectedItem().toString().equals("Off")) {
