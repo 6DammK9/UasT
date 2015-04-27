@@ -44,6 +44,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.50"
         android:numColumns="auto_fit"
-        android:clickable="true" />
+        android:clickable="true"
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
+        android:background="#ffe3dfe2" />
 
 </LinearLayout>

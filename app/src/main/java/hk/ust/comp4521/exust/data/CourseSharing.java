@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import hk.ust.comp4521.exust.R;
 
+//TODO  #   Add Like/Dislike Button
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Sharing", title = "Sharing", type = "sharings", layout = R.layout.view_thread_card)
 public class CourseSharing extends ThreadPostItem {
 	long time;

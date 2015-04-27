@@ -1,13 +1,15 @@
 package hk.ust.comp4521.exust.data;
 
-import hk.ust.comp4521.exust.BaseFragment;
-import hk.ust.comp4521.exust.EditGroupFragment;
-import hk.ust.comp4521.exust.R;
-import hk.ust.comp4521.exust.ViewPostFragment;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import hk.ust.comp4521.exust.BaseFragment;
+import hk.ust.comp4521.exust.EditGroupFragment;
+import hk.ust.comp4521.exust.R;
+
+
+// TODO #       Add Number of groupmates currently
+// TODO #       Implement Group leader
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_thread_card)
 public class CourseGroup extends ThreadPostItem {
 	long time;

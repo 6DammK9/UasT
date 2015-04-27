@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import hk.ust.comp4521.exust.data.ApiHandler;
 import hk.ust.comp4521.exust.data.ApiManager;
 import hk.ust.comp4521.exust.data.Database;
 import hk.ust.comp4521.exust.data.DatabaseLoad;
 import hk.ust.comp4521.exust.data.Post;
-import hk.ust.comp4521.exust.data.ThreadItem;
 import hk.ust.comp4521.exust.data.ThreadItemInfo;
 import hk.ust.comp4521.exust.data.ThreadPostItem;
 import hk.ust.comp4521.exust.json.ApiResponseAddChat;

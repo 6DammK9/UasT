@@ -1,13 +1,11 @@
 package hk.ust.comp4521.exust.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import hk.ust.comp4521.exust.BaseFragment;
 import hk.ust.comp4521.exust.R;
 import hk.ust.comp4521.exust.ThreadListFragment;
-
-import java.util.Locale;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 @ThreadItemInfo(favorite = true, filter = true, sort = true, typeName = "Chat", title = "Courses", type = "courses", hint = "Code or Name?", layout = R.layout.view_course_card)
 public class Course extends ThreadItem {

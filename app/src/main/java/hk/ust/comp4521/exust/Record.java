@@ -48,8 +48,6 @@ public class Record extends BaseFragment
     AlarmManager am; //For Reminder
     Intent ReminderIntent; //For Reminder
 
-    static final String TAG = "exust.Record";
-
 	public void setParam(Boolean create, int position, CalendarFragment calendarFragment)
     {
         this.createMode = create;
@@ -93,6 +91,7 @@ public class Record extends BaseFragment
         BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
         FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
         ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
+        // TODO Implement Location List
         LocText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getLoc());
         if (calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind() != null) {
             rem_inf.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind().toString());
@@ -163,6 +162,7 @@ public class Record extends BaseFragment
         }
     };
 
+    // TODO Store Calendar Record on server
 	public OnClickListener confirmButtonListener = new OnClickListener()
 	{
 		@TargetApi(Build.VERSION_CODES.KITKAT)

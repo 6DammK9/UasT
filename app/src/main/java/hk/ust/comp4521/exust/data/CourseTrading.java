@@ -1,10 +1,11 @@
 package hk.ust.comp4521.exust.data;
 
-import hk.ust.comp4521.exust.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import hk.ust.comp4521.exust.R;
+
+//TODO  #   Add Like/Dislike Button
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Trading", title = "Trading", type = "tradings", layout = R.layout.view_thread_card)
 public class CourseTrading extends ThreadPostItem {
 	long time;

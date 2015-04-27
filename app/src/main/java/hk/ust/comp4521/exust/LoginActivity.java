@@ -26,9 +26,11 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        // initialize Login View
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
+        // Identify Objects
 		reset = (Button) this.findViewById(R.id.reset);
 		login = (Button) this.findViewById(R.id.login);
 		set = (Button) this.findViewById(R.id.set);
@@ -37,6 +39,7 @@ public class LoginActivity extends Activity {
 		name = (EditText) this.findViewById(R.id.name);
         address = (EditText) this.findViewById(R.id.address);
 
+        // Change "code" button's name, switching between Login and Validate
 		code.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -56,6 +59,7 @@ public class LoginActivity extends Activity {
 
 		});
 
+        // Reset function: Clear email and code block
 		reset.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -65,6 +69,7 @@ public class LoginActivity extends Activity {
 			}
 		});
 
+        // Login function: Login / Validate
 		login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -82,14 +87,18 @@ public class LoginActivity extends Activity {
 				final AlertDialog dialog = builder.show();
 
 				if (code.length() == 0) {
+                    // Press "Login"
+                    // Send request to server
 					ApiManager.login(email.getText().toString(),
 							new ApiHandler<ApiResponseBase>() {
 								@Override
 								public void onSuccess(ApiResponseBase response) {
 									dialog.dismiss();
+                                    // Bubble Message
 									Toast.makeText(LoginActivity.this,
-											response.getMessage(),
+                                            "Login Success: " + response.getMessage(),
 											Toast.LENGTH_LONG).show();
+                                    // Store User' and its ITSC in SharedPreferences
 									Database.getUser().setEmail(
 											email.getText().toString());
 									Database.commitUser();
@@ -99,12 +108,14 @@ public class LoginActivity extends Activity {
 								@Override
 								public void onFailure(String message) {
 									dialog.dismiss();
-									Toast.makeText(LoginActivity.this, message,
+									Toast.makeText(LoginActivity.this, "Login Fail: " + message,
 											Toast.LENGTH_LONG).show();
 								}
 
 							});
 				} else {
+                    // Press "Validate"
+                    // Send request to server
 					ApiManager.validate(email.getText().toString(), code
 							.getText().toString(), MainActivity.regid,
 							new ApiHandler<ApiResponseValidate>() {
@@ -112,24 +123,28 @@ public class LoginActivity extends Activity {
 								public void onSuccess(
 										ApiResponseValidate response) {
 									Toast.makeText(LoginActivity.this,
-											response.getMessage(),
+											"Validate Success: " + response.getMessage(),
 											Toast.LENGTH_LONG).show();
+                                    // Store Users Email, Auth
 									Database.getUser().setEmail(
 											email.getText().toString());
 									Database.getUser().setAuth(
 											response.getAuth());
 									Database.commitUser();
 									dialog.dismiss();
+
+                                    // Retrue true back to parent
 									Intent result = new Intent();
 									result.putExtra("result", true);
 									LoginActivity.this.setResult(100, result);
+                                    // End LoginActivity
 									LoginActivity.this.finish();
 								}
 
 								@Override
 								public void onFailure(String message) {
 									dialog.dismiss();
-									Toast.makeText(LoginActivity.this, message,
+									Toast.makeText(LoginActivity.this, "Validate Fail: " + message,
 											Toast.LENGTH_LONG).show();
 								}
 							});
@@ -137,10 +152,11 @@ public class LoginActivity extends Activity {
 			}
 		});
 
+        // Rename these two textfield with values stored in local sp
 		email.setText(Database.getUser().getEmail());
-
 		name.setText(Database.getUser().getName());
 
+        // Change user's nickname
 		set.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -150,7 +166,7 @@ public class LoginActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 			}
 		});
-		
+
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}

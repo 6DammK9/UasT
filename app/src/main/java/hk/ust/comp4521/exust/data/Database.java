@@ -2,6 +2,7 @@ package hk.ust.comp4521.exust.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,7 +19,7 @@ import java.util.Map;
 import hk.ust.comp4521.exust.json.ApiResponseData;
 
 public class Database {
-
+    public static final String TAG = "exust.Database";
 	static Context context;
 	static SharedPreferences pref;
 	static SharedPreferences config;
@@ -97,36 +98,37 @@ public class Database {
 		final File file = context.getFileStreamPath(fullName + ".json");
 		if (!file.exists() || file.length() == 0)
 			hash = null;
+        Log.i(TAG, "Database.getData: " + type + " /" + key + " /"+ hash);
 		ApiManager.datas(type, key, hash, new ApiHandler<ApiResponseData>() {
-			@Override
-			public void onSuccess(ApiResponseData mdatas) {
-				if (mdatas == null) {
-					Toast.makeText(
-							context,
-							"Cannot get " + type + " data"
-									+ (key == null ? "" : " of " + key),
-							Toast.LENGTH_LONG).show();
-				}
-				JSONObject obj = null;
-				if (mdatas == null && file.exists() || mdatas != null
-						&& mdatas.getData() == null) {
-					obj = loadJSON(file);
-				} else if (mdatas != null) {
-					obj = mdatas.getData();
-					if (saveJSON(file, obj)) {
-						pref.edit().putString(fullName, mdatas.getHash()).apply();
-					}
-				}
-				if (handler != null) {
-					handler.load(obj);
-				}
-			}
+            @Override
+            public void onSuccess(ApiResponseData mdatas) {
+                if (mdatas == null) {
+                    Toast.makeText(
+                            context,
+                            "Cannot get " + type + " data"
+                                    + (key == null ? "" : " of " + key),
+                            Toast.LENGTH_LONG).show();
+                }
+                JSONObject obj = null;
+                if (mdatas == null && file.exists() || mdatas != null
+                        && mdatas.getData() == null) {
+                    obj = loadJSON(file);
+                } else if (mdatas != null) {
+                    obj = mdatas.getData();
+                    if (saveJSON(file, obj)) {
+                        pref.edit().putString(fullName, mdatas.getHash()).apply();
+                    }
+                }
+                if (handler != null) {
+                    handler.load(obj);
+                }
+            }
 
-			@Override
-			public void onFailure(String message) {
-				onSuccess(null);
-			}
-		});
+            @Override
+            public void onFailure(String message) {
+                onSuccess(null);
+            }
+        });
 	}
 
 	public static JSONObject loadJSON(File file) {
