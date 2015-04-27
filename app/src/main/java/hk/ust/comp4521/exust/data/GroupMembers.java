@@ -21,7 +21,8 @@ public class GroupMembers extends ThreadItem {
 		
 		for(int i = 0; i < members.length; i++) {
 			GroupMember member = members[i] = new GroupMember();
-			member.load(_members.getJSONObject(membersIds.getString(i)));
+            member.loadWithLeader(_members.getJSONObject(membersIds.getString(i)), obj.getString("authorId"));
+			//member.load(_members.getJSONObject(membersIds.getString(i)));
 		}
 	}
 

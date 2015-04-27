@@ -521,7 +521,6 @@ containing a value of this type.
         public static final int numMinute=0x7f0c002d;
         public static final int numSecond=0x7f0c002e;
         public static final int production=0x7f0c000a;
-        public static final int radioButton=0x7f0c0062;
         public static final int rangeChoice=0x7f0c0047;
         public static final int rangeLabel=0x7f0c0046;
         public static final int rating=0x7f0c003c;
@@ -546,6 +545,7 @@ containing a value of this type.
         public static final int tab=0x7f0c0022;
         public static final int terrain=0x7f0c0007;
         public static final int text=0x7f0c003f;
+        public static final int textView=0x7f0c0062;
         public static final int timePicker=0x7f0c0032;
         public static final int time_from=0x7f0c004f;
         public static final int time_label=0x7f0c0026;
@@ -583,8 +583,9 @@ containing a value of this type.
         public static final int view_course_header_card=0x7f030015;
         public static final int view_group_card=0x7f030016;
         public static final int view_group_header_card=0x7f030017;
-        public static final int view_navigation=0x7f030018;
-        public static final int view_thread_card=0x7f030019;
+        public static final int view_group_members_card=0x7f030018;
+        public static final int view_navigation=0x7f030019;
+        public static final int view_thread_card=0x7f03001a;
     }
     public static final class menu {
         public static final int chat_del=0x7f0b0000;

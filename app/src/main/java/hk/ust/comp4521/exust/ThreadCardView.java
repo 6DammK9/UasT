@@ -1,10 +1,12 @@
 package hk.ust.comp4521.exust;
 
-import hk.ust.comp4521.exust.data.ThreadItem;
 import android.content.Context;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import hk.ust.comp4521.exust.data.ThreadItem;
 
 public class ThreadCardView extends LinearLayout {
 
@@ -40,7 +42,7 @@ public class ThreadCardView extends LinearLayout {
 	public void setThread(ThreadItem thread) {
 		ViewHolder vh = (ViewHolder) getTag();
 		vh.title.setText(thread.getTitle());
-		vh.sub.setText(thread.getSub());
+        vh.sub.setText(Html.fromHtml(thread.getSub()));
 	}
 
 	protected static class ViewHolder {

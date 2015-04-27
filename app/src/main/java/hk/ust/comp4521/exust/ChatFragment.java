@@ -30,6 +30,8 @@ import hk.ust.comp4521.exust.data.DatabaseLoad;
 import hk.ust.comp4521.exust.data.ThreadItem;
 import hk.ust.comp4521.exust.json.ApiResponseBase;
 
+// TODO implement Photo transfer and capture
+// TODO implement Friend User(?)
 public class ChatFragment extends ThreadListFragment {
 
 	@Override

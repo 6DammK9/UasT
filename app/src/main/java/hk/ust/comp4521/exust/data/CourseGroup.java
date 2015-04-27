@@ -3,13 +3,19 @@ package hk.ust.comp4521.exust.data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+
 import hk.ust.comp4521.exust.BaseFragment;
 import hk.ust.comp4521.exust.EditGroupFragment;
 import hk.ust.comp4521.exust.R;
 
 
-// TODO #       Add Number of groupmates currently
-// TODO #       Implement Group leader
+// TODO #       Implement Group leader (first in list, sorted)
+// TODO #       Can delete other groupmates
+// TODO #       Group Leader can modify group name
+// TODO #       Improve UIs( Title, Context)
+// TODO #       Implement  photo comment
+// TODO #       Search User By ITSC
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_group_card)
 public class CourseGroup extends ThreadPostItem {
 	long time;
@@ -38,4 +44,10 @@ public class CourseGroup extends ThreadPostItem {
 		post.setParam(this);
 		return fragments;
 	}
+
+    public String getStartTime() {
+        Timestamp stamp = new Timestamp(time);
+        stamp.setTime(time);
+        return stamp.toString();
+    }
 }
