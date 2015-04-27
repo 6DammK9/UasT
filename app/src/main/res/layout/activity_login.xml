@@ -24,7 +24,7 @@
                 android:layout_marginRight="25dp"
                 android:background="@drawable/login_hint"
                 android:padding="10dp"
-                android:text="Please enter your ITSC email to receive the validation code and login."
+                android:text="@string/login_prompt"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white" />
 
@@ -39,8 +39,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="ITSC?"
-                    android:textColor="@android:color/white" >
+                    android:hint="@string/hint_itsc"
+                    android:textColor="@android:color/white"
+                    android:inputType="textEmailAddress">
 
                     <requestFocus />
                 </EditText>
@@ -50,9 +51,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Validation Code?"
-                    android:textColor="@android:color/white" >
+                    android:hint="@string/hint_valid"
+                    android:textColor="@android:color/white"
+                    android:inputType="text">
                 </EditText>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/address"
+                    android:hint="@string/hint_ip"
+                    android:textColor="@android:color/white"
+                    android:inputType="text" />
             </LinearLayout>
 
             <RelativeLayout
@@ -68,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="Reset"
+                    android:text="@string/reset"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -77,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
 
@@ -90,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/login_hint"
                 android:padding="10dp"
-                android:text="You can change your name here:"
+                android:text="@string/ac_name_prompt"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white" />
 
@@ -100,8 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="25dp"
                 android:ems="10"
-                android:hint="User Name?"
-                android:textColor="@android:color/white" />
+                android:hint="@string/hint_name"
+                android:textColor="@android:color/white"
+                android:inputType="textPersonName" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="Set"
+                    android:text="@string/set"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
         </LinearLayout>

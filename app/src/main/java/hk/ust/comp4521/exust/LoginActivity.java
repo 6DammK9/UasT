@@ -1,9 +1,7 @@
 package hk.ust.comp4521.exust;
 
-import hk.ust.comp4521.exust.R;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,15 +9,20 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import hk.ust.comp4521.exust.data.*;
-import hk.ust.comp4521.exust.json.*;
+
+import hk.ust.comp4521.exust.data.ApiHandler;
+import hk.ust.comp4521.exust.data.ApiManager;
+import hk.ust.comp4521.exust.data.Database;
+import hk.ust.comp4521.exust.json.ApiResponseBase;
+import hk.ust.comp4521.exust.json.ApiResponseValidate;
 
 public class LoginActivity extends Activity {
+    Button reset, login, set;
+    EditText email, code, name, address;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class LoginActivity extends Activity {
 		email = (EditText) this.findViewById(R.id.email);
 		code = (EditText) this.findViewById(R.id.code);
 		name = (EditText) this.findViewById(R.id.name);
+        address = (EditText) this.findViewById(R.id.address);
 
 		code.addTextChangedListener(new TextWatcher() {
 
@@ -57,12 +61,16 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				email.setText("");
 				code.setText("");
+                address.setText("");
 			}
 		});
 
 		login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+                if (!address.getText().toString().isEmpty()){
+                    ApiManager.API_HOST = "http://" + address.getText().toString() + ":5001/api";
+                }
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						LoginActivity.this);
@@ -146,7 +154,4 @@ public class LoginActivity extends Activity {
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
-
-	Button reset, login, set;
-	EditText email, code, name;
 }

@@ -69,6 +69,7 @@ public class CalendarEvent {
     public String getBody() {return Body;}
     public String getLoc() {return Loc;}
     public Date getRemind() {return Remind;}
+    public String getFreq() {return Freq;}
 
     @Override
     public String toString() {
@@ -93,6 +94,14 @@ public class CalendarEvent {
         else if (Freq.equals("Weekly")) {return 2;}
         else if (Freq.equals("Bi-weekly")) {return 3;}
         else if (Freq.equals("Monthly")) {return 4;}
+        else {return 0;}
+    }
+
+    public static int getFreqIndex(String in) {
+        if (in.equals("Daily")) {return 1;}
+        else if (in.equals("Weekly")) {return 2;}
+        else if (in.equals("Bi-weekly")) {return 3;}
+        else if (in.equals("Monthly")) {return 4;}
         else {return 0;}
     }
 

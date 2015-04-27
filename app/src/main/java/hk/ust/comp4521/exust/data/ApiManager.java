@@ -22,8 +22,8 @@ import hk.ust.comp4521.exust.json.ApiResponseValidate;
 public class ApiManager {
 
 	public static final String TAG = "exust.data";
-	public static final String API_HOST = "http://192.168.1.23:5001/api";
-    //public static final String API_HOST = "http://143.89.225.94:5001/api";
+	//public static final String API_HOST = "http://192.168.1.23:5001/api";
+    public static String API_HOST = "http://143.89.210.42:5001/api";
 	public static final String RES_HOST = "http://127.0.0.1:5001/res/";
 
 	static AsyncHttpClient client = new AsyncHttpClient();
@@ -301,7 +301,7 @@ public class ApiManager {
 		
 	}
 
-    public static void match2(String key, String[] CalStart, String[] CalEnd,
+    public static void match2(String key, String[] CalStart, String[] CalEnd, String[] CalFreq,
                              ApiHandler<ApiResponseBase> handler) {
         JSONObject obj = new JSONObject();
         try {
@@ -312,13 +312,16 @@ public class ApiManager {
 
             JSONArray _CalStart = new JSONArray();
             JSONArray _CalEnd = new JSONArray();
+            JSONArray _CalFreq = new JSONArray();
             for(int i = 0; i < CalStart.length; i++) {
                 _CalStart.put(CalStart[i]);
                 _CalEnd.put(CalEnd[i]);
+                _CalFreq.put(CalFreq[i]);
             }
 
             obj.put("calStart", _CalStart);
             obj.put("calEnd", _CalEnd);
+            obj.put("calFreq", _CalFreq);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -327,7 +330,7 @@ public class ApiManager {
     }
 
     public static void joinMatch2(String matchId, String[] CalStart, String[] CalEnd,
-                                 ApiHandler<ApiResponseBase> handler) {
+                                 String[] CalFreq, ApiHandler<ApiResponseBase> handler) {
         JSONObject obj = new JSONObject();
         try {
             obj.put("cmd", "joinMatch2");
@@ -337,13 +340,16 @@ public class ApiManager {
 
             JSONArray _CalStart = new JSONArray();
             JSONArray _CalEnd = new JSONArray();
+            JSONArray _CalFreq = new JSONArray();
             for(int i = 0; i < CalStart.length; i++) {
                 _CalStart.put(CalStart[i]);
                 _CalEnd.put(CalEnd[i]);
+                _CalFreq.put(CalFreq[i]);
             }
 
             obj.put("calStart", _CalStart);
             obj.put("calEnd", _CalEnd);
+            obj.put("calFreq", _CalFreq);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

@@ -187,14 +187,16 @@ public class ChatFragment extends ThreadListFragment {
             //Make 2 array: Start, End
             String CalStart[] = new String[calendar2.size()];
             String CalEnd[] = new String[calendar2.size()];
+            String CalFreq[] = new String[calendar2.size()];
             for (int i=0; i < calendar2.size(); i++) {
                 CalStart[i] = calendar2.get(i).getFrom().toString();
                 CalEnd[i] = calendar2.get(i).getTo().toString();
+                CalFreq[i] = calendar2.get(i).getFreq();
             }
 
 
 			//ApiManager.match(key, avail,
-            ApiManager.match2(key, CalStart, CalEnd,
+            ApiManager.match2(key, CalStart, CalEnd, CalFreq,
                     new ApiHandler<ApiResponseBase>() {
 
                         @Override

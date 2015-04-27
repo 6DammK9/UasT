@@ -26,6 +26,7 @@ public class MatchRecord extends BaseFragment
 {
     private View view;
     private Spinner freqSpin;
+    private TextView freqLabel;
     private TextView FromText;
     private TextView DurText;
     private TextView RangeText;
@@ -36,17 +37,22 @@ public class MatchRecord extends BaseFragment
     private Date FromTime;
     private long Duration;
     private long Range;
-    private Date[] CalStart, CalEnd;
+    private ArrayList<Date> CalStart, CalEnd;
+    private ArrayList<String> CalFreq;
 
     static final String TAG = "exust.MatchRecord";
 
-	public void setParam(ArrayList<String> JointCalStart, ArrayList<String> JointCalEnd)
+	public void setParam(ArrayList<String> JointCalStart, ArrayList<String> JointCalEnd, ArrayList<String> JointCalFreq)
     {
-        CalStart = new Date[JointCalStart.size()];
-        CalEnd = new Date[JointCalEnd.size()];
-        for (int i=0; i < CalStart.length; i++) {
-            CalStart[i] = CalendarEvent.StringToDate(JointCalStart.get(i));
-            CalEnd[i] = CalendarEvent.StringToDate(JointCalEnd.get(i));
+        CalStart = new ArrayList<Date>();
+        CalEnd = new ArrayList<Date>();
+        CalFreq = new ArrayList<String>();
+
+
+        for (int i=0; i < JointCalStart.size(); i++) {
+            CalStart.add(CalendarEvent.StringToDate(JointCalStart.get(i)));
+            CalEnd.add(CalendarEvent.StringToDate(JointCalEnd.get(i)));
+            CalFreq.add(JointCalFreq.get(i));
         }
     }
 
@@ -77,6 +83,9 @@ public class MatchRecord extends BaseFragment
         showBtn.setOnClickListener(showBtnListener);
         exitBtn.setOnClickListener(exitBtnListener);
 
+        //Function limited to creating One-off event
+        freqLabel = (TextView) view.findViewById(R.id.freqLabel);
+        freqLabel.setVisibility(View.GONE);
         freqSpin.setVisibility(View.GONE);
 
 		return view;
@@ -126,16 +135,17 @@ public class MatchRecord extends BaseFragment
         @Override
 		public void onClick(View v)
 		{
-			// Validation
-            if ((FromTime == null) || (Duration == 0) || (Range == 0) ||
-                    (CalStart.length == 0) || (CalEnd.length == 0) ||
-                    (Duration > Range))
+			//Validation
+            if ((FromTime == null) || (Duration == 0) || (Range == 0) || (Duration > Range))
                 return;
 
-			// Start making available time slots
-            Toast.makeText(view.getContext(), Integer.toString(CalStart.length), Toast.LENGTH_LONG).show();
+			//Start making available time slots
+            Toast.makeText(view.getContext(), Integer.toString(CalStart.size()), Toast.LENGTH_LONG).show();
 
+            //SEE DEFINITION - ALGORITHM HELL - MORE THAN 100 LINES
             ArrayList<Date[]> timeSlots = makeSlots();
+
+            // Output time slots
             Date[] slotStart = new Date[timeSlots.size()];
             Date[] slotEnd = new Date[timeSlots.size()];
             for (int i=0; i<timeSlots.size(); i++) {
@@ -143,7 +153,6 @@ public class MatchRecord extends BaseFragment
                 slotEnd[i] = timeSlots.get(i)[1];
             }
 
-            // Output time slots
             List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
             items.clear();
 
@@ -196,34 +205,99 @@ public class MatchRecord extends BaseFragment
         ArrayList<Date[]> answer = new  ArrayList<Date[]>();
 
         //Initialise local variables form UI
-        long LongFrom = FromTime.getTime();
-        long Dur = Duration;
-        long Ran = Range;
-        long[] LongStart = new long [CalStart.length];
-        long[] LongEnd = new long [CalEnd.length];
-        for (int i=0; i<CalStart.length; i++) {
-            LongStart[i] = CalStart[i].getTime();
-            LongEnd[i] = CalEnd[i].getTime();
-        }
+        ArrayList<Long> FreqStart = new ArrayList<Long>();
+        ArrayList<Long> FreqEnd = new ArrayList<Long>();
+        ArrayList<Long> BufStart = new ArrayList<Long>(); //Buffer for FreqStart
+        ArrayList<Long> BufEnd = new ArrayList<Long>(); //Buffer for FreqSEnd
         int IndexStart = 0;
         int IndexEnd = 0;
+        long[] LongStart, LongEnd;
+        //Evil variables, for reducing memory usage only
+        Date tS, tE;
+        int[] tSi, tEi;
+
+        //Validation: CalFreq.size() == CalStart.size() == CalEnd.size() > 0
+        if ((CalStart.size() != CalEnd.size()) || (CalStart.size() != CalFreq.size()) || (CalEnd.size() != CalFreq.size())) {
+            Toast.makeText(view.getContext(), "Error: Invalid data from server", Toast.LENGTH_LONG).show();
+            return answer;
+        }
+
+        //Special Case: Empty parameter - Totally free - end procedure
+        if (CalStart.size() == 0) {
+            answer.add(new Date[] {new Date(FromTime.getTime()), new Date(FromTime.getTime() + Range)});
+            return answer;
+        }
+
+        //If they are frequent events, break it down into single events for the Range
+        for (int i=0; i<CalFreq.size(); i++) {
+
+            //Initialise FreqStart and FreqStart
+            FreqStart.clear();
+            FreqEnd.clear();
+            FreqStart.add(CalStart.get(i).getTime());
+            FreqEnd.add(CalEnd.get(i).getTime());
+
+            //"Once" will be ignored directly
+            while (FreqEnd.get(FreqEnd.size() - 1) < (FromTime.getTime() + Range)) {
+                switch (CalendarEvent.getFreqIndex(CalFreq.get(i))) {
+                    case 1: //"Daily"
+                        FreqStart.add(FreqStart.get(FreqStart.size() - 1) + CalendarEvent.ONE_DAY);
+                        FreqEnd.add(FreqEnd.get(FreqEnd.size() - 1) + CalendarEvent.ONE_DAY);
+                        break;
+                    case 2: //"Weekly"
+                        FreqStart.add(FreqStart.get(FreqStart.size() - 1) + CalendarEvent.ONE_WEEK);
+                        FreqEnd.add(FreqEnd.get(FreqEnd.size() - 1) + CalendarEvent.ONE_WEEK);
+                        break;
+                    case 3: //"Bi-weekly"
+                        FreqStart.add(FreqStart.get(FreqStart.size() - 1) + CalendarEvent.TWO_WEEK);
+                        FreqEnd.add(FreqEnd.get(FreqEnd.size() - 1) + CalendarEvent.TWO_WEEK);
+                        break;
+                    case 4: //"Monthly" - evil part - make new Date and use them
+                        tS = new Date(FreqStart.get(FreqStart.size() - 1));
+                        tE = new Date(FreqEnd.get(FreqEnd.size() - 1));
+                        if (tS.getMonth() + 1 > 11) {
+                            tSi = new int[]{tS.getYear() + 1, tS.getMonth() - 11};
+                        } else {
+                            tSi = new int[]{tS.getYear(), tS.getMonth() - +1};
+                        }
+                        if (tE.getMonth() + 1 > 11) {
+                            tEi = new int[]{tE.getYear() + 1, tE.getMonth() - 11};
+                        } else {
+                            tEi = new int[]{tE.getYear(), tE.getMonth() - +1};
+                        }
+                        FreqStart.add(new Date(tSi[0], tSi[1], tS.getDate(), tS.getHours(), tS.getMinutes(), tS.getSeconds()).getTime());
+                        FreqEnd.add(new Date(tEi[0], tEi[1], tE.getDate(), tE.getHours(), tE.getMinutes(), tE.getSeconds()).getTime());
+                        break;
+                }
+                BufStart.addAll(FreqStart);
+                BufEnd.addAll(FreqEnd);
+            }
+        }
+
+        //After breaking, make them into arrays
+        LongStart = new long[BufStart.size()];
+        LongEnd = new long[BufEnd.size()];
+        for (int i=0; i<BufStart.size(); i++){
+            LongStart[i] = BufStart.get(i);
+            LongEnd[i] = BufEnd.get(i);
+        }
 
         //Sort the arrays - may take time
         Arrays.sort(LongStart);
         Arrays.sort(LongEnd);
 
         //Special case: Before LongStart[0]
-        if (LongStart[0] - LongFrom >= Dur)
-            if (LongStart[0] - LongFrom > Ran)
+        if (LongStart[0] - FromTime.getTime() >= Duration)
+            if (LongStart[0] - FromTime.getTime() > Range)
                 //Special case: Whole defined time is not free - end procedure
                 return answer;
             else
-                answer.add(new Date[] {new Date(LongFrom), new Date(LongStart[0])});
-        else while(LongEnd[IndexEnd] < LongFrom) {
+                answer.add(new Date[] {new Date(FromTime.getTime()), new Date(LongStart[0])});
+        else while(LongEnd[IndexEnd] < FromTime.getTime()) {
             IndexEnd++;
             if (IndexEnd >= LongEnd.length) {
                 //Special case: Whole defined time is free - end procedure
-                answer.add(new Date[] {new Date(LongFrom), new Date(LongFrom + Ran)});
+                answer.add(new Date[] {new Date(FromTime.getTime()), new Date(FromTime.getTime() + Range)});
                 return answer;
             }
         }
@@ -232,27 +306,30 @@ public class MatchRecord extends BaseFragment
         while (LongEnd[IndexEnd] > LongStart[IndexStart]) {
             //Assume valid data: LongEnd[X] > LongStart[X]
             IndexStart++;
+
+            //Exit condition
+            if ((IndexStart >= LongStart.length) || (LongStart[IndexStart] > (FromTime.getTime() + Range)))
+                break;
+
+            //If not exit, do the checking
             if (IndexStart - IndexEnd > 1) {
                 //Skip checking if multiple start points, move to next round
                 IndexEnd = IndexStart;
-            } else if ((IndexStart - IndexEnd == 1) && (LongStart[IndexStart] - LongEnd[IndexEnd] >= Dur)) {
-                if (LongStart[IndexStart] > (LongFrom + Ran))
+            } else if ((IndexStart - IndexEnd == 1) && (LongStart[IndexStart] - LongEnd[IndexEnd] >= Duration)) {
+                if (LongStart[IndexStart] > (FromTime.getTime() + Range))
                     //Special case: boundary time
-                    answer.add(new Date[] {new Date(LongEnd[IndexEnd]), new Date(LongFrom + Ran)});
+                    answer.add(new Date[] {new Date(LongEnd[IndexEnd]), new Date(FromTime.getTime() + Range)});
                 else
                     //Usual desired time
                     answer.add(new Date[] {new Date(LongEnd[IndexEnd]), new Date(LongStart[IndexStart])});
                 //Move to next round
                 IndexEnd = IndexStart;
             }
-            //Exit condition
-            if ((IndexStart >= LongStart.length) || (LongStart[IndexStart] > (LongFrom + Ran)))
-                break;
         }
 
         //Special case: After LongEnd[LongEnd.length - 1]
-        if ((LongFrom + Ran) - LongEnd[LongEnd.length -1] >= Dur)
-            answer.add(new Date[] {new Date(LongEnd[LongEnd.length -1]), new Date(LongFrom + Ran)});
+        if ((FromTime.getTime() + Range) - LongEnd[LongEnd.length -1] >= Duration)
+            answer.add(new Date[] {new Date(LongEnd[LongEnd.length -1]), new Date(FromTime.getTime() + Range)});
 
         //Return answer
         return answer;

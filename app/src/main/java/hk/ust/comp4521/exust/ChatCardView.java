@@ -71,15 +71,17 @@ public class ChatCardView extends ThreadCardView {
                 //Make 2 array: Start, End
                 String CalStart[] = new String[calendar2.size()];
                 String CalEnd[] = new String[calendar2.size()];
+                String CalFreq[] = new String[calendar2.size()];
                 for (int i=0; i < calendar2.size(); i++) {
                     CalStart[i] = calendar2.get(i).getFrom().toString();
                     CalEnd[i] = calendar2.get(i).getTo().toString();
+                    CalFreq[i] = calendar2.get(i).getFreq();
                 }
 				
 				//for(int i = 0; i < calendar.length; i++)
 					//avail[i] = calendar[i] == null || calendar[i].isEmpty();
 
-                ApiManager.joinMatch2(vh.chat.getMatchId(), CalStart, CalEnd, new ApiHandler<ApiResponseBase>() {
+                ApiManager.joinMatch2(vh.chat.getMatchId(), CalStart, CalEnd, CalFreq, new ApiHandler<ApiResponseBase>() {
                     //ApiManager.joinMatch(vh.chat.getMatchId(), avail, new ApiHandler<ApiResponseBase>() {
 
                     @Override
@@ -156,15 +158,17 @@ public class ChatCardView extends ThreadCardView {
 
                                 ArrayList<String> JointCalStart = new ArrayList<String>();
                                 ArrayList<String> JointCalEnd = new ArrayList<String>();
+                                ArrayList<String> JointCalFreq = new ArrayList<String>();
                                 for (int i = 0; i < threads.size(); i++) {
                                     for (int j = 0; j < threads.get(i).getCalStart().length; j++) {
                                         JointCalStart.add( threads.get(i). getCalStart()[j] );
                                         JointCalEnd.add( threads.get(i). getCalEnd()[j] );
+                                        JointCalFreq.add( threads.get(i). getCalFreq()[j] );
                                     }
                                 }
 
                                 MatchRecord slots = new MatchRecord();
-                                slots.setParam(JointCalStart, JointCalEnd);
+                                slots.setParam(JointCalStart, JointCalEnd, JointCalFreq);
                                 MainActivity main = (MainActivity) getContext();
                                 main.gotoFragment(2, slots);
 
