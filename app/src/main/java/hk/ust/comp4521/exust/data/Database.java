@@ -177,6 +177,10 @@ public class Database {
 		config.edit().putString("user", getUser().save()).apply();
 	}
 
+    public static String getAPIaddress() {return config.getString("APIaddress", "http://localhost:5001/api");}
+
+    public static void setAPIaddress(String APIaddress) {config.edit().putString("APIaddress", APIaddress).apply();}
+
 	public static boolean getFirstRun() {
 		return config.getBoolean("firstRun", true);
 }

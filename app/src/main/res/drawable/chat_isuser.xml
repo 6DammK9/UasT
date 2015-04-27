@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Bright version of chat_notuser. Used in Chat View -->
+    <solid android:color="#ff85e445" />
+
+    <stroke
+        android:width="2dip"
+        android:color="#4fa4d4" />
+
+</shape>

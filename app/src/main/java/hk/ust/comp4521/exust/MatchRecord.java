@@ -209,7 +209,7 @@ public class MatchRecord extends BaseFragment
         ArrayList<Long> FreqEnd = new ArrayList<Long>();
         ArrayList<Long> BufStart = new ArrayList<Long>(); //Buffer for FreqStart
         ArrayList<Long> BufEnd = new ArrayList<Long>(); //Buffer for FreqSEnd
-        int IndexStart = 0;
+        int IndexStart;
         int IndexEnd = 0;
         long[] LongStart, LongEnd;
         //Evil variables, for reducing memory usage only
@@ -238,7 +238,9 @@ public class MatchRecord extends BaseFragment
             FreqEnd.add(CalEnd.get(i).getTime());
 
             //"Once" will be ignored directly
-            while (FreqEnd.get(FreqEnd.size() - 1) < (FromTime.getTime() + Range)) {
+            if (!CalFreq.get(i).equals("Once"))
+            while (FreqEnd.get(FreqEnd.size() - 1) <= (FromTime.getTime() + Range)) {
+                //Log.i(TAG, Long.toString(FreqEnd.get(FreqEnd.size() - 1)) +" "+ Long.toString((FromTime.getTime() + Range)));
                 switch (CalendarEvent.getFreqIndex(CalFreq.get(i))) {
                     case 1: //"Daily"
                         FreqStart.add(FreqStart.get(FreqStart.size() - 1) + CalendarEvent.ONE_DAY);
@@ -268,10 +270,11 @@ public class MatchRecord extends BaseFragment
                         FreqStart.add(new Date(tSi[0], tSi[1], tS.getDate(), tS.getHours(), tS.getMinutes(), tS.getSeconds()).getTime());
                         FreqEnd.add(new Date(tEi[0], tEi[1], tE.getDate(), tE.getHours(), tE.getMinutes(), tE.getSeconds()).getTime());
                         break;
+                    default: break;
                 }
-                BufStart.addAll(FreqStart);
-                BufEnd.addAll(FreqEnd);
             }
+            BufStart.addAll(FreqStart);
+            BufEnd.addAll(FreqEnd);
         }
 
         //After breaking, make them into arrays
@@ -287,13 +290,15 @@ public class MatchRecord extends BaseFragment
         Arrays.sort(LongEnd);
 
         //Special case: Before LongStart[0]
-        if (LongStart[0] - FromTime.getTime() >= Duration)
-            if (LongStart[0] - FromTime.getTime() > Range)
-                //Special case: Whole defined time is not free - end procedure
+        if (LongStart[0] - FromTime.getTime() >= Duration){
+            if (LongStart[0] - FromTime.getTime() >= Range) {
+                //Special case: Whole defined time is free - end procedure
+                answer.add(new Date[]{new Date(FromTime.getTime()), new Date(FromTime.getTime() + Range)});
                 return answer;
-            else
-                answer.add(new Date[] {new Date(FromTime.getTime()), new Date(LongStart[0])});
-        else while(LongEnd[IndexEnd] < FromTime.getTime()) {
+            }
+            else {
+                answer.add(new Date[] {new Date(FromTime.getTime()), new Date(LongStart[0])}); }}
+        while(LongEnd[IndexEnd] <= FromTime.getTime()) {
             IndexEnd++;
             if (IndexEnd >= LongEnd.length) {
                 //Special case: Whole defined time is free - end procedure
@@ -301,30 +306,29 @@ public class MatchRecord extends BaseFragment
                 return answer;
             }
         }
+        IndexStart = IndexEnd;
 
         //Loop until LongEnd[LongEnd.length - 1]
-        while (LongEnd[IndexEnd] > LongStart[IndexStart]) {
+        //while (LongEnd[IndexEnd] > LongStart[IndexStart]) {
+        while ((IndexStart < LongStart.length) && (IndexEnd < LongEnd.length)) {
             //Assume valid data: LongEnd[X] > LongStart[X]
-            IndexStart++;
+            IndexStart += 1;
 
             //Exit condition
             if ((IndexStart >= LongStart.length) || (LongStart[IndexStart] > (FromTime.getTime() + Range)))
                 break;
 
             //If not exit, do the checking
-            if (IndexStart - IndexEnd > 1) {
-                //Skip checking if multiple start points, move to next round
-                IndexEnd = IndexStart;
-            } else if ((IndexStart - IndexEnd == 1) && (LongStart[IndexStart] - LongEnd[IndexEnd] >= Duration)) {
-                if (LongStart[IndexStart] > (FromTime.getTime() + Range))
+            if ((IndexStart - IndexEnd == 1) && (LongStart[IndexStart] - LongEnd[IndexEnd] >= Duration)) {
+                if (LongStart[IndexStart] >= (FromTime.getTime() + Range))
                     //Special case: boundary time
-                    answer.add(new Date[] {new Date(LongEnd[IndexEnd]), new Date(FromTime.getTime() + Range)});
+                    answer.add(new Date[]{new Date(LongEnd[IndexEnd]), new Date(FromTime.getTime() + Range)});
                 else
                     //Usual desired time
-                    answer.add(new Date[] {new Date(LongEnd[IndexEnd]), new Date(LongStart[IndexStart])});
-                //Move to next round
-                IndexEnd = IndexStart;
+                    answer.add(new Date[]{new Date(LongEnd[IndexEnd]), new Date(LongStart[IndexStart])});
             }
+            //Move to next round
+            IndexEnd = IndexStart;
         }
 
         //Special case: After LongEnd[LongEnd.length - 1]

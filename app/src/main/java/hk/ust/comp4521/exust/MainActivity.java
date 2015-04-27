@@ -91,6 +91,8 @@ public class MainActivity extends Activity {
 
 		doBindService();
 
+        ApiManager.API_HOST = Database.getAPIaddress();
+
 		if (Database.getFirstRun()) {
 			Database.setFirstRun(false);
 			showLogin();

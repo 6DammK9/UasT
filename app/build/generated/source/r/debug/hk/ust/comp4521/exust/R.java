@@ -390,8 +390,8 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f070001;
     }
     public static final class drawable {
-        public static final int chat_bg=0x7f020000;
-        public static final int chat_bg_mine=0x7f020001;
+        public static final int chat_isuser=0x7f020000;
+        public static final int chat_notuser=0x7f020001;
         public static final int chat_triangle=0x7f020002;
         public static final int common_full_open_on_phone=0x7f020003;
         public static final int common_ic_googleplayservices=0x7f020004;

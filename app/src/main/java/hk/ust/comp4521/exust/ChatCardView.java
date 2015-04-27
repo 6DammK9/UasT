@@ -60,15 +60,12 @@ public class ChatCardView extends ThreadCardView {
 				ProgressBar bar = new ProgressBar(ChatCardView.this.getContext(), null,
 						android.R.attr.progressBarStyleHorizontal);
 				bar.setIndeterminate(true);
-				builder.setCancelable(true).setTitle("Sending request to server")
-						.setView(bar);
+				builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
 				final AlertDialog dialog = builder.show();
-				
-				//String[] calendar = Database.getUser().getCalendar();
-				//boolean[] avail = new boolean[calendar.length];
+
                 ArrayList<CalendarEvent> calendar2 = Database.getUser().getCalendar2();
 
-                //Make 2 array: Start, End
+                //Make arrays
                 String CalStart[] = new String[calendar2.size()];
                 String CalEnd[] = new String[calendar2.size()];
                 String CalFreq[] = new String[calendar2.size()];
@@ -77,12 +74,8 @@ public class ChatCardView extends ThreadCardView {
                     CalEnd[i] = calendar2.get(i).getTo().toString();
                     CalFreq[i] = calendar2.get(i).getFreq();
                 }
-				
-				//for(int i = 0; i < calendar.length; i++)
-					//avail[i] = calendar[i] == null || calendar[i].isEmpty();
 
                 ApiManager.joinMatch2(vh.chat.getMatchId(), CalStart, CalEnd, CalFreq, new ApiHandler<ApiResponseBase>() {
-                    //ApiManager.joinMatch(vh.chat.getMatchId(), avail, new ApiHandler<ApiResponseBase>() {
 
                     @Override
                     public void onSuccess(ApiResponseBase response) {
@@ -104,43 +97,6 @@ public class ChatCardView extends ThreadCardView {
 
 		});
 
-        /**
-		vh.match.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Database.getData("matches", vh.chat.getMatchId(), Match.class,
-						new DatabaseLoad<Map<String, Match>>() {
-							@Override
-							public void load(Map<String, Match> obj) {
-								if (obj == null)
-									return;
-								ArrayList<Match> threads = new ArrayList<Match>();
-								threads.addAll(obj.values());
-								int[] avail = new int[7*24];
-								for(int i = 0; i < threads.size(); i++) {
-									for(int j = 0; j < 7*24; j++)
-										if(threads.get(i).getAvail()[j])
-											avail[j]++;
-								}
-								
-								String[] _avail = new String[7*24];
-								for(int i = 0; i < 7*24; i++)
-									_avail[i] = Integer.toString(avail[i]);
-								
-								CalendarFragment c = new CalendarFragment();
-								c.initialize();
-								//c.setEvents(_avail);
-								c.setGroup();
-								
-								MainActivity m = (MainActivity)getContext();
-								m.gotoFragment(c);
-							}
-						});
-			}
-
-		});
-	}**/
         vh.match.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -172,26 +128,6 @@ public class ChatCardView extends ThreadCardView {
                                 MainActivity main = (MainActivity) getContext();
                                 main.gotoFragment(2, slots);
 
-                                /**
-                                                                int[] avail = new int[7*24];
-                                                                 for(int i = 0; i < threads.size(); i++) {
-                                                                        for(int j = 0; j < 7*24; j++)
-                                                                         if(threads.get(i).getAvail()[j])
-                                                                            avail[j]++;
-                                                                  }
-
-                                                                  String[] _avail = new String[7*24];
-                                                                  for(int i = 0; i < 7*24; i++)
-                                                                    _avail[i] = Integer.toString(avail[i]);
-
-                                CalendarFragment c = new CalendarFragment();
-                                c.initialize();
-                                //c.setEvents(_avail);
-                                c.setGroup();
-
-                                MainActivity m = (MainActivity)getContext();
-                                m.gotoFragment(c);
-                                 **/
                             }
                         });
             }
@@ -207,7 +143,7 @@ public class ChatCardView extends ThreadCardView {
 		boolean isMine = chat.getAuthorId()
 				.equals(Database.getUser().getITSC());
 		Drawable bg = getResources().getDrawable(
-				isMine ? R.drawable.chat_bg_mine : R.drawable.chat_bg);
+				isMine ? R.drawable.chat_isuser : R.drawable.chat_notuser);
 		vh.bg.setBackground(bg);
 		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vh.bg
 				.getLayoutParams();
