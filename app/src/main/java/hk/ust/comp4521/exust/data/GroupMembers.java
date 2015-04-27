@@ -1,11 +1,12 @@
 package hk.ust.comp4521.exust.data;
 
-import hk.ust.comp4521.exust.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import hk.ust.comp4521.exust.R;
+
+// List of Group
 @ThreadItemInfo(sort = true, title = "Group Members", type = "groupinfos", typeName = "Group", layout = R.layout.view_thread_card)
 public class GroupMembers extends ThreadItem {
 

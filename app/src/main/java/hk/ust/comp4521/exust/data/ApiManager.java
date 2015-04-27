@@ -23,7 +23,7 @@ public class ApiManager {
 
 	public static final String TAG = "exust.data";
 	//public static final String API_HOST = "http://192.168.1.23:5001/api";
-    public static String API_HOST = "http://localhost:5001/api";
+    public static String API_HOST = "http://143.89.210.42:5001/api";
 	public static final String RES_HOST = "http://127.0.0.1:5001/res/";
 
 	static AsyncHttpClient client = new AsyncHttpClient();
@@ -41,7 +41,7 @@ public class ApiManager {
 
 		Log.i(TAG, "Sending api request: " + request.toString());
 
-		client.setTimeout(4000);
+		client.setTimeout(5000);
 		client.post(null, API_HOST, entity, "application/json",
 				new JsonHttpResponseHandler() {
                         @Override
@@ -60,6 +60,7 @@ public class ApiManager {
                                     }
                                 }
                             } catch (JSONException exc) {
+                                if (handler != null)
                                     handler.onFailure("Invalid response: "
                                             + exc.toString());
                             } catch (InstantiationException e) {
@@ -255,6 +256,49 @@ public class ApiManager {
 		}
 
 		Api(obj, handler, ApiResponseBase.class, 1);
+	}
+
+	public static void match0(String key, boolean[] avail,
+			ApiHandler<ApiResponseBase> handler) {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("cmd", "match");
+			obj.put("key", key);
+			obj.put("user", Database.getUser().getITSC());
+			obj.put("name", Database.getUser().getName());
+			
+			JSONArray _avail = new JSONArray();
+			for(int i = 0; i < avail.length; i++)
+				_avail.put(avail[i]);
+			
+			obj.put("avail", _avail);
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+
+		Api(obj, handler, ApiResponseBase.class, 1);
+	}
+
+	public static void joinMatch0(String matchId, boolean[] avail,
+			ApiHandler<ApiResponseBase> handler) {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("cmd", "joinMatch");
+			obj.put("matchId", matchId);
+			obj.put("user", Database.getUser().getITSC());
+			obj.put("name", Database.getUser().getName());
+			
+			JSONArray _avail = new JSONArray();
+			for(int i = 0; i < avail.length; i++)
+				_avail.put(avail[i]);
+			
+			obj.put("avail", _avail);
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+
+		Api(obj, handler, ApiResponseBase.class, 1);
+		
 	}
 
     public static void match2(String key, String[] CalStart, String[] CalEnd, String[] CalFreq,

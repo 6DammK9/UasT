@@ -453,11 +453,10 @@ containing a value of this type.
         public static final int BtnAccept=0x7f0c002f;
         public static final int BtnDecline=0x7f0c0030;
         public static final int TextView01=0x7f0c0018;
-        public static final int add=0x7f0c0065;
+        public static final int add=0x7f0c0064;
         public static final int address=0x7f0c001b;
         public static final int adjust_height=0x7f0c0002;
         public static final int adjust_width=0x7f0c0003;
-        public static final int adminid=0x7f0c0063;
         public static final int attachments=0x7f0c003e;
         public static final int bg=0x7f0c005d;
         public static final int bodyText=0x7f0c0058;
@@ -472,12 +471,12 @@ containing a value of this type.
         public static final int chat=0x7f0c0025;
         public static final int classic=0x7f0c0015;
         public static final int code=0x7f0c001a;
-        public static final int confirm=0x7f0c0066;
-        public static final int contact=0x7f0c0068;
+        public static final int confirm=0x7f0c0065;
+        public static final int contact=0x7f0c0067;
         public static final int content=0x7f0c0021;
         public static final int course=0x7f0c0023;
         public static final int datePicker=0x7f0c0031;
-        public static final int del=0x7f0c0064;
+        public static final int del=0x7f0c0063;
         public static final int deletebutton=0x7f0c005a;
         public static final int details=0x7f0c003d;
         public static final int donate_with_google=0x7f0c0014;
@@ -522,6 +521,7 @@ containing a value of this type.
         public static final int numMinute=0x7f0c002d;
         public static final int numSecond=0x7f0c002e;
         public static final int production=0x7f0c000a;
+        public static final int radioButton=0x7f0c0062;
         public static final int rangeChoice=0x7f0c0047;
         public static final int rangeLabel=0x7f0c0046;
         public static final int rating=0x7f0c003c;
@@ -532,7 +532,7 @@ containing a value of this type.
         public static final int sandbox=0x7f0c000b;
         public static final int satellite=0x7f0c0006;
         public static final int scrollView1=0x7f0c003a;
-        public static final int search=0x7f0c0067;
+        public static final int search=0x7f0c0066;
         public static final int selectionDetails=0x7f0c000e;
         public static final int send=0x7f0c0039;
         public static final int set=0x7f0c0020;
@@ -552,7 +552,6 @@ containing a value of this type.
         public static final int time_to=0x7f0c0051;
         public static final int title=0x7f0c003b;
         public static final int titleText=0x7f0c0054;
-        public static final int titleid=0x7f0c0062;
         public static final int to_label=0x7f0c0050;
         public static final int wrap_content=0x7f0c0010;
     }
