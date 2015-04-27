@@ -52,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/hint_valid"
+                    android:text="test"
                     android:textColor="@android:color/white"
                     android:inputType="text">
                 </EditText>
@@ -63,7 +64,8 @@
                     android:id="@+id/address"
                     android:hint="@string/hint_ip"
                     android:textColor="@android:color/white"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="175.159.100.178" />
             </LinearLayout>
 
             <RelativeLayout

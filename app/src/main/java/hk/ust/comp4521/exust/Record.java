@@ -162,7 +162,6 @@ public class Record extends BaseFragment
         }
     };
 
-    // TODO Store Calendar Record on server
 	public OnClickListener confirmButtonListener = new OnClickListener()
 	{
 		@TargetApi(Build.VERSION_CODES.KITKAT)
