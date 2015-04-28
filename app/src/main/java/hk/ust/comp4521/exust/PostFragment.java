@@ -1,9 +1,5 @@
 package hk.ust.comp4521.exust;
 
-import hk.ust.comp4521.exust.data.ApiHandler;
-import hk.ust.comp4521.exust.data.ApiManager;
-import hk.ust.comp4521.exust.data.ThreadItemInfo;
-import hk.ust.comp4521.exust.json.ApiResponseBase;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +12,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import hk.ust.comp4521.exust.data.ApiHandler;
+import hk.ust.comp4521.exust.data.ApiManager;
+import hk.ust.comp4521.exust.data.ThreadItemInfo;
+import hk.ust.comp4521.exust.json.ApiResponseBase;
 
 public class PostFragment extends BaseFragment {
 
@@ -73,7 +74,7 @@ public class PostFragment extends BaseFragment {
 			ProgressBar bar = new ProgressBar(getActivity(), null,
 					android.R.attr.progressBarStyleHorizontal);
 			bar.setIndeterminate(true);
-			builder.setCancelable(false).setTitle("Sending request to server")
+			builder.setCancelable(true).setTitle("Sending request to server")
 					.setView(bar);
 			final AlertDialog dialog = builder.show();
 

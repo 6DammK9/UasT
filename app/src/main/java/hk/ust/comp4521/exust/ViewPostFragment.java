@@ -94,7 +94,7 @@ public class ViewPostFragment extends BaseFragment {
 			ProgressBar bar = new ProgressBar(getActivity(), null,
 					android.R.attr.progressBarStyleHorizontal);
 			bar.setIndeterminate(true);
-			builder.setCancelable(false).setTitle("Sending request to server")
+			builder.setCancelable(true).setTitle("Sending request to server")
 					.setView(bar);
 			final AlertDialog dialog = builder.show();
 
@@ -127,7 +127,7 @@ public class ViewPostFragment extends BaseFragment {
 			ProgressBar bar = new ProgressBar(getActivity(), null,
 					android.R.attr.progressBarStyleHorizontal);
 			bar.setIndeterminate(true);
-			builder.setCancelable(false).setTitle("Sending request to server")
+			builder.setCancelable(true).setTitle("Sending request to server")
 					.setView(bar);
 			final AlertDialog dialog = builder.show();
 

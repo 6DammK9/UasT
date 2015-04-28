@@ -140,7 +140,7 @@ public class MatchRecord extends BaseFragment
                 return;
 
 			//Start making available time slots
-            Toast.makeText(view.getContext(), Integer.toString(CalStart.size()), Toast.LENGTH_LONG).show();
+            //Toast.makeText(view.getContext(), Integer.toString(CalStart.size()), Toast.LENGTH_LONG).show();
 
             //SEE DEFINITION - ALGORITHM HELL - MORE THAN 100 LINES
             ArrayList<Date[]> timeSlots = makeSlots();
@@ -159,11 +159,11 @@ public class MatchRecord extends BaseFragment
             for (int i=0; i < slotStart.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", "S " + slotStart[i].toString());
+                item.put("slot", i + "S " + slotStart[i].toString());
                 items.add(item);
                 item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", "E " + slotEnd[i].toString());
+                item.put("slot", i + "E " + slotEnd[i].toString());
                 items.add(item);
             }
 
