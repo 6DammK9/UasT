@@ -23,7 +23,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/time_from"
             android:hint="@string/from"
-            android:gravity="center_vertical|right" />
+            android:gravity="center_vertical|right"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -47,7 +48,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/time_to"
             android:hint="@string/to"
-            android:gravity="center_vertical|right" />
+            android:gravity="center_vertical|right"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

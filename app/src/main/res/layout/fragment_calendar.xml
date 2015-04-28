@@ -46,7 +46,6 @@
         android:numColumns="auto_fit"
         android:clickable="true"
         android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp"
-        android:background="#ffe3dfe2" />
+        android:horizontalSpacing="2dp" />
 
 </LinearLayout>

@@ -69,7 +69,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
                 if (!address.getText().toString().isEmpty()){
-                    ApiManager.API_HOST = "http://" + address.getText().toString() + ":5001/api";
+                    ApiManager.API_HOST = IPtoAPI(address.getText().toString());
                 }
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
 				ProgressBar bar = new ProgressBar(LoginActivity.this, null,
 						android.R.attr.progressBarStyleHorizontal);
 				bar.setIndeterminate(true);
-				builder.setCancelable(false)
+				builder.setCancelable(true)
 						.setTitle("Sending request to server").setView(bar);
 				final AlertDialog dialog = builder.show();
 
@@ -92,6 +92,7 @@ public class LoginActivity extends Activity {
 											Toast.LENGTH_LONG).show();
 									Database.getUser().setEmail(
 											email.getText().toString());
+                                    Database.setAPIaddress(ApiManager.API_HOST);
 									Database.commitUser();
 									code.forceLayout();
 								}
@@ -118,6 +119,7 @@ public class LoginActivity extends Activity {
 											email.getText().toString());
 									Database.getUser().setAuth(
 											response.getAuth());
+                                    Database.setAPIaddress(ApiManager.API_HOST);
 									Database.commitUser();
 									dialog.dismiss();
 									Intent result = new Intent();
@@ -141,6 +143,8 @@ public class LoginActivity extends Activity {
 
 		name.setText(Database.getUser().getName());
 
+        address.setText(APItoIP(Database.getAPIaddress()));
+
 		set.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -154,4 +158,7 @@ public class LoginActivity extends Activity {
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
+
+    private String APItoIP (String API) { return API.substring(7).substring(0,API.length()-7-9); }
+    private String IPtoAPI (String IP) {return "http://" + IP + ":5001/api/";}
 }

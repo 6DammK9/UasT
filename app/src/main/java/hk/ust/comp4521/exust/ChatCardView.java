@@ -109,8 +109,8 @@ public class ChatCardView extends ThreadCardView {
                                     return;
                                 ArrayList<Match2> threads = new ArrayList<Match2>();
                                 threads.addAll(obj.values());
-                                Toast.makeText(ChatCardView.this.getContext(), Integer.toString(threads.size()),
-                                        Toast.LENGTH_LONG).show();
+                                //Toast.makeText(ChatCardView.this.getContext(), Integer.toString(threads.size()),
+                                        //Toast.LENGTH_LONG).show();
 
                                 ArrayList<String> JointCalStart = new ArrayList<String>();
                                 ArrayList<String> JointCalEnd = new ArrayList<String>();
