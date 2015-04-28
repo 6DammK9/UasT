@@ -10,7 +10,6 @@ import hk.ust.comp4521.exust.EditGroupFragment;
 import hk.ust.comp4521.exust.R;
 
 
-// TODO #       Can delete other groupmates
 // TODO #       Group Leader can modify group name
 // TODO #       Improve UIs( Title, Context)
 // TODO #       Implement  photo comment

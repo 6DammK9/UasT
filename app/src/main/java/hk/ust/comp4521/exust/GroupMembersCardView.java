@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.text.Html;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -74,8 +73,8 @@ public class GroupMembersCardView extends ThreadCardView {
             vh.text1.setText("Members");
 
             if (Database.getUser().getITSC().equals(groupMember.getLeaderId())) {
-                Log.i("exust.GroupMemCard", "isLeader=" + groupMember.isLeader() + " this.ITSC=" + (String) groupMember.getSub() + " User.ITSC=" + Database.getUser().getITSC());
-                 vh.delButton.setVisibility(VISIBLE);
+                //Log.i("exust.GroupMemCard", "isLeader=" + groupMember.isLeader() + " this.ITSC=" + (String) groupMember.getSub() + " User.ITSC=" + Database.getUser().getITSC());
+                vh.delButton.setVisibility(VISIBLE);
                 vh.delButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
