@@ -8,7 +8,8 @@
 	    android:layout_height="wrap_content"
 	    android:padding="4dp"
 	    android:orientation="vertical"
-	    android:background="@android:color/white" >
+	    android:background="@android:color/white"
+            android:id="@+id/baseLayout">
 
             <TextView
 	        android:id="@+id/title"
@@ -26,7 +27,7 @@
 
                 <TextView
                     android:id="@+id/sub"
-                    android:layout_width="187dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textColor="@android:color/secondary_text_light"
@@ -35,10 +36,19 @@
                     android:layout_gravity="top" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="New Text"
-                    android:id="@+id/textView" />
+                    android:id="@+id/textView"
+                    android:layout_weight="0.74" />
+
+                <Button
+                    android:layout_width="54dp"
+                    android:layout_height="30dp"
+                    android:text="DeleteEX"
+                    android:id="@+id/delButton"
+                    android:textSize="10dp"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 

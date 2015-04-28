@@ -11,11 +11,11 @@ import hk.ust.comp4521.exust.R;
 public class GroupMember extends ThreadItem {
 
 	long time;
-    boolean isLeader = false;
+    String leaderId, classId, groupId;
 
-    public void loadWithLeader(JSONObject obj, String LeaderId) throws JSONException {
-        this.load(obj);
-        if (this.sub.equals(LeaderId)) {  this.isLeader = true; }
+    public void setParam(String LeaderId, String GroupId) {
+        this.leaderId = LeaderId;
+        this.groupId = GroupId;
     }
 
 	@Override
@@ -34,9 +34,16 @@ public class GroupMember extends ThreadItem {
 		return -(lhs > rhs ? -1 : (lhs == rhs ? 0 : 1));
 	}
 
-	public BaseFragment[] getFragment() {
-		return null;
-	}
+    public BaseFragment[] getFragment() {
+        return null;
+    }
 
-    public boolean isLeader() { return this.isLeader; }
+    public boolean isLeader() { return (this.sub.equals(this.leaderId)); }
+
+    public String getLeaderId() {
+        return this.leaderId;
+    }
+    public String getGroupId() {
+        return this.groupId;
+    }
 }

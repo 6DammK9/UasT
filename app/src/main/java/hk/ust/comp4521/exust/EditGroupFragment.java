@@ -1,16 +1,16 @@
 package hk.ust.comp4521.exust;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-
 import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import hk.ust.comp4521.exust.data.ApiHandler;
 import hk.ust.comp4521.exust.data.ApiManager;

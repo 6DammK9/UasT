@@ -197,21 +197,28 @@ public class ApiManager {
 		Api(obj, handler, ApiResponseBase.class, 1);
 	}
 
+    public static void kickGroup(String pkey, String key,String ITSC, String Name, ApiHandler<ApiResponseBase> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "leaveGroup");
+            obj.put("key", key);
+            obj.put("pkey", pkey);
+            obj.put("user", ITSC);
+            obj.put("name", Name);
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseBase.class, 1);
+    }
+
 	public static void leaveGroup(String pkey, String key,
 			ApiHandler<ApiResponseBase> handler) {
-		JSONObject obj = new JSONObject();
-		try {
-			obj.put("cmd", "leaveGroup");
-			obj.put("key", key);
-			obj.put("pkey", pkey);
-			obj.put("user", Database.getUser().getITSC());
-			obj.put("name", Database.getUser().getName());
-		} catch (JSONException e) {
-			throw new RuntimeException(e);
-		}
-
-		Api(obj, handler, ApiResponseBase.class, 1);
+        kickGroup(pkey, key, Database.getUser().getITSC(), Database.getUser().getName(), handler);
 	}
+
+    //public static void leaveGroup(String user, String name, String pkey, String key, ApiHandler<ApiResponseBase>)
 
 	public static void joinGroup(String key,
 			ApiHandler<ApiResponseBase> handler) {
