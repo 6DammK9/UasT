@@ -159,11 +159,11 @@ public class MatchRecord extends BaseFragment
             for (int i=0; i < slotStart.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", Integer.toString(i) + "S " + slotStart[i].toString());
+                item.put("slot", Integer.toString(i+1) + "S " + slotStart[i].toString());
                 items.add(item);
                 item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", Integer.toString(i) + "E " + slotEnd[i].toString());
+                item.put("slot", Integer.toString(i+1) + "E " + slotEnd[i].toString());
                 items.add(item);
             }
 
