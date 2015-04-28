@@ -73,8 +73,7 @@ public class EditGroupFragment extends ThreadListFragment {
 		if(loaded) {
 			if(isJoined)
 				inflater.inflate(R.menu.group_leave, menu);
-			else
-				inflater.inflate(R.menu.group_join, menu);
+			inflater.inflate(R.menu.group_join, menu);
 		}
 	}
 	
@@ -120,34 +119,41 @@ public class EditGroupFragment extends ThreadListFragment {
 			return true;
 			
 		case R.id.add: {
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			ProgressBar bar = new ProgressBar(getActivity(), null,
-					android.R.attr.progressBarStyleHorizontal);
-			bar.setIndeterminate(true);
-			builder.setCancelable(false).setTitle("Sending request to server")
-					.setView(bar);
-			final AlertDialog dialog = builder.show();
+            if (!isJoined) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                ProgressBar bar = new ProgressBar(getActivity(), null,
+                        android.R.attr.progressBarStyleHorizontal);
+                bar.setIndeterminate(true);
+                builder.setCancelable(false).setTitle("Sending request to server")
+                        .setView(bar);
+                final AlertDialog dialog = builder.show();
 
-			ApiManager.joinGroup(group.getKey(), new ApiHandler<ApiResponseBase>() {
+                ApiManager.joinGroup(group.getKey(), new ApiHandler<ApiResponseBase>() {
 
-						@Override
-						public void onSuccess(ApiResponseBase response) {
-							dialog.dismiss();
-							Toast.makeText(getActivity(),
-									response.getMessage(), Toast.LENGTH_LONG)
-									.show();
-							MainActivity main = (MainActivity) getActivity();
-							main.popFragment();
-						}
+                    @Override
+                    public void onSuccess(ApiResponseBase response) {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(),
+                                response.getMessage(), Toast.LENGTH_LONG)
+                                .show();
+                        MainActivity main = (MainActivity) getActivity();
+                        main.popFragment();
+                    }
 
-						@Override
-						public void onFailure(String message) {
-							dialog.dismiss();
-							Toast.makeText(getActivity(), message,
-									Toast.LENGTH_LONG).show();
-						}
+                    @Override
+                    public void onFailure(String message) {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), message,
+                                Toast.LENGTH_LONG).show();
+                    }
 
-					});
+                });
+            } else {
+                MainActivity main = (MainActivity) getActivity();
+                UserAddFragment fragment = new UserAddFragment();
+                fragment.setCode(info, group.getKey());
+                main.gotoFragment(0, fragment);
+            }
 		}
 			return true;
 			

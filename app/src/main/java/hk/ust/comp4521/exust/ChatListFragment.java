@@ -1,6 +1,5 @@
 package hk.ust.comp4521.exust;
 
-import android.util.Log;
 import android.view.MenuItem;
 
 public class ChatListFragment extends ThreadListFragment {
@@ -10,9 +9,11 @@ public class ChatListFragment extends ThreadListFragment {
 		switch (item.getItemId()) {
 		case R.id.add: {
             // TODO Goto another listFragment Of searching user/ selecting friends
-			Log.i("exust.ChatListFragment", "===> Option AddButton Clicked");
 
-
+            MainActivity main = (MainActivity) getActivity();
+            UserAddFragment fragment = new UserAddFragment();
+            fragment.setCode(info, key);
+            main.gotoFragment(2, fragment);
 
 			return true;
 		}

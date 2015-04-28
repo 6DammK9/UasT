@@ -220,19 +220,24 @@ public class ApiManager {
 
     //public static void leaveGroup(String user, String name, String pkey, String key, ApiHandler<ApiResponseBase>)
 
+    public static void joinGroupSuper(String key, String user, String name,
+                                 ApiHandler<ApiResponseBase> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "joinGroup");
+            obj.put("post", key);
+            obj.put("user", user);
+            obj.put("name", name);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseBase.class, 1);
+    }
+
 	public static void joinGroup(String key,
 			ApiHandler<ApiResponseBase> handler) {
-		JSONObject obj = new JSONObject();
-		try {
-			obj.put("cmd", "joinGroup");
-			obj.put("post", key);
-			obj.put("user", Database.getUser().getITSC());
-			obj.put("name", Database.getUser().getName());
-		} catch (JSONException e) {
-			throw new RuntimeException(e);
-		}
-
-		Api(obj, handler, ApiResponseBase.class, 1);
+        joinGroupSuper(key, Database.getUser().getITSC(), Database.getUser().getName(), handler);
 	}
 
 	public static void addChat(String authorId,

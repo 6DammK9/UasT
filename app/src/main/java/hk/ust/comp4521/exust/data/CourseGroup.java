@@ -10,7 +10,6 @@ import hk.ust.comp4521.exust.EditGroupFragment;
 import hk.ust.comp4521.exust.R;
 
 // TODO #       Improve UIs( Title, Context)
-// TODO #       Search User By ITSC
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_group_card)
 public class CourseGroup extends ThreadPostItem {
 	long time;
