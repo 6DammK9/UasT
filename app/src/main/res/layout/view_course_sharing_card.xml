@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hk.ust.comp4521.exust.CourseSharingCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="4dp"
+	    android:orientation="vertical"
+	    >
+
+	    <TextView
+	        android:id="@+id/title"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textColor="@android:color/primary_text_light"
+		    android:textSize="16sp"
+		    android:text="Title"
+            android:textIsSelectable="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/sub"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User Name"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:text="Like"
+                android:id="@+id/likeButton"
+                android:enabled="true"
+                android:background="@android:color/darker_gray"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/likeMessage"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right"
+                android:text="100 Likes"
+                android:enabled="false" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+</hk.ust.comp4521.exust.CourseSharingCardView>

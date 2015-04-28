@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import hk.ust.comp4521.exust.json.ApiResponseAddChat;
 import hk.ust.comp4521.exust.json.ApiResponseBase;
 import hk.ust.comp4521.exust.json.ApiResponseData;
+import hk.ust.comp4521.exust.json.ApiResponseLike;
 import hk.ust.comp4521.exust.json.ApiResponseValidate;
 
 public class ApiManager {
@@ -362,5 +363,33 @@ public class ApiManager {
 
         Api(obj, handler, ApiResponseBase.class, 1);
 
+    }
+
+    public static void likeSharing(String courseId, String postId,String ITSC, ApiHandler<ApiResponseLike> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "likeSharing");
+            obj.put("key", postId);
+            obj.put("pkey", courseId);
+            obj.put("user", ITSC);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseLike.class, 1);
+    }
+
+    public static void likeTrading(String courseId, String postId,String ITSC, ApiHandler<ApiResponseLike> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "likeTrading");
+            obj.put("key", postId);
+            obj.put("pkey", courseId);
+            obj.put("user", ITSC);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseLike.class, 1);
     }
 }

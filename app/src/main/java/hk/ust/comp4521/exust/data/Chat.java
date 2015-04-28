@@ -7,7 +7,7 @@ import hk.ust.comp4521.exust.BaseFragment;
 import hk.ust.comp4521.exust.ChatFragment;
 import hk.ust.comp4521.exust.R;
 
-@ThreadItemInfo(filter = true, sort = true, title = "Conversations", type = "chats", typeName = "Chat", layout = R.layout.view_chat_card)
+@ThreadItemInfo(add = true, filter = true, sort = true, title = "Conversations", type = "chats", typeName = "Chat", layout = R.layout.view_chat_card)
 public class Chat extends ThreadItem  {
 	long time;
 	boolean isGroup;

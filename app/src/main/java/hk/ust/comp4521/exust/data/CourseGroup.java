@@ -9,10 +9,7 @@ import hk.ust.comp4521.exust.BaseFragment;
 import hk.ust.comp4521.exust.EditGroupFragment;
 import hk.ust.comp4521.exust.R;
 
-
-// TODO #       Group Leader can modify group name
 // TODO #       Improve UIs( Title, Context)
-// TODO #       Implement  photo comment
 // TODO #       Search User By ITSC
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_group_card)
 public class CourseGroup extends ThreadPostItem {

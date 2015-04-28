@@ -1,0 +1,18 @@
+package hk.ust.comp4521.exust.json;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class ApiResponseLike extends ApiResponseBase {
+    int num;
+
+    public void load(JSONObject obj) throws JSONException {
+        super.load(obj);
+        if(obj.has("num"))
+            num = obj.getInt("num");
+    }
+
+    public int getNum() {
+        return num;
+    }
+}

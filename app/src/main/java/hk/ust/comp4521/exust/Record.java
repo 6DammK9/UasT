@@ -91,7 +91,6 @@ public class Record extends BaseFragment
         BodyText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getBody());
         FromText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getFrom().toString());
         ToText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getTo().toString());
-        // TODO Implement Location List
         LocText.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getLoc());
         if (calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind() != null) {
             rem_inf.setText(calendarFragment.CalEvents.get(CalEventsSelectedIndex).getRemind().toString());

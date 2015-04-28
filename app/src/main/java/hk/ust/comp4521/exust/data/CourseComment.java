@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import hk.ust.comp4521.exust.R;
 
-// TODO #   ThreadItemInfo Reference HERE
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Comment", title = "Comments", type = "comments", layout = R.layout.view_comment_card, header = R.layout.view_course_header_card)
 public class CourseComment extends ThreadPostItem {
 	long time;

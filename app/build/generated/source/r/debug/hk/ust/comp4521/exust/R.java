@@ -453,12 +453,12 @@ containing a value of this type.
         public static final int BtnAccept=0x7f0c002f;
         public static final int BtnDecline=0x7f0c0030;
         public static final int TextView01=0x7f0c0018;
-        public static final int add=0x7f0c0066;
+        public static final int add=0x7f0c0068;
         public static final int address=0x7f0c001b;
         public static final int adjust_height=0x7f0c0002;
         public static final int adjust_width=0x7f0c0003;
         public static final int attachments=0x7f0c003e;
-        public static final int baseLayout=0x7f0c0063;
+        public static final int baseLayout=0x7f0c0065;
         public static final int bg=0x7f0c005d;
         public static final int bodyText=0x7f0c0058;
         public static final int book_now=0x7f0c0011;
@@ -472,13 +472,13 @@ containing a value of this type.
         public static final int chat=0x7f0c0025;
         public static final int classic=0x7f0c0015;
         public static final int code=0x7f0c001a;
-        public static final int confirm=0x7f0c0067;
-        public static final int contact=0x7f0c0069;
+        public static final int confirm=0x7f0c0069;
+        public static final int contact=0x7f0c006b;
         public static final int content=0x7f0c0021;
         public static final int course=0x7f0c0023;
         public static final int datePicker=0x7f0c0031;
-        public static final int del=0x7f0c0065;
-        public static final int delButton=0x7f0c0064;
+        public static final int del=0x7f0c0067;
+        public static final int delButton=0x7f0c0066;
         public static final int deletebutton=0x7f0c005a;
         public static final int details=0x7f0c003d;
         public static final int donate_with_google=0x7f0c0014;
@@ -504,6 +504,8 @@ containing a value of this type.
         public static final int labelMinute=0x7f0c0029;
         public static final int labelSecond=0x7f0c002a;
         public static final int label_scheduled=0x7f0c0034;
+        public static final int likeButton=0x7f0c0062;
+        public static final int likeMessage=0x7f0c0063;
         public static final int list=0x7f0c0037;
         public static final int loc_label=0x7f0c0052;
         public static final int locationText=0x7f0c0053;
@@ -533,7 +535,7 @@ containing a value of this type.
         public static final int sandbox=0x7f0c000b;
         public static final int satellite=0x7f0c0006;
         public static final int scrollView1=0x7f0c003a;
-        public static final int search=0x7f0c0068;
+        public static final int search=0x7f0c006a;
         public static final int selectionDetails=0x7f0c000e;
         public static final int send=0x7f0c0039;
         public static final int set=0x7f0c0020;
@@ -547,7 +549,7 @@ containing a value of this type.
         public static final int tab=0x7f0c0022;
         public static final int terrain=0x7f0c0007;
         public static final int text=0x7f0c003f;
-        public static final int textView=0x7f0c0062;
+        public static final int textView=0x7f0c0064;
         public static final int timePicker=0x7f0c0032;
         public static final int time_from=0x7f0c004f;
         public static final int time_label=0x7f0c0026;
@@ -583,11 +585,13 @@ containing a value of this type.
         public static final int view_comment_card=0x7f030013;
         public static final int view_course_card=0x7f030014;
         public static final int view_course_header_card=0x7f030015;
-        public static final int view_group_card=0x7f030016;
-        public static final int view_group_header_card=0x7f030017;
-        public static final int view_group_members_card=0x7f030018;
-        public static final int view_navigation=0x7f030019;
-        public static final int view_thread_card=0x7f03001a;
+        public static final int view_course_sharing_card=0x7f030016;
+        public static final int view_course_trading_card=0x7f030017;
+        public static final int view_group_card=0x7f030018;
+        public static final int view_group_header_card=0x7f030019;
+        public static final int view_group_members_card=0x7f03001a;
+        public static final int view_navigation=0x7f03001b;
+        public static final int view_thread_card=0x7f03001c;
     }
     public static final class menu {
         public static final int chat_del=0x7f0b0000;
