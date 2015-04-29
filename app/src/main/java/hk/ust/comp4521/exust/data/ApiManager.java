@@ -397,4 +397,17 @@ public class ApiManager {
 
         Api(obj, handler, ApiResponseLike.class, 1);
     }
+
+    public static void addFriend(String key, ApiHandler<ApiResponseBase> handler) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("cmd", "addFriend");
+            obj.put("key", key);
+            obj.put("user", Database.getUser().getITSC());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        Api(obj, handler, ApiResponseBase.class, 1);
+    }
 }

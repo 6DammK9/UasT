@@ -126,9 +126,12 @@ public class ChatFragment extends ThreadListFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		if (!chat.getIsGroup())
-			inflater.inflate(R.menu.chat_del, menu);
+		if (!chat.getIsGroup()) {
+            inflater.inflate(R.menu.chat_del, menu);
+            inflater.inflate(R.menu.chat_add, menu);
+        }
 		inflater.inflate(R.menu.chat_match, menu);
+
 	}
 
 	@Override
@@ -218,7 +221,30 @@ public class ChatFragment extends ThreadListFragment {
                     });
 		}
 			return true;
+        case R.id.add: {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            ProgressBar bar = new ProgressBar(getActivity(), null,  android.R.attr.progressBarStyleHorizontal);
+            bar.setIndeterminate(true);
+            builder.setCancelable(true).setTitle("Sending request to server") .setView(bar);
+            final AlertDialog dialog = builder.show();
 
+            ApiManager.addFriend(key, new ApiHandler<ApiResponseBase>() {
+
+                @Override
+                public void onSuccess(ApiResponseBase response) {
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                }
+
+            });
+        }
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
