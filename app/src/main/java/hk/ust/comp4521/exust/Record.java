@@ -212,10 +212,10 @@ public class Record extends BaseFragment
             }
 
             calendarFragment.CalEvents.set(CalEventsSelectedIndex, cal_e);
-
             Database.getUser().setCalendar(new String[7 * 24]);
             Database.getUser().setCalendar2(calendarFragment.CalEvents);
             Database.commitUser();
+            calendarFragment.SaveToServer();
 
             ((MainActivity) getActivity()).popFragment();
 		}
@@ -245,6 +245,7 @@ public class Record extends BaseFragment
             Database.getUser().setCalendar(new String[7 * 24]);
             Database.getUser().setCalendar2(calendarFragment.CalEvents);
             Database.commitUser();
+            calendarFragment.SaveToServer();
 
 			((MainActivity) getActivity()).popFragment();
 		}

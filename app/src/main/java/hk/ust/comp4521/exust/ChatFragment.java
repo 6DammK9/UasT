@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 
 import hk.ust.comp4521.exust.data.ApiHandler;
 import hk.ust.comp4521.exust.data.ApiManager;
+import hk.ust.comp4521.exust.data.CalEventsEntry;
 import hk.ust.comp4521.exust.data.CalendarEvent;
 import hk.ust.comp4521.exust.data.Chat;
 import hk.ust.comp4521.exust.data.ChatItem;
@@ -32,6 +34,14 @@ import hk.ust.comp4521.exust.json.ApiResponseBase;
 
 // TODO implement Photo transfer and capture
 public class ChatFragment extends ThreadListFragment {
+
+	Chat chat;
+	ImageButton send;
+	EditText message;
+	String[] ChatUsers;
+	int gCEProgress;
+	static final String TAG = "exust.ChatFragment";
+	static ArrayList<CalendarEvent> groupCalEvents;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,10 +98,6 @@ public class ChatFragment extends ThreadListFragment {
 		return chat.getTitle();
 	}
 
-	Chat chat;
-	ImageButton send;
-	EditText message;
-
 	public void setParam(Chat chat) {
 		this.chat = chat;
 		super.setParams2(chat.getKey(), ChatItem.class);
@@ -112,13 +118,15 @@ public class ChatFragment extends ThreadListFragment {
 									new Comparator<ThreadItem>() {
 										@Override
 										public int compare(ThreadItem a,
-												ThreadItem b) {
+														   ThreadItem b) {
 											return a.compareTo(b);
 										}
 									});
 						}
 						update();
 						list.setSelection(threads.size() - 1);
+
+						ChatUsers = obj.getUsers();
 					}
 				});
 	}
@@ -170,6 +178,8 @@ public class ChatFragment extends ThreadListFragment {
 			return true;
 
 		case R.id.match: {
+
+			/**
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			ProgressBar bar = new ProgressBar(getActivity(), null,
 					android.R.attr.progressBarStyleHorizontal);
@@ -178,47 +188,70 @@ public class ChatFragment extends ThreadListFragment {
 					.setView(bar);
 			final AlertDialog dialog = builder.show();
 
-            /**
-			String[] calendar = Database.getUser().getCalendar();
-			boolean[] avail = new boolean[calendar.length];
 
-            for(int i = 0; i < calendar.length; i++)
-                avail[i] = calendar[i] == null || calendar[i].isEmpty();
-**/
-            ArrayList<CalendarEvent> calendar2 = Database.getUser().getCalendar2();
+			 ArrayList<CalendarEvent> calendar2 = Database.getUser().getCalendar2();
 
-            //Make 2 array: Start, End
-            String CalStart[] = new String[calendar2.size()];
-            String CalEnd[] = new String[calendar2.size()];
-            String CalFreq[] = new String[calendar2.size()];
-            for (int i=0; i < calendar2.size(); i++) {
-                CalStart[i] = calendar2.get(i).getFrom().toString();
-                CalEnd[i] = calendar2.get(i).getTo().toString();
-                CalFreq[i] = calendar2.get(i).getFreq();
-            }
+			 //Make 2 array: Start, End
+			 String CalStart[] = new String[calendar2.size()];
+			 String CalEnd[] = new String[calendar2.size()];
+			 String CalFreq[] = new String[calendar2.size()];
+			 for (int i=0; i < calendar2.size(); i++) {
+			 CalStart[i] = calendar2.get(i).getFrom().toString();
+			 CalEnd[i] = calendar2.get(i).getTo().toString();
+			 CalFreq[i] = calendar2.get(i).getFreq();
+			 }
 
 
-			//ApiManager.match(key, avail,
-            ApiManager.match2(key, CalStart, CalEnd, CalFreq,
-                    new ApiHandler<ApiResponseBase>() {
+			 //ApiManager.match(key, avail,
+			 ApiManager.match2(key, CalStart, CalEnd, CalFreq,
+			 new ApiHandler<ApiResponseBase>() {
 
-                        @Override
-                        public void onSuccess(ApiResponseBase response) {
-                            dialog.dismiss();
-                            Toast.makeText(getActivity(),
-                                    response.getMessage(), Toast.LENGTH_LONG)
-                                    .show();
-                            getThread();
-                        }
+			@Override public void onSuccess(ApiResponseBase response) {
+			dialog.dismiss();
+			Toast.makeText(getActivity(),
+			response.getMessage(), Toast.LENGTH_LONG)
+			.show();
+			getThread();
+			}
 
-                        @Override
-                        public void onFailure(String message) {
-                            dialog.dismiss();
-                            Toast.makeText(getActivity(), message,
-                                    Toast.LENGTH_LONG).show();
-                        }
+			@Override public void onFailure(String message) {
+			dialog.dismiss();
+			Toast.makeText(getActivity(), message,
+			Toast.LENGTH_LONG).show();
+			}
 
-                    });
+			});
+			 **/
+
+			groupCalEvents = new ArrayList<CalendarEvent>();
+			groupCalEvents.clear();
+			for (String ChatUser : ChatUsers) {
+				Database.getData("CalEventsEntries", ChatUser, CalEventsEntry.class,
+						new DatabaseLoad<Map<String, CalEventsEntry>>() {
+							@Override
+							public void load(Map<String, CalEventsEntry> obj) {
+								if (obj == null)
+									return;
+								ArrayList<CalEventsEntry> threads = new ArrayList<CalEventsEntry>();
+								threads.addAll(obj.values());
+
+								for (int i = 0; i < threads.size(); i++) {
+									for (int j = 0; j < threads.get(i).getCalEventArr().length; j++) {
+										groupCalEvents.add(new CalendarEvent(threads.get(i).getCalEventArr()[j]));
+									}
+								}
+							}
+						});
+			}
+
+			//MatchRecord will load groupCalEvents when user press the Show button;
+			//Loading groupCalEvents is async so it's not effective if we load it here.
+			//Seems it's not API request, loading it through Database is unknown at my sight (Calendar)
+			//It is dangerous to put it static; But seems no choice
+			if (groupCalEvents == null) return false;
+			MatchRecord slots = new MatchRecord();
+			MainActivity main = (MainActivity) getActivity();
+			main.gotoFragment(2, slots);
 		}
 			return true;
         case R.id.add: {
@@ -249,5 +282,4 @@ public class ChatFragment extends ThreadListFragment {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 }

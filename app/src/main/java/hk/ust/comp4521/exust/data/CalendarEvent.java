@@ -47,7 +47,7 @@ public class CalendarEvent {
         if (pro.length > 0) From = StringToDate(pro[0]);
         if (pro.length > 1) To = StringToDate(pro[1]);
         if (pro.length > 2) Title = pro[2];
-        if (pro.length > 3) Body = pro[3];
+        if (pro.length > 3) Body =  Body_MultiLine(pro[3]);
         if (pro.length > 4) Freq = pro[4];
         if (pro.length > 5) Loc = pro[5];
         if (pro.length > 6) Remind = StringToDate(pro[6]);
@@ -77,14 +77,14 @@ public class CalendarEvent {
             return From.toString() + "\n" +
                     To.toString() + "\n" +
                     Title + "\n" +
-                    Body + "\n" +
+                    Body_OneLine(Body) + "\n" +
                     Freq + "\n" +
                     Loc + "\n" +
                     Remind.toString();
             else return From.toString() + "\n" +
                     To.toString() + "\n" +
                     Title + "\n" +
-                    Body + "\n" +
+                    Body_OneLine(Body) + "\n" +
                     Freq + "\n" +
                     Loc;
     }
@@ -123,6 +123,7 @@ public class CalendarEvent {
     public Boolean matchFrom(long time) {
         // Don't try to simplify - I mean Android Studio
         Date target = new Date(time);
+        if ((From.getTime() - time) > (ONE_DAY)) {return false;}
         if ((Freq.equals("Once")) && (dif(From.getTime(), time) < ONE_DAY) &&
                 (From.getDate() == target.getDate())) {return true;}
         if (Freq.equals("Daily")) {return true;}
@@ -170,5 +171,14 @@ public class CalendarEvent {
 
     public void setRemind(Date newDate) {
         Remind = newDate;
+    }
+
+    public String Body_OneLine (String Body) {
+        Body.replaceAll("\n", "\t");
+        return Body.split("\n")[0];
+    }
+
+    public String Body_MultiLine (String in) {
+        return in.replaceAll("\t", "\n");
     }
 }

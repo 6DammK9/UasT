@@ -1,5 +1,6 @@
 package hk.ust.comp4521.exust;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hk.ust.comp4521.exust.data.ApiHandler;
+import hk.ust.comp4521.exust.data.ApiManager;
+import hk.ust.comp4521.exust.data.CalEventsEntry;
 import hk.ust.comp4521.exust.data.CalendarEvent;
+import hk.ust.comp4521.exust.data.Database;
+import hk.ust.comp4521.exust.data.DatabaseLoad;
+import hk.ust.comp4521.exust.json.ApiResponseBase;
 
 public class CalendarFragment extends BaseFragment
 {
@@ -116,7 +125,6 @@ public class CalendarFragment extends BaseFragment
         });
 
 		return view;
-
 	}
 
 
@@ -230,6 +238,65 @@ public class CalendarFragment extends BaseFragment
                 cal_m.setFocusedMonthDateColor (Color.RED);
             }
         }
+    }
+
+    public void SaveToServer() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        ProgressBar bar = new ProgressBar(view.getContext(), null,
+                android.R.attr.progressBarStyleHorizontal);
+        bar.setIndeterminate(true);
+        builder.setCancelable(true).setTitle("Saving to server").setView(bar);
+        final AlertDialog dialog = builder.show();
+
+        ArrayList<CalendarEvent> calendar2 = Database.getUser().getCalendar2();
+
+        //Make arrays
+        String CalEventArr[] = new String[calendar2.size()];
+        for (int i = 0; i < calendar2.size(); i++) {
+            CalEventArr[i] = calendar2.get(i).toString();
+        }
+
+        ApiManager.upCalEvents(CalEventArr, new ApiHandler<ApiResponseBase>() {
+
+            @Override
+            public void onSuccess(ApiResponseBase response) {
+                dialog.dismiss();
+                Toast.makeText(view.getContext(), response.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                dialog.dismiss();
+                Toast.makeText(view.getContext(), message,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    //Not sure when to use this
+    public void LoadFromServer() {
+        Database.getData("CalEventsEntries", Database.getUser().getITSC(), CalEventsEntry.class,
+                new DatabaseLoad<Map<String, CalEventsEntry>>() {
+                    @Override
+                    public void load(Map<String, CalEventsEntry> obj) {
+                        if (obj == null)
+                            return;
+                        ArrayList<CalEventsEntry> threads = new ArrayList<CalEventsEntry>();
+                        threads.addAll(obj.values());
+                        //Toast.makeText(ChatCardView.this.getContext(), Integer.toString(threads.size()),
+                        //Toast.LENGTH_LONG).show();
+
+                        CalEvents.clear();
+                        for (int i = 0; i < threads.size(); i++) {
+                            for (int j = 0; j < threads.get(i).getCalEventArr().length; j++) {
+                                CalEvents.add( new CalendarEvent(threads.get(i). getCalEventArr()[j]) );
+                            }
+                        }
+
+                    }
+                });
     }
 }
 

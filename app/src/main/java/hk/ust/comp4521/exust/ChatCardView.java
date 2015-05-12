@@ -102,34 +102,34 @@ public class ChatCardView extends ThreadCardView {
             @Override
             public void onClick(View v) {
                 Database.getData("matches2", vh.chat.getMatchId(), Match2.class,
-                        new DatabaseLoad<Map<String, Match2>>() {
-                            @Override
-                            public void load(Map<String, Match2> obj) {
-                                if (obj == null)
-                                    return;
-                                ArrayList<Match2> threads = new ArrayList<Match2>();
-                                threads.addAll(obj.values());
-                                //Toast.makeText(ChatCardView.this.getContext(), Integer.toString(threads.size()),
-                                        //Toast.LENGTH_LONG).show();
+						new DatabaseLoad<Map<String, Match2>>() {
+							@Override
+							public void load(Map<String, Match2> obj) {
+								if (obj == null)
+									return;
+								ArrayList<Match2> threads = new ArrayList<Match2>();
+								threads.addAll(obj.values());
+								//Toast.makeText(ChatCardView.this.getContext(), Integer.toString(threads.size()),
+								//Toast.LENGTH_LONG).show();
 
-                                ArrayList<String> JointCalStart = new ArrayList<String>();
-                                ArrayList<String> JointCalEnd = new ArrayList<String>();
-                                ArrayList<String> JointCalFreq = new ArrayList<String>();
-                                for (int i = 0; i < threads.size(); i++) {
-                                    for (int j = 0; j < threads.get(i).getCalStart().length; j++) {
-                                        JointCalStart.add( threads.get(i). getCalStart()[j] );
-                                        JointCalEnd.add( threads.get(i). getCalEnd()[j] );
-                                        JointCalFreq.add( threads.get(i). getCalFreq()[j] );
-                                    }
-                                }
+								ArrayList<String> JointCalStart = new ArrayList<String>();
+								ArrayList<String> JointCalEnd = new ArrayList<String>();
+								ArrayList<String> JointCalFreq = new ArrayList<String>();
+								for (int i = 0; i < threads.size(); i++) {
+									for (int j = 0; j < threads.get(i).getCalStart().length; j++) {
+										JointCalStart.add(threads.get(i).getCalStart()[j]);
+										JointCalEnd.add(threads.get(i).getCalEnd()[j]);
+										JointCalFreq.add(threads.get(i).getCalFreq()[j]);
+									}
+								}
 
-                                MatchRecord slots = new MatchRecord();
-                                slots.setParam(JointCalStart, JointCalEnd, JointCalFreq);
-                                MainActivity main = (MainActivity) getContext();
-                                main.gotoFragment(2, slots);
+								MatchRecord slots = new MatchRecord();
+								slots.setParam(JointCalStart, JointCalEnd, JointCalFreq);
+								MainActivity main = (MainActivity) getContext();
+								main.gotoFragment(2, slots);
 
-                            }
-                        });
+							}
+						});
             }
 
         });

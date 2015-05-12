@@ -1,12 +1,5 @@
 package hk.ust.comp4521.exust;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
-
-import hk.ust.comp4521.exust.data.*;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +15,17 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
+
+import hk.ust.comp4521.exust.data.Database;
+import hk.ust.comp4521.exust.data.DatabaseLoad;
+import hk.ust.comp4521.exust.data.ThreadItem;
+import hk.ust.comp4521.exust.data.ThreadItemInfo;
+
 public class ThreadListFragment extends BaseFragment {
 
 	protected ListView list;
@@ -31,6 +35,12 @@ public class ThreadListFragment extends BaseFragment {
 	protected ThreadItemInfo info;
 	protected ThreadItemInfo pinfo;
 	protected ThreadItem item;
+
+	ThreadCardView header;
+	SearchView searchView;
+	MenuItem searchMenu;
+	boolean isSearchExpanded = false;
+	String filter;
 	
 	public String getKey() {
 		return key;
@@ -103,12 +113,6 @@ public class ThreadListFragment extends BaseFragment {
 	protected void updateHeader() {
 		header.setThread(item);
 	}
-	
-	ThreadCardView header;
-	SearchView searchView;
-	MenuItem searchMenu;
-	boolean isSearchExpanded = false;
-	String filter;
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -251,8 +255,6 @@ public class ThreadListFragment extends BaseFragment {
 					}
 				});
 	}
-	
-	
 
 	@Override
 	public boolean onBackPressed() {

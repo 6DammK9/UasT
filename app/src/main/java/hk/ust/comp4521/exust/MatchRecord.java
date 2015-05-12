@@ -56,6 +56,18 @@ public class MatchRecord extends BaseFragment
         }
     }
 
+    public void setParam(ArrayList<CalendarEvent> in) {
+        CalStart = new ArrayList<Date>();
+        CalEnd = new ArrayList<Date>();
+        CalFreq = new ArrayList<String>();
+
+        for (int i=0; i < in.size(); i++) {
+            CalStart.add(in.get(i).getFrom());
+            CalEnd.add(in.get(i).getTo());
+            CalFreq.add(in.get(i).getFreq());
+        }
+    }
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
@@ -135,6 +147,12 @@ public class MatchRecord extends BaseFragment
         @Override
 		public void onClick(View v)
 		{
+            //Multithreading issue - reset groupCalEvents
+            if (ChatFragment.groupCalEvents != null){
+                setParam(ChatFragment.groupCalEvents);
+                Log.i(TAG, Integer.toString(ChatFragment.groupCalEvents.size()));
+            }
+
 			//Validation
             if ((FromTime == null) || (Duration == 0) || (Range == 0) || (Duration > Range))
                 return;
@@ -159,11 +177,11 @@ public class MatchRecord extends BaseFragment
             for (int i=0; i < slotStart.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", Integer.toString(i+1) + "S " + slotStart[i].toString());
+                item.put("slot", i + "S " + slotStart[i].toString());
                 items.add(item);
                 item = new HashMap<String, Object>();
                 item.clear();
-                item.put("slot", Integer.toString(i+1) + "E " + slotEnd[i].toString());
+                item.put("slot", i + "E " + slotEnd[i].toString());
                 items.add(item);
             }
 

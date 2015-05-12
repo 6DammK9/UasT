@@ -159,6 +159,6 @@ public class LoginActivity extends Activity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
 
-    private String APItoIP (String API) { return API.substring(7).substring(0,API.length()-7-9); }
+    private String APItoIP (String API) { return API.substring(7).substring(0,API.length()-7-10); }
     private String IPtoAPI (String IP) {return "http://" + IP + ":5001/api/";}
 }

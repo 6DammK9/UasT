@@ -370,7 +370,7 @@ public class ApiManager {
 
     }
 
-    public static void likeSharing(String courseId, String postId,String ITSC, ApiHandler<ApiResponseLike> handler) {
+    public static void likeSharing(String courseId, String postId, String ITSC, ApiHandler<ApiResponseLike> handler) {
         JSONObject obj = new JSONObject();
         try {
             obj.put("cmd", "likeSharing");
@@ -410,4 +410,26 @@ public class ApiManager {
 
         Api(obj, handler, ApiResponseBase.class, 1);
     }
+
+	public static void upCalEvents(String[] CalEventArr, ApiHandler<ApiResponseBase> handler) {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("cmd", "upCalEvents");
+			obj.put("user", Database.getUser().getITSC());
+			obj.put("name", Database.getUser().getName());
+
+			JSONArray _CalEventArr = new JSONArray();
+			for (String CalEventStr : CalEventArr) {
+				_CalEventArr.put(CalEventStr);
+			}
+
+			obj.put("CalEventArr", _CalEventArr);
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+
+		Api(obj, handler, ApiResponseBase.class, 1);
+	}
+
+
 }
