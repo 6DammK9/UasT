@@ -1,6 +1,7 @@
 package hk.ust.comp4521.exust;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -37,9 +39,12 @@ public class ChatFragment extends ThreadListFragment {
 
 	Chat chat;
 	ImageButton send;
+	ImageButton attachment;
+	ImageButton camera;
+    ImageButton image;
+    LinearLayout attachment_layout;
 	EditText message;
 	String[] ChatUsers;
-	int gCEProgress;
 	static final String TAG = "exust.ChatFragment";
 	static ArrayList<CalendarEvent> groupCalEvents;
 
@@ -48,47 +53,82 @@ public class ChatFragment extends ThreadListFragment {
 			Bundle savedInstanceState) {
 		layout_id = R.layout.fragment_chat;
 		View view = super.onCreateView(inflater, container, savedInstanceState);
+		if (view==null) { return null; }
 
 		list.setDividerHeight(0);
 		message = (EditText) view.findViewById(R.id.message);
 		send = (ImageButton) view.findViewById(R.id.send);
+		attachment = (ImageButton) view.findViewById(R.id.attachment);
+		camera = (ImageButton) view.findViewById(R.id.camera);
+        image = (ImageButton) view.findViewById(R.id.image);
+
+		attachment_layout = (LinearLayout) view.findViewById(R.id.attachment_layout);
+		attachment_layout.setVisibility(View.GONE);
 
 		send.setOnClickListener(new OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        getActivity());
+                ProgressBar bar = new ProgressBar(getActivity(), null,
+                        android.R.attr.progressBarStyleHorizontal);
+                bar.setIndeterminate(true);
+                builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
+                final AlertDialog dialog = builder.show();
+
+                ApiManager.send(chat.getKey(), message.getText().toString(),
+                        new ApiHandler<ApiResponseBase>() {
+
+                            @Override
+                            public void onSuccess(ApiResponseBase response) {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(),
+                                        response.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                                message.setText("");
+                                getThread();
+                            }
+
+                            @Override
+                            public void onFailure(String message) {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), message,
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                        });
+            }
+
+        });
+
+		attachment.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						getActivity());
-				ProgressBar bar = new ProgressBar(getActivity(), null,
-						android.R.attr.progressBarStyleHorizontal);
-				bar.setIndeterminate(true);
-				builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
-				final AlertDialog dialog = builder.show();
-
-				ApiManager.send(chat.getKey(), message.getText().toString(),
-						new ApiHandler<ApiResponseBase>() {
-
-							@Override
-							public void onSuccess(ApiResponseBase response) {
-								dialog.dismiss();
-								Toast.makeText(getActivity(),
-										response.getMessage(),
-										Toast.LENGTH_LONG).show();
-								message.setText("");
-								getThread();
-							}
-
-							@Override
-							public void onFailure(String message) {
-								dialog.dismiss();
-								Toast.makeText(getActivity(), message,
-										Toast.LENGTH_LONG).show();
-							}
-
-						});
+			public void onClick(View view) {
+				if (attachment_layout.getVisibility() != View.VISIBLE)
+					attachment_layout.setVisibility(View.VISIBLE);
+				else attachment_layout.setVisibility(View.GONE);
 			}
-
 		});
+
+		camera.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent cam = new Intent(view.getContext(), Multimedia_photo.class);
+				if (Multimedia_photo.checkCameraHardware(view.getContext()))
+					startActivityForResult(cam, 100);
+				attachment_layout.setVisibility(View.GONE);
+			}
+		});
+
+        image.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent img = new Intent(view.getContext(), Multimedia_image.class);
+                startActivityForResult(img, 100);
+                attachment_layout.setVisibility(View.GONE);
+            }
+        });
 
 		return view;
 	}
@@ -139,7 +179,6 @@ public class ChatFragment extends ThreadListFragment {
             inflater.inflate(R.menu.chat_add, menu);
         }
 		inflater.inflate(R.menu.chat_match, menu);
-
 	}
 
 	@Override
