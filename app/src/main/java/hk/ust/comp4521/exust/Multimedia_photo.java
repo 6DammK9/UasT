@@ -17,13 +17,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Multimedia_photo extends Activity {
+public class Multimedia_photo extends BaseFragment {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -31,6 +34,12 @@ public class Multimedia_photo extends Activity {
     private static Uri fileUri;
     private static String outFileUri;
     static final String TAG = "exust.Multimedia_photo";
+    View view;
+    ChatFragment chatFragment;
+
+    public void setParam(ChatFragment c){
+        chatFragment = c;
+    }
 
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
@@ -75,10 +84,11 @@ public class Multimedia_photo extends Activity {
         return mediaFile;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+        //super.onCreate(savedInstanceState);
         //setContentView(R.layout.multimedia_photo);
+        view = inflater.inflate(R.layout.grid_view, null);
 
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -90,53 +100,62 @@ public class Multimedia_photo extends Activity {
 
         // start the image capture Intent
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        return view;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
 
                 if (data == null) {
                     // The picture was taken but not returned
-                    Toast.makeText( this,
+                    if (chatFragment == null)
+                    Toast.makeText(view.getContext(),
                             "The picture was taken and is located here: " + fileUri.toString(),
-                            Toast.LENGTH_LONG).show();
+                           Toast.LENGTH_LONG).show();
+                    else
+                        chatFragment.UploadIMG(outFileUri);
                 } else {
                     // The picture was returned
                     //Bundle extras = data.getExtras();
                     //ImageView imageView1 = (ImageView) findViewById(R.id.imageView1);
                     //imageView1.setImageBitmap((Bitmap) extras.get("data"));
-                    Toast.makeText(this, "Image saved to:\n" +
+                    Toast.makeText(view.getContext(), "Image saved to:\n" +
                             data.getData(), Toast.LENGTH_LONG).show();
                 }
-            } else if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == Activity.RESULT_CANCELED) {
                 // User cancelled the image capture
-                Toast.makeText(this, "Activity cancelled.", Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Activity cancelled.", Toast.LENGTH_LONG).show();
             } else {
                 // Image capture failed, advise user
-                Toast.makeText(this, "ERROR: IMAGE CAPTURE FAILED: " + Integer.toString(resultCode), Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "ERROR: IMAGE CAPTURE FAILED: " + Integer.toString(resultCode), Toast.LENGTH_LONG).show();
             }
         }
 
         if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 // Video captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Video saved to:\n" +
+                Toast.makeText(view.getContext(), "Video saved to:\n" +
                         data.getData(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == Activity.RESULT_CANCELED) {
                 // User cancelled the video capture
             } else {
                 // Video capture failed, advise user
             }
         }
 
-        finish();
+        ((MainActivity) getActivity()).popFragment();
     }
 
     /** Check if this device has a camera */
     public static boolean checkCameraHardware(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    @Override
+    public String getTitle() {
+        return "Taking Photo";
     }
 }

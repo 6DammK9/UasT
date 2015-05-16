@@ -11,28 +11,38 @@ package hk.ust.comp4521.exust;
  */
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class Multimedia_image extends Activity {
+public class Multimedia_image extends BaseFragment {
 
+    private View view;
     ImageAdapter myImageAdapter;
     private static final String TAG = "exUST.Multimedia_image";
+    ChatFragment chatFragment;
+
+    @Override
+    public String getTitle() {
+        return "Select Image";
+    }
+
+    public void setParam(ChatFragment c){
+        chatFragment = c;
+    }
 
     public class ImageAdapter extends BaseAdapter {
 
@@ -81,55 +91,18 @@ public class Multimedia_image extends Activity {
             imageView.setImageBitmap(bm);
             return imageView;
         }
-
-        public Bitmap decodeSampledBitmapFromUri(String path, int reqWidth, int reqHeight) {
-
-            Bitmap bm = null;
-            // First decode with inJustDecodeBounds=true to check dimensions
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(path, options);
-
-            // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-            // Decode bitmap with inSampleSize set
-            options.inJustDecodeBounds = false;
-            bm = BitmapFactory.decodeFile(path, options);
-
-            return bm;
-        }
-
-        public int calculateInSampleSize(
-
-                BitmapFactory.Options options, int reqWidth, int reqHeight) {
-            // Raw height and width of image
-            final int height = options.outHeight;
-            final int width = options.outWidth;
-            int inSampleSize = 1;
-
-            if (height > reqHeight || width > reqWidth) {
-                if (width > height) {
-                    inSampleSize = Math.round((float) height / (float) reqHeight);
-                } else {
-                    inSampleSize = Math.round((float) width / (float) reqWidth);
-                }
-            }
-
-            return inSampleSize;
-        }
-
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.grid_view);
+        view = inflater.inflate(R.layout.grid_view, null);
+        //super.onCreate(savedInstanceState);
+        //setContentView(R.layout.grid_view);
 
-        GridView gridview = (GridView) findViewById(R.id.mygridview);
+        GridView gridview = (GridView) view.findViewById(R.id.mygridview);
         gridview.setNumColumns(GridView.AUTO_FIT);
-        myImageAdapter = new ImageAdapter(this);
+        myImageAdapter = new ImageAdapter(view.getContext());
         gridview.setAdapter(myImageAdapter);
 
         String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -140,12 +113,12 @@ public class Multimedia_image extends Activity {
                 Environment.DIRECTORY_PICTURES), "USTasUST");
         final String targetPath2 = mediaStorageDir.getPath();
 
-        Toast.makeText(getApplicationContext(), targetPath2, Toast.LENGTH_LONG).show();
+        //Toast.makeText(view.getContext(), targetPath2, Toast.LENGTH_LONG).show();
         File targetDirector = new File(targetPath2);
 
         File[] files = targetDirector.listFiles();
         if (files == null) {
-            Log.i(MainActivity.TAG, "FAIL TO LOAD");
+            Log.i(TAG, "FAIL TO LOAD");
         } else {
             for (File file : files) {
                 myImageAdapter.add(file.getAbsolutePath());
@@ -155,10 +128,67 @@ public class Multimedia_image extends Activity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                finish();
+
+               if (chatFragment != null)
+                   chatFragment.UploadIMG(myImageAdapter.itemList.get(i));
+
+                ((MainActivity) getActivity()).popFragment();
+
             }
         });
 
+        return view;
     }
 
+    public static Bitmap decodeSampledBitmapFromUri(String path, int reqWidth, int reqHeight) {
+
+        Bitmap bm = null;
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        bm = BitmapFactory.decodeFile(path, options);
+
+        return bm;
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            if (width > height) {
+                inSampleSize = Math.round((float) height / (float) reqHeight);
+            } else {
+                inSampleSize = Math.round((float) width / (float) reqWidth);
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap getThumbnail(String fileName) {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "USTasUST");
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d(TAG, "failed to create directory");
+                return null;
+            }
+        }
+        File test = new File(mediaStorageDir.getPath() + File.separator + fileName);
+        if (test.exists())
+            return decodeSampledBitmapFromUri(mediaStorageDir.getPath() + File.separator + fileName, 192, 144);
+        else
+            return null;
+        //return decodeSampledBitmapFromUri(mediaStorageDir.getPath() + File.separator + "IMG_20150516_080825.jpg", 192, 144);
+    }
 }

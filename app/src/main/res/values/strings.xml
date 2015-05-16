@@ -45,6 +45,11 @@
     <string name="photo">Pic?</string>
     <string name="send">Send?</string>
     <string name="attachment">Attachment</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="title">Title</string>
+    <string name="join">Join</string>
+    <string name="match">Match</string>
+    <string name="view_img">viewIMG</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">

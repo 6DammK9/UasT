@@ -1,8 +1,9 @@
 package hk.ust.comp4521.exust;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,6 +35,7 @@ import hk.ust.comp4521.exust.data.Database;
 import hk.ust.comp4521.exust.data.DatabaseLoad;
 import hk.ust.comp4521.exust.data.ThreadItem;
 import hk.ust.comp4521.exust.json.ApiResponseBase;
+import hk.ust.comp4521.exust.json.ApiResponseIMG;
 
 // TODO implement Photo transfer and capture
 public class ChatFragment extends ThreadListFragment {
@@ -47,12 +50,13 @@ public class ChatFragment extends ThreadListFragment {
 	String[] ChatUsers;
 	static final String TAG = "exust.ChatFragment";
 	static ArrayList<CalendarEvent> groupCalEvents;
+    View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		layout_id = R.layout.fragment_chat;
-		View view = super.onCreateView(inflater, container, savedInstanceState);
+		view = super.onCreateView(inflater, container, savedInstanceState);
 		if (view==null) { return null; }
 
 		list.setDividerHeight(0);
@@ -66,40 +70,10 @@ public class ChatFragment extends ThreadListFragment {
 		attachment_layout.setVisibility(View.GONE);
 
 		send.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        getActivity());
-                ProgressBar bar = new ProgressBar(getActivity(), null,
-                        android.R.attr.progressBarStyleHorizontal);
-                bar.setIndeterminate(true);
-                builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
-                final AlertDialog dialog = builder.show();
-
-                ApiManager.send(chat.getKey(), message.getText().toString(),
-                        new ApiHandler<ApiResponseBase>() {
-
-                            @Override
-                            public void onSuccess(ApiResponseBase response) {
-                                dialog.dismiss();
-                                Toast.makeText(getActivity(),
-                                        response.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                                message.setText("");
-                                getThread();
-                            }
-
-                            @Override
-                            public void onFailure(String message) {
-                                dialog.dismiss();
-                                Toast.makeText(getActivity(), message,
-                                        Toast.LENGTH_LONG).show();
-                            }
-
-                        });
+                AutoSendMSG(message.getText().toString(), true);
             }
-
         });
 
 		attachment.setOnClickListener(new OnClickListener() {
@@ -114,19 +88,22 @@ public class ChatFragment extends ThreadListFragment {
 		camera.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent cam = new Intent(view.getContext(), Multimedia_photo.class);
-				if (Multimedia_photo.checkCameraHardware(view.getContext()))
-					startActivityForResult(cam, 100);
-				attachment_layout.setVisibility(View.GONE);
+                Multimedia_photo cam = new Multimedia_photo();
+                cam.setParam(ChatFragment.this);
+                MainActivity main = (MainActivity) getActivity();
+                main.gotoFragment(2, cam);
+                attachment_layout.setVisibility(View.GONE);
 			}
 		});
 
         image.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent img = new Intent(view.getContext(), Multimedia_image.class);
-                startActivityForResult(img, 100);
-                attachment_layout.setVisibility(View.GONE);
+				Multimedia_image img = new Multimedia_image();
+                img.setParam(ChatFragment.this);
+				MainActivity main = (MainActivity) getActivity();
+				main.gotoFragment(2, img);
+				attachment_layout.setVisibility(View.GONE);
             }
         });
 
@@ -146,29 +123,29 @@ public class ChatFragment extends ThreadListFragment {
 	@Override
 	public void getThread() {
 		Database.getDataSingle(info.type(), key, ChatItems.class,
-				new DatabaseLoad<ChatItems>() {
-					@Override
-					public void load(ChatItems obj) {
-						if (obj == null)
-							return;
-						threads = new ArrayList<ThreadItem>();
-						threads.addAll(Arrays.asList(obj.getChats()));
-						if (info.sort()) {
-							Collections.sort(threads,
-									new Comparator<ThreadItem>() {
-										@Override
-										public int compare(ThreadItem a,
-														   ThreadItem b) {
-											return a.compareTo(b);
-										}
-									});
-						}
-						update();
-						list.setSelection(threads.size() - 1);
+                new DatabaseLoad<ChatItems>() {
+                    @Override
+                    public void load(ChatItems obj) {
+                        if (obj == null)
+                            return;
+                        threads = new ArrayList<ThreadItem>();
+                        threads.addAll(Arrays.asList(obj.getChats()));
+                        if (info.sort()) {
+                            Collections.sort(threads,
+                                    new Comparator<ThreadItem>() {
+                                        @Override
+                                        public int compare(ThreadItem a,
+                                                           ThreadItem b) {
+                                            return a.compareTo(b);
+                                        }
+                                    });
+                        }
+                        update();
+                        list.setSelection(threads.size() - 1);
 
-						ChatUsers = obj.getUsers();
-					}
-				});
+                        ChatUsers = obj.getUsers();
+                    }
+                });
 	}
 
 	@Override
@@ -208,8 +185,7 @@ public class ChatFragment extends ThreadListFragment {
 				@Override
 				public void onFailure(String message) {
 					dialog.dismiss();
-					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 				}
 
 			});
@@ -321,4 +297,102 @@ public class ChatFragment extends ThreadListFragment {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+    public void UploadIMG(final String img) {
+        File file = new File(img);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        ProgressBar bar = new ProgressBar(view.getContext(), null,
+                android.R.attr.progressBarStyleHorizontal);
+        bar.setIndeterminate(true);
+        builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
+        final AlertDialog dialog = builder.show();
+
+        ApiManager.upIMG(file, new ApiHandler<ApiResponseIMG>() {
+
+            @Override
+            public void onSuccess(ApiResponseIMG response) {
+                dialog.dismiss();
+                File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "USTasUST");
+                File tmp_file = new File(img);
+                File target_file = new File(mediaStorageDir.getPath() + File.separator + response.getIMG());
+                if (!tmp_file.renameTo(target_file)) {
+                    Log.i(TAG, "Fail to rename file");
+                }
+                AutoSendIMG(response.getIMG(), true);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                dialog.dismiss();
+                Toast.makeText(view.getContext(), message, Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+    public void AutoSendMSG(String msg, final Boolean clearMSG){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        ProgressBar bar = new ProgressBar(view.getContext(), null,
+                android.R.attr.progressBarStyleHorizontal);
+        bar.setIndeterminate(true);
+        builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
+        final AlertDialog dialog = builder.show();
+
+        ApiManager.send(key, msg,
+                new ApiHandler<ApiResponseBase>() {
+
+                    @Override
+                    public void onSuccess(ApiResponseBase response) {
+                        dialog.dismiss();
+                        Toast.makeText(view.getContext(),
+                                response.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        if (clearMSG) {
+                            message.setText("");
+                        }
+                        getThread();
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        dialog.dismiss();
+                        Toast.makeText(view.getContext(), message,
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                });
+    }
+
+    public void AutoSendIMG(String img, final Boolean clearMSG){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        ProgressBar bar = new ProgressBar(view.getContext(), null,
+                android.R.attr.progressBarStyleHorizontal);
+        bar.setIndeterminate(true);
+        builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
+        final AlertDialog dialog = builder.show();
+
+        ApiManager.sendIMG(key, img, message.getText().toString(),
+                new ApiHandler<ApiResponseBase>() {
+
+                    @Override
+                    public void onSuccess(ApiResponseBase response) {
+                        dialog.dismiss();
+                        Toast.makeText(view.getContext(),
+                                response.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        if (clearMSG) {message.setText("");}
+                        getThread();
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        dialog.dismiss();
+                        Toast.makeText(view.getContext(), message,
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                });
+    }
 }

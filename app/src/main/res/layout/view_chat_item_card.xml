@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2sp"
-            android:text="Subtitle"
+            android:text="@string/subtitle"
             android:textColor="@android:color/secondary_text_light"
             android:textSize="18sp" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_marginTop="8sp"
-            android:text="Title"
+            android:text="@string/title"
             android:textColor="@android:color/primary_text_light"
             android:textSize="16sp" />
 
@@ -45,14 +45,32 @@
                 android:id="@+id/join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Join" />
+                android:text="@string/join" />
 
             <Button
                 android:id="@+id/match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Match" />
+                android:text="@string/match" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/match_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="8sp"
+            android:visibility="gone" >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_img"
+                android:src="@drawable/download"
+                android:contentDescription="@string/view_img" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </hk.ust.comp4521.exust.ChatCardView>

@@ -64,16 +64,6 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <activity
-            android:name=".Multimedia_photo"
-            android:screenOrientation="portrait" >
-        </activity>
-
-        <activity
-            android:name=".Multimedia_image"
-            android:screenOrientation="portrait" >
-        </activity>
-
     </application>
 
 </manifest>

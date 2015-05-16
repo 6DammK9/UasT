@@ -10,9 +10,19 @@ import hk.ust.comp4521.exust.R;
 public class ChatItem extends ThreadPostItem {
 	long time;
 	String matchId;
+	String imgId;
+	String imgName;
 
 	public String getMatchId() {
 		return matchId;
+	}
+
+	public String getIMGId() {
+		return imgId;
+	}
+
+	public String getIMGName() {
+		return imgName;
 	}
 
 	public long getTime() {
@@ -28,6 +38,10 @@ public class ChatItem extends ThreadPostItem {
 			//matchId = obj.getString("match");
         if (obj.has("match2"))
             matchId = obj.getString("match2");
+		if (obj.has("matchIMG"))
+			imgId = obj.getString("matchIMG");
+		if (obj.has("img"))
+			imgName =  obj.getString("img");
 		key = obj.getString("id");
 		time = obj.getLong("time");
 	}
