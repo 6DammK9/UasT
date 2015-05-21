@@ -1,11 +1,13 @@
 package hk.ust.comp4521.exust.test;
 
+import android.test.AndroidTestCase;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.test.AndroidTestCase;
-import hk.ust.comp4521.exust.*;
-import hk.ust.comp4521.exust.data.*;
+import hk.ust.comp4521.exust.data.Course;
+import hk.ust.comp4521.exust.data.CourseComment;
+import hk.ust.comp4521.exust.data.Group;
 
 public class TestDataPackage extends AndroidTestCase
 {
@@ -16,21 +18,21 @@ public class TestDataPackage extends AndroidTestCase
 		Course d = new Course();
 
 		JSONObject obj = new JSONObject();
-		obj.put("name", "1");
-		obj.put("code", "1");
-		obj.put("desc", "1");
+		obj.put("name", "NAME");
+		obj.put("code", "CODE");
+		obj.put("desc", "DESC");
 		obj.put("credit", "1");
 		obj.put("rating", "1");
 		obj.put("ratingTotal", "1");
 		c.load(obj);
 		d.load(obj);
-		assertEquals("1", c.getDesc());
+		assertEquals("DESC", c.getDesc());
 		assertEquals(1, c.getRating());
-		assertFalse(c.getSub() == "1234");
-		assertFalse(c.getTitle() == "1234");
+		assertFalse(c.getSub().equals("1234"));
+		assertFalse(c.getTitle().equals("1234"));
 		assertFalse(c.filter("hello"));
 		assertNotNull(c.getFragment());
-
+        assertNotNull(d.getFragment());
 	}
 
 	public void testCourseComment() throws JSONException
@@ -39,10 +41,10 @@ public class TestDataPackage extends AndroidTestCase
 		CourseComment d = new CourseComment();
 
 		JSONObject obj = new JSONObject();
-		obj.put("title", "1");
-		obj.put("author", "2");
-		obj.put("authorId", "3");
-		obj.put("post", "4");
+		obj.put("title", "TITLE");
+		obj.put("author", "AUTHOR");
+		obj.put("authorId", "ID");
+		obj.put("post", "POST");
 		obj.put("time", "5");
 		c.load(obj);
 		d.load(obj);
@@ -54,12 +56,12 @@ public class TestDataPackage extends AndroidTestCase
 	public void testGroup() throws JSONException
 	{
 		Group g = new Group();
-		g.setAdmin("a");
-		g.setGroupMembers("b");
-		g.setTitle("c");
-		assertEquals("a", g.getAdmin());
-		assertEquals("b", g.getGroupMembers());
-		assertEquals("c", g.getTitle());
+		g.setAdmin("ADMIN");
+		g.setGroupMembers("MEMBER");
+		g.setTitle("TITLE");
+		assertEquals("ADMIN", g.getAdmin());
+		assertEquals("MEMBER", g.getGroupMembers());
+		assertEquals("TITLE", g.getTitle());
 
 	}
 

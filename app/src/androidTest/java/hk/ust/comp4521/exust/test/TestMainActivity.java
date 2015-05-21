@@ -1,36 +1,12 @@
 package hk.ust.comp4521.exust.test;
 
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
+
 import com.robotium.solo.Solo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
+import hk.ust.comp4521.exust.MainActivity;
 import hk.ust.comp4521.exust.R;
-import hk.ust.comp4521.exust.*;
-import hk.ust.comp4521.exust.data.Course;
-import hk.ust.comp4521.exust.data.Database;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.test.ActivityInstrumentationTestCase2;
-import android.view.ActionProvider;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
-import android.widget.EditText;
 
 public class TestMainActivity extends
 		ActivityInstrumentationTestCase2<MainActivity>
@@ -59,13 +35,13 @@ public class TestMainActivity extends
 		assertTrue(solo.searchText("Overview of accounting"));
 
 		solo.clickOnActionBarItem(R.id.add);
-		solo.typeText(0, "Jason");
+		solo.typeText(0, "User0");
 		solo.typeText(1, "Testing 1234");
 
 		solo.clickOnActionBarItem(R.id.confirm);
 		solo.sleep(2000);
 
-		solo.clickOnText("Jason");
+		solo.clickOnText("User0");
 		solo.sleep(2000);
 
 		// assertEquals("hello", getActivity().getTitle());
@@ -192,7 +168,7 @@ public class TestMainActivity extends
 		solo.clickOnText("Login");
 		solo.sleep(2000);
 		solo.clearEditText(0);
-		solo.typeText(0, "skchanae@ust.hk");
+		solo.typeText(0, "thlauac@ust.hk");
 		solo.clickOnText("Login");
 		solo.sleep(2000);
 		solo.typeText(1, "test");
@@ -217,7 +193,7 @@ public class TestMainActivity extends
 
 		solo.clickOnText("Login");
 		solo.clearEditText(0);
-		solo.typeText(0, "skchanae@ust.hk");
+		solo.typeText(0, "thlauac@ust.hk");
 		solo.clickOnText("Login");
 		solo.sleep(2000);
 		solo.typeText(1, "test");
@@ -252,7 +228,7 @@ public class TestMainActivity extends
 		solo.sleep(1000);
 		solo.clickOnText("Chat");
 		solo.sleep(2000);
-		solo.clickOnText("cochung");
+		solo.clickOnText("hehehehe");
 		solo.sleep(2000);
 	}
 
