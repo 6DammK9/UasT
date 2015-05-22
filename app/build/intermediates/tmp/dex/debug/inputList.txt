@@ -12,6 +12,7 @@ C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\classes-e6a7bbc9ad142235370b796f0465c4488743a505.jar
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\classes-31cf9b06a25c3d459323dd026da91b94d96fe5f1.jar
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\classes-945463c8808c50e2babdfb79bef6ac9d575ed656.jar
+C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\robotium-solo-5.3.1-39d28f2d31135455c16961074cd42af423586dd4.jar
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\classes-9ba5b0eb8b01dd486ce5b06fa0255755e839cbdd.jar
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\classes-ee8df21f4d6b1f751947bbdbb4acd8d84fa89247.jar
 C:\Users\YuXuZaWa\AndroidStudioProjects\ExUST\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-0b0747481be2bca2d58c5cd08bf71c1fb90f1e6e.jar
