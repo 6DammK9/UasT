@@ -52,7 +52,7 @@ public class CalendarFragment extends BaseFragment
 	{
         //Log.i(TAG, "onCreateView()");
 
-		view = inflater.inflate(R.layout.fragment_calendar, null);
+		view = inflater.inflate(R.layout.fragment_calendar, container, false);
         cal_m = (CalendarView) view.findViewById(R.id.calendar_month);
 		cal_d = (GridView) view.findViewById(R.id.calendar_day);
         new_event = (Button) view.findViewById(R.id.btn_new_event);

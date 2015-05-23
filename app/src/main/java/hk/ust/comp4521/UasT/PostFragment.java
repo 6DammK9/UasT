@@ -43,7 +43,7 @@ public class PostFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_post, null);
+		View view = inflater.inflate(R.layout.fragment_post, container, false);
 		title = (EditText) view.findViewById(R.id.title);
 		details = (EditText) view.findViewById(R.id.details);
 		content = (EditText) view.findViewById(R.id.content);

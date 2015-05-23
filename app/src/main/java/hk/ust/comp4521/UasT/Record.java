@@ -61,7 +61,7 @@ public class Record extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Log.i(TAG, "onCreateView");
-        view = inflater.inflate(R.layout.record, null);
+        view = inflater.inflate(R.layout.record, container, false);
 
         freqSpin = (Spinner) view.findViewById(R.id.freqSpin);
         remSpin = (Spinner) view.findViewById(R.id.remSpin);
@@ -119,7 +119,7 @@ public class Record extends BaseFragment {
         return "Calendar";
     }
 
-    public OnClickListener FromTimeListener = new OnClickListener() {
+    public final OnClickListener FromTimeListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             MainActivity main = (MainActivity) getActivity();
@@ -130,7 +130,7 @@ public class Record extends BaseFragment {
         }
     };
 
-    public OnClickListener ToTimeListener = new OnClickListener() {
+    public final OnClickListener ToTimeListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             MainActivity main = (MainActivity) getActivity();
@@ -141,7 +141,7 @@ public class Record extends BaseFragment {
         }
     };
 
-    public OnClickListener ReminderListener = new OnClickListener() {
+    public final OnClickListener ReminderListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             if (remSpin.getSelectedItem().toString().equals("On")) {
@@ -160,7 +160,7 @@ public class Record extends BaseFragment {
         }
     };
 
-    public OnClickListener confirmButtonListener = new OnClickListener() {
+    public final OnClickListener confirmButtonListener = new OnClickListener() {
         @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
         public void onClick(View v) {
@@ -216,7 +216,7 @@ public class Record extends BaseFragment {
         }
     };
 
-    public OnItemSelectedListener remSpinListener = new OnItemSelectedListener() {
+    public final OnItemSelectedListener remSpinListener = new OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             if (remSpin.getSelectedItem().toString().equals("Off")) {
@@ -231,7 +231,7 @@ public class Record extends BaseFragment {
         }
     };
 
-    public OnClickListener deleteButtonListener = new OnClickListener() {
+    public final OnClickListener deleteButtonListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             calendarFragment.CalEvents.remove(CalEventsSelectedIndex);

@@ -10,13 +10,9 @@ public class Post extends ThreadItem {
 		return content;
 	}
 
-	public String[] getAttachments() {
-		return attachments;
-	}
+	//public String[] getAttachments() {return attachments;}
 
-	public String getDetails() {
-		return details;
-	}
+	//public String getDetails() {return details;}
 
 	public String getAuthorId() {
 		return authorId;

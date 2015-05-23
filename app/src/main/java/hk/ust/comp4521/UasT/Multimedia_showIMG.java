@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 /**
  * Created by Darren on 22/5/2015.
+ * Main purpose: To show the selected image.
  */
 
 /**
@@ -35,7 +36,7 @@ public class Multimedia_showIMG extends BaseFragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.multimedia_showimg, null);
+        view = inflater.inflate(R.layout.multimedia_showimg, container, false);
 
         img = (ImageView) view.findViewById(R.id.img);
 

@@ -15,6 +15,7 @@ import hk.ust.comp4521.UasT.data.CalendarEvent;
 
 /**
  * Created by Darren on 17/4/2015.
+ * Main purpose: To choose time through GUI.
  */
 public class choose_time extends BaseFragment {
     private String curStr;
@@ -46,7 +47,7 @@ public class choose_time extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.choose_time, null);
+        view = inflater.inflate(R.layout.choose_time, container, false);
 
         datePicker = (DatePicker) view.findViewById(R.id.datePicker);
         timePicker = (TimePicker) view.findViewById(R.id.timePicker);
@@ -77,7 +78,7 @@ public class choose_time extends BaseFragment {
         return "Calendar";
     }
 
-    public OnClickListener AcceptListener = new OnClickListener()
+    public final OnClickListener AcceptListener = new OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -90,7 +91,7 @@ public class choose_time extends BaseFragment {
         }
     };
 
-    private OnClickListener DeclineListener = new OnClickListener()
+    private final OnClickListener DeclineListener = new OnClickListener()
     {
         @Override
         public void onClick(View v)

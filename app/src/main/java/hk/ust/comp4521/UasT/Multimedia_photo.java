@@ -2,6 +2,7 @@ package hk.ust.comp4521.UasT;
 
 /**
  * Created by Darren on 13/5/2015.
+ * Main purpose: Photo, Store, Rename, Send.
  */
 /**
  * Android tutorial rocks.
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Multimedia_photo extends BaseFragment {
     public static final int MEDIA_TYPE_IMAGE = 1;
@@ -65,7 +67,7 @@ public class Multimedia_photo extends BaseFragment {
         }
 
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){
             outFileUri = mediaStorageDir.getPath() + File.separator +
@@ -85,7 +87,7 @@ public class Multimedia_photo extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.grid_view, null);
+        view = inflater.inflate(R.layout.grid_view, container, false);
 
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -138,8 +140,10 @@ public class Multimedia_photo extends BaseFragment {
                         data.getData(), Toast.LENGTH_LONG).show();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // User cancelled the video capture
+                Toast.makeText(view.getContext(), "Activity cancelled.", Toast.LENGTH_LONG).show();
             } else {
                 // Video capture failed, advise user
+                Toast.makeText(view.getContext(), "ERROR: VIDEO CAPTURE FAILED: " + Integer.toString(resultCode), Toast.LENGTH_LONG).show();
             }
         }
 

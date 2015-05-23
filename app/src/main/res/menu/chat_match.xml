@@ -5,7 +5,7 @@
         android:id="@+id/match"
         android:icon="@drawable/icon_action_calendar"
         android:showAsAction="always"
-        android:title="Match">
+        android:title="@string/match">
     </item>
 
 </menu>

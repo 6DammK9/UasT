@@ -8,9 +8,7 @@ import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,15 +27,15 @@ import hk.ust.comp4521.UasT.json.ApiResponseValidate;
 
 public class ApiManager {
 
-    public static final String TAG = "UasT.data";
-    public static String API_HOST = "http://localhost:5001/api/";
-    public static final String RES_HOST = "http://127.0.0.1:5001/res/";
+    private static final String TAG = "UasT.data";
+    public static String API_HOST = "http://127.0.0.1:5001/api/";
+    //public static final String RES_HOST = "http://127.0.0.1:5001/res/";
 
-    static AsyncHttpClient client = new AsyncHttpClient();
-    static HttpClient clinetSync = new DefaultHttpClient();
+    private static final AsyncHttpClient client = new AsyncHttpClient();
+    //static HttpClient clinetSync = new DefaultHttpClient();
 
     //Api(obj, handler, ApiResponseBase.class, 1);
-    public static <T extends ApiResponseBase> void Api(
+    private static <T extends ApiResponseBase> void Api(
             final JSONObject request, final ApiHandler<T> handler,
             final Class<T> responseClass, final int retryCount) {
         StringEntity entity;
@@ -68,7 +66,6 @@ public class ApiManager {
                                 }
                             }
                         } catch (JSONException exc) {
-                            if (handler != null)
                                 handler.onFailure("Invalid response: "
                                         + exc.toString());
                         } catch (InstantiationException e) {
@@ -93,7 +90,7 @@ public class ApiManager {
                 });
     }
 
-    public static <T extends ApiResponseBase> void ApiUploadFile(
+    private static <T extends ApiResponseBase> void ApiUploadFile(
             final File request, final ApiHandler<T> handler,
             final Class<T> responseClass, final int retryCount) {
 
@@ -129,7 +126,6 @@ public class ApiManager {
                             }
                         }
                     } catch (JSONException exc) {
-                        if (handler != null)
                             handler.onFailure("Invalid response: "
                                     + exc.toString());
                     } catch (InstantiationException e) {
@@ -159,7 +155,7 @@ public class ApiManager {
         }
     }
 
-    public static <T extends ApiResponseBase> void ApiDownloadFile(
+    private static <T extends ApiResponseBase> void ApiDownloadFile(
             final JSONObject request, final ApiHandler<T> handler,
             final Class<T> responseClass, final int retryCount) {
 

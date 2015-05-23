@@ -5,7 +5,7 @@
         android:id="@+id/del"
         android:icon="@drawable/ic_action_delete"
         android:showAsAction="always"
-        android:title="Delete">
+        android:title="@string/delete">
     </item>
 
 </menu>

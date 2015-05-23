@@ -24,13 +24,15 @@
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:id="@+id/camera"
-            android:src="@drawable/camera" />
+            android:src="@drawable/camera"
+            android:contentDescription="@string/camera" />
 
         <ImageButton
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:id="@+id/image"
-            android:src="@drawable/image" />
+            android:src="@drawable/image"
+            android:contentDescription="@string/image" />
     </LinearLayout>
 
     <LinearLayout

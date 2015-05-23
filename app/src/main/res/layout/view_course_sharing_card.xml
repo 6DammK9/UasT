@@ -18,7 +18,7 @@
 		    android:layout_height="wrap_content"
 		    android:textColor="@android:color/primary_text_light"
 		    android:textSize="16sp"
-		    android:text="Title"
+		    android:text="@string/title"
             android:textIsSelectable="false" />
 
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User Name"
+                android:text="@string/user_name"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="12sp"
                 android:layout_marginBottom="8dp" />
@@ -39,18 +39,18 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="20dp"
-                android:text="Like"
+                android:text="@string/like"
                 android:id="@+id/likeButton"
                 android:enabled="true"
                 android:background="@android:color/darker_gray"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/likeMessage"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right"
-                android:text="100 Likes"
+                android:text="@string/likes"
                 android:enabled="false" />
         </LinearLayout>
 

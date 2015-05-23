@@ -65,9 +65,5 @@ public class TestDataPackage extends AndroidTestCase
 
 	}
 
-	public void testDatabase() throws JSONException
-	{
-		//
-
-	}
+	//public void testDatabase() throws JSONException {}
 }

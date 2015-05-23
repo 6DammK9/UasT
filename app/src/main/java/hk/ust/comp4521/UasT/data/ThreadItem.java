@@ -1,8 +1,10 @@
 package hk.ust.comp4521.UasT.data;
 
+import android.support.annotation.NonNull;
+
 import java.util.Locale;
 
-import hk.ust.comp4521.UasT.*;
+import hk.ust.comp4521.UasT.BaseFragment;
 
 
 public abstract class ThreadItem extends DataType implements Comparable<ThreadItem> {
@@ -13,7 +15,7 @@ public abstract class ThreadItem extends DataType implements Comparable<ThreadIt
 	public String getKey() { return key; }
 	
 	@Override
-	public int compareTo(ThreadItem another) {
+	public int compareTo(@NonNull ThreadItem another) {
 		return 0;
 	}
 	

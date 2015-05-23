@@ -1,5 +1,7 @@
 package hk.ust.comp4521.UasT.data;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,7 @@ public class Course extends ThreadItem {
 	}
 
 	@Override
-	public int compareTo(ThreadItem another) {
+	public int compareTo(@NonNull ThreadItem another) {
 		Course course = (Course) another;
 		
 		boolean isFavo = getIsFavorite();

@@ -53,7 +53,7 @@ public class UserAddFragment extends BaseFragment {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_user_add, null);
+		View view = inflater.inflate(R.layout.fragment_user_add, container, false);
         destITSC = (EditText) view.findViewById(R.id.title);
         list = (ListView) view.findViewById(R.id.list);
         FriendList = new ArrayList<String>();

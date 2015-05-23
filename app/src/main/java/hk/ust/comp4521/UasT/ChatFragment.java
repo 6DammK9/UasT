@@ -90,6 +90,10 @@ public class ChatFragment extends ThreadListFragment {
             @Override
             public void onClick(View view) {
                 Multimedia_photo cam = new Multimedia_photo();
+                if (!Multimedia_photo.checkCameraHardware(view.getContext())) {
+                    Toast.makeText(view.getContext(), "This feature needs camera!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 cam.setParam(ChatFragment.this);
                 MainActivity main = (MainActivity) getActivity();
                 main.gotoFragment(2, cam);

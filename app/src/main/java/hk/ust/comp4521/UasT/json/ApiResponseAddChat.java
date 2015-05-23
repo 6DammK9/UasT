@@ -7,7 +7,7 @@ import hk.ust.comp4521.UasT.data.Chat;
 
 public class ApiResponseAddChat extends ApiResponseBase {
 
-	Chat chat;
+	private Chat chat;
 	
 	public void load(JSONObject obj) throws JSONException {
 		super.load(obj);

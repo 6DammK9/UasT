@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "hk.ust.comp4521.UasT"
-        minSdkVersion 16
+        minSdkVersion 17
 
         testApplicationId "hk.ust.comp4521.UasT.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -21,8 +21,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.google.android.gms:play-services:7.3.0'
     compile files('libs/android-async-http-1.4.4.jar')
     compile files('libs/robotium-solo-5.3.1.jar')
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'

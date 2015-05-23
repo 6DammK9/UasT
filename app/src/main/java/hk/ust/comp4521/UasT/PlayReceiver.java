@@ -13,7 +13,9 @@ import android.util.Log;
 
 /**
  * Created by Darren on 21/4/2015.
+ * Main purpose: To implement the reminder function.
  */
+
 public class PlayReceiver extends BroadcastReceiver {
     static final String TAG = "UasT.PlayReceiver";
     public static final int NOTIFICATION_ID = 2;

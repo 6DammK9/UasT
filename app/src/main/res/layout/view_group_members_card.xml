@@ -17,7 +17,7 @@
 		    android:layout_height="wrap_content"
 		    android:textColor="@android:color/primary_text_light"
 		    android:textSize="16sp"
-		    android:text="Title" />
+		    android:text="@string/title" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -32,22 +32,22 @@
                     android:layout_marginTop="8dp"
                     android:textColor="@android:color/secondary_text_light"
                     android:textSize="12sp"
-                    android:text="admin"
+                    android:text="@string/admin"
                     android:layout_gravity="top" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="New Text"
+                    android:text="@string/member"
                     android:id="@+id/textView"
                     android:layout_weight="0.74" />
 
                 <Button
                     android:layout_width="54dp"
                     android:layout_height="30dp"
-                    android:text="DeleteEX"
+                    android:text="@string/delete"
                     android:id="@+id/delButton"
-                    android:textSize="10dp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
 
             </LinearLayout>

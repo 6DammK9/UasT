@@ -17,7 +17,7 @@ public class TestMainActivity extends
 		super(MainActivity.class);
 	}
 
-	MainActivity mActivity;
+	//MainActivity mActivity;
 
 	public void testMain()
 	{

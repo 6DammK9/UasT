@@ -24,8 +24,8 @@ public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
 	static final long[] vibraPattern = { 0, 500, 250, 500 };
 
-	ArrayList<String> messages = new ArrayList<String>();
-	Map<String, String> senders = new HashMap<String, String>();
+	final ArrayList<String> messages = new ArrayList<String>();
+	final Map<String, String> senders = new HashMap<String, String>();
 
 	public GcmIntentService() {
 		super("GcmIntentService");

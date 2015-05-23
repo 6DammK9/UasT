@@ -1,5 +1,7 @@
 package hk.ust.comp4521.UasT.data;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,8 +33,8 @@ public class Chat extends ThreadItem  {
 	}
 
 	@Override
-	public int compareTo(ThreadItem another) {
-		Chat chat = (Chat)another;
+	public int compareTo(@NonNull ThreadItem another) {
+		Chat chat = (Chat) another;
 		long lhs = time;
 		long rhs = chat.time;
 		return -(lhs < rhs ? -1 : (lhs == rhs ? 0 : 1));

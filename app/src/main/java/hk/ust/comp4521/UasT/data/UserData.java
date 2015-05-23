@@ -1,5 +1,7 @@
 package hk.ust.comp4521.UasT.data;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class UserData {
     String email = "", auth, name = "User " + Math.abs(new Random().nextInt());
-    Map<String, String> favorite = new HashMap<String, String>();
+    final Map<String, String> favorite = new HashMap<String, String>();
     ArrayList<CalendarEvent> calendar2;
 
     public ArrayList<CalendarEvent> getCalendar2() {
@@ -43,9 +45,7 @@ public class UserData {
         this.email = email;
     }
 
-    public String getAuth() {
-        return auth;
-    }
+    //public String getAuth() { return auth; }
 
     public void setAuth(String auth) {
         this.auth = auth;
@@ -56,7 +56,7 @@ public class UserData {
                 && !auth.isEmpty();
     }
 
-    static Pattern itscPattern = Pattern.compile(
+    static final Pattern itscPattern = Pattern.compile(
             "^([A-Z._]+)@[A-Z.]*ust\\.hk$", Pattern.CASE_INSENSITIVE);
 
     public String getITSC() {
@@ -91,6 +91,7 @@ public class UserData {
                         favorite.put(_favorite.getString(i), null);
                 }
             } catch (JSONException e) {
+                Log.i("UasT UserData", e.toString());
             }
         }
     }

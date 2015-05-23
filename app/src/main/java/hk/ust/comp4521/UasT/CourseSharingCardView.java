@@ -63,7 +63,7 @@ public class CourseSharingCardView extends ThreadCardView {
         vh.likeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewHolder vh = (ViewHolder) getTag();
+                //ViewHolder vh = (ViewHolder) getTag();
                 AlertDialog.Builder builder = new AlertDialog.Builder(CourseSharingCardView.this.getContext());
                 ProgressBar bar = new ProgressBar(CourseSharingCardView.this.getContext(), null,
                         android.R.attr.progressBarStyleHorizontal);

@@ -13,6 +13,7 @@ import hk.ust.comp4521.UasT.data.CalendarEvent;
 
 /**
  * Created by Darren on 18/4/2015.
+ * Main purpose: To choose time amount through GUI.
  */
 public class choose_before extends BaseFragment {
     Record _parent;
@@ -74,7 +75,7 @@ public class choose_before extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.choose_before, null);
+        view = inflater.inflate(R.layout.choose_before, container, false);
 
         numDay = (NumberPicker) view.findViewById(R.id.numDay);
         numHour = (NumberPicker) view.findViewById(R.id.numHour);
@@ -108,7 +109,7 @@ public class choose_before extends BaseFragment {
         return "Calendar";
     }
 
-    public View.OnClickListener AcceptListener = new View.OnClickListener()
+    public final View.OnClickListener AcceptListener = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -125,7 +126,7 @@ public class choose_before extends BaseFragment {
         }
     };
 
-    private View.OnClickListener DeclineListener = new View.OnClickListener()
+    private final View.OnClickListener DeclineListener = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)

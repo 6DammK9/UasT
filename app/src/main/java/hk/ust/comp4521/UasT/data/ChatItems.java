@@ -17,11 +17,15 @@ public class ChatItems extends DataType {
 		
 		for(int i = 0; i < chats.length; i++) {
 			ChatItem chat = chats[i] = new ChatItem();
-			chat.load(_chats.getJSONObject(chatIds.getString(i)));
+			if (chatIds != null) {
+				chat.load(_chats.getJSONObject(chatIds.getString(i)));
+			}
 		}
 		
 		for(int i = 0; i < users.length; i++) {
-			users[i] = userIds.getString(i);
+			if (userIds != null) {
+				users[i] = userIds.getString(i);
+			}
 		}
 	}
 

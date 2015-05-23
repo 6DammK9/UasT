@@ -165,7 +165,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    List<Stack<BaseFragment>> stacks = new ArrayList<Stack<BaseFragment>>();
+    final List<Stack<BaseFragment>> stacks = new ArrayList<Stack<BaseFragment>>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -392,7 +392,7 @@ public class MainActivity extends Activity {
         editor.apply();
     }
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private final ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             mBoundService = ((GcmIntentService.LocalBinder) service)
                     .getService();

@@ -2,6 +2,7 @@ package hk.ust.comp4521.UasT;
 
 /**
  * Created by Darren on 14/5/2015.
+ * To choose image through GUI and process with the image chosen.
  */
 /**
  *  Tutorial rocks.
@@ -56,8 +57,8 @@ public class Multimedia_image extends BaseFragment {
 
     public class ImageAdapter extends BaseAdapter {
 
-        private Context mContext;
-        ArrayList<String> itemList = new ArrayList<String>();
+        private final Context mContext;
+        final ArrayList<String> itemList = new ArrayList<String>();
 
         public ImageAdapter(Context c) {
             mContext = c;
@@ -122,7 +123,7 @@ public class Multimedia_image extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        view = inflater.inflate(R.layout.multimedia_image, null);
+        view = inflater.inflate(R.layout.multimedia_image, container, false);
         //super.onCreate(savedInstanceState);
         //setContentView(R.layout.grid_view);
 
@@ -208,7 +209,6 @@ public class Multimedia_image extends BaseFragment {
 
     public static Bitmap decodeSampledBitmapFromUri(String path, int reqWidth, int reqHeight) {
 
-        Bitmap bm = null;
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -219,9 +219,8 @@ public class Multimedia_image extends BaseFragment {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        bm = BitmapFactory.decodeFile(path, options);
 
-        return bm;
+        return BitmapFactory.decodeFile(path, options);
     }
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {

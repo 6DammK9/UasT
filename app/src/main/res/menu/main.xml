@@ -2,6 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="hk.ust.comp4521.UasT.MainActivity" >
 
-    <item android:id="@+id/login" android:title="Login"></item>
+    <item android:id="@+id/login" android:title="@string/login"></item>
 
 </menu>

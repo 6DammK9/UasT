@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by Darren on 7/4/2015.
+ * Description: Basic calendar event with basic information.
  */
 public class CalendarEvent {
     private Date From;

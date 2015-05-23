@@ -6,7 +6,7 @@
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
     <RadioGroup
@@ -20,19 +20,19 @@
             android:id="@+id/course"
             style="@style/tab_item"
             android:drawableTop="@drawable/icon_course"
-            android:text="Course" />
+            android:text="@string/course" />
 
         <RadioButton
             android:id="@+id/calendar"
             style="@style/tab_item"
             android:drawableTop="@drawable/icon_calendar"
-            android:text="Calendar" />
+            android:text="@string/calendar" />
 
         <RadioButton
             android:id="@+id/chat"
             style="@style/tab_item"
             android:drawableTop="@drawable/icon_chat"
-            android:text="Chat" />
+            android:text="@string/chat" />
     </RadioGroup>
 
 </LinearLayout>

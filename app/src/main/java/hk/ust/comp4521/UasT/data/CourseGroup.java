@@ -1,5 +1,7 @@
 package hk.ust.comp4521.UasT.data;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +26,7 @@ public class CourseGroup extends ThreadPostItem {
 	}
 	
 	@Override
-	public int compareTo(ThreadItem another) {
+	public int compareTo(@NonNull ThreadItem another) {
 		CourseGroup comment = (CourseGroup)another;
 		long lhs = time;
 		long rhs = comment.time;
