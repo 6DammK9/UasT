@@ -39,25 +39,27 @@ public class Multimedia_image extends BaseFragment {
 
     private View view;
     GridView gridview;
-    ImageAdapter myImageAdapter0, myImageAdapter1, myImageAdapter2;
+    ImageAdapter myImageAdapter0, myImageAdapter1, myImageAdapter2, myImageAdapter3;
     Spinner FolderSpin;
     private static final String TAG = "UasT.Multimedia_image";
-    ChatFragment chatFragment;
+    IMGUpload chatFragment;
     final static int DEFAULT_IMAGE_SIZE = 240;
     final static int DEFAULT_IMAGE_PADDING = 8;
+    final static int MAX_PICTURE_SHOW = 10;
 
     @Override
     public String getTitle() {
         return "Select Image";
     }
 
-    public void setParam(ChatFragment c){
+    public void setParam(IMGUpload c){
         chatFragment = c;
     }
 
     public class ImageAdapter extends BaseAdapter {
 
         private final Context mContext;
+
         final ArrayList<String> itemList = new ArrayList<String>();
 
         public ImageAdapter(Context c) {
@@ -75,13 +77,11 @@ public class Multimedia_image extends BaseFragment {
 
         @Override
         public Object getItem(int arg0) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -107,8 +107,24 @@ public class Multimedia_image extends BaseFragment {
             return imageView;
         }
 
-        public void load (String targetPath) {
-            File targetDirector = new File(targetPath);
+        public void load(String targetPath) {
+            File dir = new File(targetPath);
+            String extention = ".jpg";
+            File[] listFile = dir.listFiles();
+            if (listFile != null) {
+                for (int i = 0; i < listFile.length; i++) {
+                    if (listFile[i].isDirectory()) {
+                        load(listFile[i].getAbsolutePath());
+                    } else {
+                        if (getCount() > MAX_PICTURE_SHOW) return;
+                        if (listFile[i].getName().endsWith(extention)) {
+                            add(listFile[i].getAbsolutePath());
+                        }
+                    }
+                }
+            }
+        }
+        /*    File targetDirector = new File(targetPath);
             File[] files = targetDirector.listFiles();
             if (files == null) {
                 Log.i(TAG, "Fail to load folder: " + targetPath);
@@ -117,9 +133,8 @@ public class Multimedia_image extends BaseFragment {
                     add(file.getAbsolutePath());
                 }
             }
-        }
+        }*/
     }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
@@ -137,13 +152,16 @@ public class Multimedia_image extends BaseFragment {
 
         gridview.setNumColumns(size.x/ DEFAULT_IMAGE_SIZE);
 
-        File mediaStorageDir1 = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM), "Camera");
+
+        File mediaStorageDir1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath());
         final String targetPath1 = mediaStorageDir1.getPath();
 
         File mediaStorageDir2 = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "USTasUST");
         final String targetPath2 = mediaStorageDir2.getPath();
+
+        File mediaStorageDir3 = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        final String targetPath3 = mediaStorageDir3.getPath();
 
         if (! mediaStorageDir2.exists()){
             if (! mediaStorageDir2.mkdirs()){
@@ -157,6 +175,8 @@ public class Multimedia_image extends BaseFragment {
         myImageAdapter1.load(targetPath1);
         myImageAdapter2 = new ImageAdapter(view.getContext());
         myImageAdapter2.load(targetPath2);
+        myImageAdapter3 = new ImageAdapter(view.getContext());
+        myImageAdapter3.load(targetPath3);
 
         FolderSpin.setSelection(0);
         gridview.setAdapter(myImageAdapter0);
@@ -168,6 +188,7 @@ public class Multimedia_image extends BaseFragment {
                     case 0: gridview.setAdapter(myImageAdapter0); break;
                     case 1: gridview.setAdapter(myImageAdapter1); break;
                     case 2: gridview.setAdapter(myImageAdapter2); break;
+                    case 3: gridview.setAdapter(myImageAdapter3); break;
                     default: gridview.setAdapter(myImageAdapter0);
                 }
             }
@@ -197,6 +218,18 @@ public class Multimedia_image extends BaseFragment {
                     }
                     else if (gridview.getAdapter() == myImageAdapter2)
                         chatFragment.UploadIMG(myImageAdapter2.itemList.get(i));
+                else if (gridview.getAdapter() == myImageAdapter3) {
+                    //COPY FILE BEFORE UPLOADING
+                    File temp_img = new File(myImageAdapter3.itemList.get(i));
+                    File target_img = new File(targetPath2 + File.separator + "COPY.jpg");
+                    try {
+                        CopyFile(temp_img, target_img);
+                        //UploadIMG
+                        chatFragment.UploadIMG(target_img.getPath());
+                    } catch (IOException ioe) {
+                        Log.i(TAG, ioe.toString());
+                    }
+                }
                     else if (gridview.getAdapter() != myImageAdapter0)
                         Log.i(TAG, "Invalid Adapter; Exit directly");
 

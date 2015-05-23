@@ -30,6 +30,7 @@ public class Post extends ThreadItem {
 	String[] attachments = new String[0];
 	String details;
 	String authorId;
+    String attachment = "";
 	long time;
 	int rating;
 
@@ -45,6 +46,9 @@ public class Post extends ThreadItem {
 		key = obj.getString("post");
 		time = obj.getLong("time");
 		
+        if (obj.has("img")) {
+            attachment = obj.getString("img");
+        }
 
 		if (obj.has("rating"))
 			rating = obj.getInt("rating");
@@ -56,5 +60,9 @@ public class Post extends ThreadItem {
 				this.attachments[i] = attachments.getString(i);
 		}
 	}
+
+    public String getAttachment() {
+        return this.attachment;
+    }
 
 }

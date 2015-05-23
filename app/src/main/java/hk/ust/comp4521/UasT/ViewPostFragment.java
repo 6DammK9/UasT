@@ -1,16 +1,26 @@
 package hk.ust.comp4521.UasT;
 
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 import hk.ust.comp4521.UasT.data.ApiHandler;
 import hk.ust.comp4521.UasT.data.ApiManager;
@@ -47,13 +57,16 @@ public class ViewPostFragment extends BaseFragment {
 	}
 
 	TextView content;
+    ImageView view_img;
 	Post postData;
+    View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_view_post, container, false);
+		view = inflater.inflate(R.layout.fragment_view_post, container, false);
 		content = (TextView) view.findViewById(R.id.content);
+        view_img = (ImageView) view.findViewById(R.id.view_img);
 
 		Database.getDataSingle("posts", post.getKey(), Post.class,
 				new DatabaseLoad<Post>() {
@@ -67,9 +80,108 @@ public class ViewPostFragment extends BaseFragment {
 	}
 
 	void updateView() {
-		if (postData != null)
-			content.setText(postData.getContent());
+		if (postData != null) {
+            content.setText(postData.getContent());
+            if (!postData.getAttachment().equals("")) {
+                view_img.setVisibility(View.VISIBLE);
+                //CHECK IF IT IS DOWNLOADED
+                File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "USTasUST");
+                File test = new File(mediaStorageDir.getPath() + File.separator + postData.getAttachment());
+                if (test.exists()) {
+                    Bitmap thumbnail = Multimedia_image.getThumbnail(postData.getAttachment());
+                    if (thumbnail != null) {
+                        view_img.setImageBitmap(thumbnail);
+                    } else {
+                        Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                    }
+                }
+
+                view_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //CHECK IF IT IS DOWNLOADED
+                        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES), "USTasUST");
+                        File test = new File(mediaStorageDir.getPath() + File.separator + postData.getAttachment());
+
+                        if (test.exists()) {
+
+                            Bitmap thumbnail = Multimedia_image.getThumbnail(postData.getAttachment());
+                            if (thumbnail != null) {
+                                MainActivity main = (MainActivity) view.getContext();
+                                Multimedia_showIMG img = new Multimedia_showIMG();
+                                img.setParam(test.getAbsolutePath());
+
+                                main.gotoFragment(0, img);
+                            } else {
+                                Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                            }
+                        } else {
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                            ProgressBar bar = new ProgressBar(view.getContext(), null,
+                                    android.R.attr.progressBarStyleHorizontal);
+                            bar.setIndeterminate(true);
+                            builder.setCancelable(true).setTitle("Sending request to server").setView(bar);
+                            final AlertDialog dialog = builder.show();
+
+                            ApiManager.downIMG(postData.getAttachment(), post.getAuthorId(), new ApiHandler<ApiResponseBase>() {
+
+                                @Override
+                                public void onSuccess(ApiResponseBase response) {
+                                    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                                            Environment.DIRECTORY_PICTURES), "USTasUST");
+                                    File temp_img = new File(mediaStorageDir.getPath() + File.separator + "TEMP.jpg");
+                                    File target_img = new File(mediaStorageDir.getPath() + File.separator + response.getMessage());
+                                    try {
+                                        CopyFile(temp_img, target_img);
+                                    } catch (IOException ioe) {
+                                    } finally {
+                                        dialog.dismiss();
+                                        //Toast.makeText(ChatCardView.this.getContext(), response.getMessage(),
+                                        //        Toast.LENGTH_LONG).show();
+                                        Bitmap thumbnail = Multimedia_image.getThumbnail(response.getMessage());
+                                        if (thumbnail != null) {
+                                            view_img.setImageBitmap(thumbnail);
+                                        } else {
+                                            Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(String message) {
+                                    dialog.dismiss();
+                                    Toast.makeText(view.getContext(), message,
+                                            Toast.LENGTH_LONG).show();
+                                }
+
+                            });
+
+                        }
+                    }
+                });
+            } else {
+                view_img.setVisibility(View.GONE);
+            }
+        }
 	}
+
+
+    private void CopyFile(File src, File dst) throws IOException {
+        FileInputStream inStream = new FileInputStream(src);
+        FileOutputStream outStream = new FileOutputStream(dst);
+        try {
+            FileChannel inChannel = inStream.getChannel();
+            FileChannel outChannel = outStream.getChannel();
+            inChannel.transferTo(0, inChannel.size(), outChannel);
+        } finally {
+            inStream.close();
+            outStream.close();
+        }
+    }
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

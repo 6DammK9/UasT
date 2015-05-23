@@ -36,9 +36,9 @@ public class Multimedia_photo extends BaseFragment {
     private static String outFileUri;
     static final String TAG = "UasT.Multimedia_photo";
     View view;
-    ChatFragment chatFragment;
+    IMGUpload chatFragment;
 
-    public void setParam(ChatFragment c){
+    public void setParam(IMGUpload c){
         chatFragment = c;
     }
 

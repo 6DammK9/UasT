@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import hk.ust.comp4521.UasT.R;
 
 //TODO photo
-@ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Sharing", title = "Sharing", type = "sharings", layout = R.layout.view_course_sharing_card)
+@ThreadItemInfo(filter = true, sort = true, add = true, typeName = "stuffs to sharing", title = "Sharing", type = "sharings", layout = R.layout.view_course_sharing_card)
 public class CourseSharing extends ThreadPostItem {
 	long time;
     int rating;

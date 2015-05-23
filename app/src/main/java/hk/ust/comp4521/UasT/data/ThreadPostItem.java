@@ -7,7 +7,7 @@ public abstract class ThreadPostItem extends ThreadItem {
 	public String getAuthorId() {
 		return authorId;
 	}
-	
+
 	protected String authorId;
 	
 	public BaseFragment[] getFragment() {

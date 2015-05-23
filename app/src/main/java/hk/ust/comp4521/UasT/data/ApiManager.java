@@ -266,7 +266,7 @@ public class ApiManager {
     }
 
     public static void post(String type, String key, String title,
-                            String details, String content, int rating,
+                            String details, String content, int rating, String attachment,
                             ApiHandler<ApiResponseBase> handler) {
         JSONObject obj = new JSONObject();
         try {
@@ -278,6 +278,7 @@ public class ApiManager {
             obj.put("title", title);
             obj.put("details", details);
             obj.put("rating", rating);
+            obj.put("img", attachment);
             obj.put("content", content);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -495,7 +496,6 @@ public class ApiManager {
             obj.put("cmd", "downIMG");
             obj.put("matchID", matchID);
             obj.put("user", authorID);
-            obj.put("name", Database.getUser().getName());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

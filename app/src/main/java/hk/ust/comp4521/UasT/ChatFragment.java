@@ -37,7 +37,7 @@ import hk.ust.comp4521.UasT.data.ThreadItem;
 import hk.ust.comp4521.UasT.json.ApiResponseBase;
 import hk.ust.comp4521.UasT.json.ApiResponseIMG;
 
-public class ChatFragment extends ThreadListFragment {
+public class ChatFragment extends ThreadListFragment implements IMGUpload {
 
     Chat chat;
     ImageButton send;
@@ -90,7 +90,7 @@ public class ChatFragment extends ThreadListFragment {
             @Override
             public void onClick(View view) {
                 if (!Multimedia_photo.checkCameraHardware(view.getContext())) {
-                    Toast.makeText(view.getContext(), "This feature needs camera!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "This feature needs camera!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if ((!Multimedia_photo.isExternalStorageWritable())||(!Multimedia_photo.isExternalStorageReadable())) {

@@ -54,18 +54,37 @@
     </EditText>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:baselineAligned="false">
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1">
 
-        <ListView
-            android:id="@+id/attachments"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/attachment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1" >
-        </ListView>
+            android:hint="Please upload a photo"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:layout_weight="1.04"
+            android:editable="false"
+            android:enabled="false" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/camera"
+            android:src="@drawable/camera"
+            android:layout_marginLeft="10dp" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/image"
+            android:src="@drawable/image"
+            android:layout_gravity="top"
+            android:layout_marginLeft="10dp" />
+
     </LinearLayout>
 
 </LinearLayout>

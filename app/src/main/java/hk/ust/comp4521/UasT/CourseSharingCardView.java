@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class CourseSharingCardView extends ThreadCardView {
 		super.initViews();
 		ViewHolder vh = (ViewHolder) getTag();
         vh.likeMessage = (TextView)findViewById(R.id.likeMessage);
-        vh.likeButton = (TextView)findViewById(R.id.likeButton);
+        vh.likeButton = (ImageView)findViewById(R.id.likeButton);
 	}
 
     @Override
@@ -79,7 +80,11 @@ public class CourseSharingCardView extends ThreadCardView {
                                 dialog.dismiss();
                                 ViewHolder vh = (ViewHolder) getTag();
 
-                                vh.likeButton.setText(response.getMessage());
+                                if (response.getMessage().equals("Like")) {
+                                    vh.likeButton.setBackgroundResource(R.drawable.icon_like);
+                                } else {
+                                    vh.likeButton.setBackgroundResource(R.drawable.icon_dislike);
+                                }
                                 vh.likeMessage.setText(response.getNum() + " Likes");
                             }
 
@@ -99,7 +104,7 @@ public class CourseSharingCardView extends ThreadCardView {
 	
 	protected static class ViewHolder extends ThreadCardView.ViewHolder {
         public TextView likeMessage;
-        public TextView likeButton;
+        public ImageView likeButton;
 	}
 	
 }

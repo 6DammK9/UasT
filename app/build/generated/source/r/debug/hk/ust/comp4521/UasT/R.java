@@ -442,30 +442,31 @@ containing a value of this type.
         public static final int icon_calendar=0x7f020030;
         public static final int icon_chat=0x7f020031;
         public static final int icon_course=0x7f020032;
-        public static final int image=0x7f020033;
-        public static final int login_back=0x7f020034;
-        public static final int login_hint=0x7f020035;
-        public static final int message_bg=0x7f020036;
-        public static final int powered_by_google_dark=0x7f020037;
-        public static final int powered_by_google_light=0x7f020038;
-        public static final int send=0x7f020039;
-        public static final int tab_bg=0x7f02003a;
-        public static final int tab_off=0x7f02003b;
-        public static final int tab_on=0x7f02003c;
-        public static final int tab_selector=0x7f02003d;
+        public static final int icon_dislike=0x7f020033;
+        public static final int icon_like=0x7f020034;
+        public static final int image=0x7f020035;
+        public static final int login_back=0x7f020036;
+        public static final int login_hint=0x7f020037;
+        public static final int message_bg=0x7f020038;
+        public static final int powered_by_google_dark=0x7f020039;
+        public static final int powered_by_google_light=0x7f02003a;
+        public static final int send=0x7f02003b;
+        public static final int tab_bg=0x7f02003c;
+        public static final int tab_off=0x7f02003d;
+        public static final int tab_on=0x7f02003e;
+        public static final int tab_selector=0x7f02003f;
     }
     public static final class id {
         public static final int BtnAccept=0x7f0c002f;
         public static final int BtnDecline=0x7f0c0030;
         public static final int TextView01=0x7f0c0018;
-        public static final int add=0x7f0c006e;
+        public static final int add=0x7f0c006d;
         public static final int address=0x7f0c001b;
         public static final int adjust_height=0x7f0c0002;
         public static final int adjust_width=0x7f0c0003;
         public static final int attachment=0x7f0c003b;
         public static final int attachment_layout=0x7f0c0038;
-        public static final int attachments=0x7f0c0042;
-        public static final int baseLayout=0x7f0c006c;
+        public static final int baseLayout=0x7f0c006b;
         public static final int bg=0x7f0c0065;
         public static final int bodyText=0x7f0c0060;
         public static final int book_now=0x7f0c0011;
@@ -480,13 +481,13 @@ containing a value of this type.
         public static final int chat=0x7f0c0025;
         public static final int classic=0x7f0c0015;
         public static final int code=0x7f0c001a;
-        public static final int confirm=0x7f0c0071;
-        public static final int contact=0x7f0c0073;
+        public static final int confirm=0x7f0c0070;
+        public static final int contact=0x7f0c0072;
         public static final int content=0x7f0c0021;
         public static final int course=0x7f0c0023;
         public static final int datePicker=0x7f0c0031;
-        public static final int del=0x7f0c006f;
-        public static final int delButton=0x7f0c006d;
+        public static final int del=0x7f0c006e;
+        public static final int delButton=0x7f0c006c;
         public static final int deletebutton=0x7f0c0062;
         public static final int details=0x7f0c0041;
         public static final int donate_with_google=0x7f0c0014;
@@ -494,7 +495,7 @@ containing a value of this type.
         public static final int durLabel=0x7f0c0048;
         public static final int email=0x7f0c0019;
         public static final int exitBtn=0x7f0c004f;
-        public static final int favorite=0x7f0c0068;
+        public static final int favorite=0x7f0c0067;
         public static final int folderSpin=0x7f0c0053;
         public static final int freqLabel=0x7f0c004c;
         public static final int freqSpin=0x7f0c004d;
@@ -515,13 +516,13 @@ containing a value of this type.
         public static final int labelMinute=0x7f0c0029;
         public static final int labelSecond=0x7f0c002a;
         public static final int label_scheduled=0x7f0c0034;
-        public static final int likeButton=0x7f0c0069;
-        public static final int likeMessage=0x7f0c006a;
+        public static final int likeButton=0x7f0c0068;
+        public static final int likeMessage=0x7f0c0069;
         public static final int list=0x7f0c0037;
         public static final int loc_label=0x7f0c005a;
         public static final int locationText=0x7f0c005b;
         public static final int login=0x7f0c001d;
-        public static final int match=0x7f0c0070;
+        public static final int match=0x7f0c006f;
         public static final int matchDescription=0x7f0c0045;
         public static final int match_img=0x7f0c0066;
         public static final int match_parent=0x7f0c000f;
@@ -547,7 +548,7 @@ containing a value of this type.
         public static final int sandbox=0x7f0c000b;
         public static final int satellite=0x7f0c0006;
         public static final int scrollView1=0x7f0c003e;
-        public static final int search=0x7f0c0072;
+        public static final int search=0x7f0c0071;
         public static final int selectionDetails=0x7f0c000e;
         public static final int send=0x7f0c003d;
         public static final int set=0x7f0c0020;
@@ -561,7 +562,7 @@ containing a value of this type.
         public static final int tab=0x7f0c0022;
         public static final int terrain=0x7f0c0007;
         public static final int text=0x7f0c0043;
-        public static final int textView=0x7f0c006b;
+        public static final int textView=0x7f0c006a;
         public static final int timePicker=0x7f0c0032;
         public static final int time_from=0x7f0c0057;
         public static final int time_label=0x7f0c0026;
@@ -569,7 +570,7 @@ containing a value of this type.
         public static final int title=0x7f0c003f;
         public static final int titleText=0x7f0c005c;
         public static final int to_label=0x7f0c0058;
-        public static final int view_img=0x7f0c0067;
+        public static final int view_img=0x7f0c0042;
         public static final int wrap_content=0x7f0c0010;
     }
     public static final class integer {

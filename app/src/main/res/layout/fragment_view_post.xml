@@ -12,6 +12,23 @@
         android:padding="10dp"
         android:scrollbars="vertical"
         android:text="@string/loading"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_img"
+            android:src="@drawable/download"
+            android:contentDescription="@string/view_img"
+            android:visibility="invisible" />
+
+        </LinearLayout>
 
 </LinearLayout>
