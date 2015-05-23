@@ -1,5 +1,12 @@
 package hk.ust.comp4521.UasT;
 
+/**
+ * COMP4521 Project
+ *      Cheung Wai Yip
+ *      Lau Tsz Hei
+ *      Ho Kam Ming
+ */
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;

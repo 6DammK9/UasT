@@ -1,3 +1,10 @@
+/**
+ * COMP4521 Project
+ *      Cheung Wai Yip
+ *      Lau Tsz Hei
+ *      Ho Kam Ming
+ */
+
 package hk.ust.comp4521.UasT.data;
 
 import android.support.annotation.NonNull;
@@ -7,7 +14,6 @@ import org.json.JSONObject;
 
 import hk.ust.comp4521.UasT.R;
 
-// TODO photo
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "stuffs to trade", title = "Trading", type = "tradings", layout = R.layout.view_course_trading_card)
 public class CourseTrading extends ThreadPostItem {
 	long time;

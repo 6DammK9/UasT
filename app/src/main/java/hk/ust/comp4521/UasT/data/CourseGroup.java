@@ -1,3 +1,10 @@
+/**
+ * COMP4521 Project
+ *      Cheung Wai Yip
+ *      Lau Tsz Hei
+ *      Ho Kam Ming
+ */
+
 package hk.ust.comp4521.UasT.data;
 
 import android.support.annotation.NonNull;
@@ -11,7 +18,6 @@ import hk.ust.comp4521.UasT.BaseFragment;
 import hk.ust.comp4521.UasT.EditGroupFragment;
 import hk.ust.comp4521.UasT.R;
 
-// TODO #       Improve UIs( Title, Context)
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_group_card)
 public class CourseGroup extends ThreadPostItem {
 	long time;

@@ -1,10 +1,16 @@
+/**
+ * COMP4521 Project
+ *      Cheung Wai Yip
+ *      Lau Tsz Hei
+ *      Ho Kam Ming
+ */
+
 package hk.ust.comp4521.UasT;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
