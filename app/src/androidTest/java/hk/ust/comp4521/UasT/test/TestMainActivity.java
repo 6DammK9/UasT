@@ -30,6 +30,8 @@ public class TestMainActivity extends
 		solo.sleep(2000);
 		solo.clickOnView(solo.getView(R.id.favorite));
 		solo.sleep(2000);
+		solo.clickOnView(solo.getView(R.id.favorite));
+		solo.sleep(2000);
 
 		assertEquals("Comments", getActivity().getTitle());
 		assertTrue(solo.searchText("Overview of accounting"));
@@ -43,10 +45,12 @@ public class TestMainActivity extends
 
 		solo.clickOnText("User0");
 		solo.sleep(2000);
+        solo.clickOnActionBarItem(R.id.del);
 
-		// assertEquals("hello", getActivity().getTitle());
-		assertTrue(solo.searchText("T"));
-
+        solo.clickOnText("TEST0");
+        solo.sleep(2000);
+        assertTrue(solo.searchText("ForTest"));
+        solo.sleep(2000);
 		solo.sendKey(KeyEvent.KEYCODE_BACK);
 		solo.sleep(2000);
 
@@ -72,15 +76,15 @@ public class TestMainActivity extends
 		solo.clickOnText("Embedded System");
 
 		solo.sleep(2000);
-		// assertEquals("Comments", getActivity().getTitle());
-		// assertTrue(solo.searchText("COMP4521 is an interesting course"));
+		assertEquals("Comments", getActivity().getTitle());
+		assertTrue(solo.searchText("TEST0"));
 
 		solo.clickOnActionBarItem(R.id.add);
 		solo.typeText(0, "Testing");
 		solo.typeText(1, "Testing 1234");
 
 		solo.clickOnActionBarItem(R.id.confirm);
-		solo.sleep(2000);
+		solo.sleep(3000);
 
 		solo.clickOnText("Testing");
 		solo.sleep(2000);
@@ -150,8 +154,8 @@ public class TestMainActivity extends
 		solo.clickOnText("New");
 		solo.sleep(2000);
 		solo.clickOnText("Create");
-		solo.sleep(2000);
-		solo.clickOnText("NEW EVENT", 1 , false);
+		solo.sleep(3000);
+		solo.clickOnText("NEW_EVENT", 1 , false);
 		solo.sleep(2000);
 		solo.clickOnText("Delete");
 		solo.sleep(2000);
@@ -207,11 +211,12 @@ public class TestMainActivity extends
 		solo.clickOnText("TEST0");
 		solo.sleep(2000);
 		solo.clickOnActionBarItem(R.id.contact);
-		solo.sleep(2000);
+		solo.sleep(3000);
 		solo.clickOnActionBarItem(R.id.match);
 		solo.sleep(2000);
         solo.clickOnText("Show");
         solo.sleep(2000);
+        assertFalse(solo.searchText("0E"));
         solo.clickOnText("Exit");
         solo.sleep(2000);
 

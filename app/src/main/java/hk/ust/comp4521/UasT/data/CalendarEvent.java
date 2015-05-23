@@ -24,7 +24,7 @@ public class CalendarEvent {
         //EMPTY CONSTRUCTOR
         From = new Date();
         To = new Date(From.getTime() + ONE_HOUR);
-        Title = "NEW  EVENT";
+        Title = "NEW_EVENT";
         Body = "Detail:";
         Freq = "Once";
         Loc = "Somewhere";
@@ -35,7 +35,7 @@ public class CalendarEvent {
         //EMPTY CONSTRUCTOR
         From = new Date(Cal_m);
         To = new Date(From.getTime() + ONE_HOUR);
-        Title = "NEW  EVENT";
+        Title = "NEW_EVENT";
         Body = "Detail:";
         Freq = "Once";
         Loc = "Somewhere";

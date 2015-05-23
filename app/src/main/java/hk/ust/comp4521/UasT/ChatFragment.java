@@ -200,6 +200,7 @@ public class ChatFragment extends ThreadListFragment {
             case R.id.match: {
                 groupCalEvents = new ArrayList<CalendarEvent>();
                 groupCalEvents.clear();
+                if (ChatUsers != null)
                 for (String ChatUser : ChatUsers) {
                     Database.getData("CalEventsEntries", ChatUser, CalEventsEntry.class,
                             new DatabaseLoad<Map<String, CalEventsEntry>>() {

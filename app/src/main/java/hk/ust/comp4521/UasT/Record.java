@@ -169,15 +169,20 @@ public class Record extends BaseFragment {
             Remind = CalendarEvent.StringToDate(rem_inf.getText().toString());
 
             if (ToTime.getTime() <= FromTime.getTime()) {
-                Toast.makeText(v.getContext(), "Error: Invalid time setting", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), "Error: Invalid time setting", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (Remind != null)
                 if (Remind.getTime() >= FromTime.getTime()) {
-                    Toast.makeText(v.getContext(), "Error: Invalid time setting", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Error: Invalid time setting", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+            if (!(TitleText.getText().length() > 0)){
+                Toast.makeText(v.getContext(), "Error: Title must not be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             CalendarEvent cal_e = new CalendarEvent();
             if (remSpin.getSelectedItem().toString().equals("Off")) {
