@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ExUST.iml" filepath="$PROJECT_DIR$/ExUST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UasT.iml" filepath="$PROJECT_DIR$/UasT.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
