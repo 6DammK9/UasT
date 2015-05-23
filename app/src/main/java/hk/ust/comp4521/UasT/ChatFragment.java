@@ -89,11 +89,15 @@ public class ChatFragment extends ThreadListFragment {
         camera.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Multimedia_photo cam = new Multimedia_photo();
                 if (!Multimedia_photo.checkCameraHardware(view.getContext())) {
-                    Toast.makeText(view.getContext(), "This feature needs camera!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "This feature needs camera!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if ((!Multimedia_photo.isExternalStorageWritable())||(!Multimedia_photo.isExternalStorageReadable())) {
+                    Toast.makeText(view.getContext(), "This feature needs accessible external storage!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Multimedia_photo cam = new Multimedia_photo();
                 cam.setParam(ChatFragment.this);
                 MainActivity main = (MainActivity) getActivity();
                 main.gotoFragment(2, cam);
@@ -104,6 +108,10 @@ public class ChatFragment extends ThreadListFragment {
         image.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if ((!Multimedia_photo.isExternalStorageWritable())||(!Multimedia_photo.isExternalStorageReadable())) {
+                    Toast.makeText(view.getContext(), "This feature needs accessible external storage!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Multimedia_image img = new Multimedia_image();
                 img.setParam(ChatFragment.this);
                 MainActivity main = (MainActivity) getActivity();
