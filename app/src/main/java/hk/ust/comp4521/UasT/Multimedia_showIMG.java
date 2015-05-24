@@ -1,11 +1,11 @@
-package hk.ust.comp4521.UasT;
-
 /**
- * COMP4521 Project
- *      Cheung Wai Yip
- *      Lau Tsz Hei
- *      Ho Kam Ming
+ * 	#COMP 4521
+ *      #Cheung Wai Yip	20126604	wycheungae@connect.ust.hk
+ *      #Lau Tsz Hei		20113451	thlauac@connect.ust.hk
+ *      #Ho Kam Ming	20112316	kmhoab@connect.ust.hk
  */
+
+package hk.ust.comp4521.UasT;
 
 import android.content.Context;
 import android.graphics.Bitmap;
