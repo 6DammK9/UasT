@@ -102,6 +102,7 @@ public class TestMainActivity extends
 		solo.clickOnText("Groups");
 		solo.sleep(2000);
 
+        // Create Group
 		solo.clickOnActionBarItem(R.id.add);
 		solo.typeText(0, "Testing");
 		solo.typeText(1, "Testing 1234");
@@ -109,10 +110,34 @@ public class TestMainActivity extends
 		solo.clickOnActionBarItem(R.id.confirm);
 		solo.sleep(2000);
 
+        // Invite Others
 		solo.clickOnText("Testing");
 		solo.sleep(2000);
-		solo.clickOnActionBarItem(R.id.del);
+        solo.clickOnActionBarItem(R.id.add);
+        solo.sleep(2000);
+        solo.typeText(0, "yhliaa");
+        solo.sleep(1000);
+        solo.clickOnActionBarItem(R.id.confirm);
+        solo.sleep(2000);
 
+        // Kick Others
+        solo.clickOnText("Testing");
+        solo.sleep(2000);
+        solo.clickOnText("Delete");
+        solo.sleep(2000);
+
+        // Join Group
+        solo.clickOnText("HenryGroup");
+        solo.sleep(2000);
+
+        solo.clickOnActionBarItem(R.id.add);
+        solo.sleep(2000);
+
+        solo.clickOnText("HenryGroup");
+        solo.sleep(2000);
+        solo.clickOnActionBarItem(R.id.del);
+
+        // Switch to Sharing
 		solo.clickOnText("Groups");
 		solo.sleep(2000);
 
@@ -185,7 +210,7 @@ public class TestMainActivity extends
 		solo.typeText(1, "test");
 		solo.sleep(2000);
 		solo.clearEditText(3);
-		solo.typeText(3, "user");
+		solo.typeText(3, "Darren Lau");
 		solo.sleep(2000);
 		solo.clickOnText("Set");
 		solo.sleep(2000);
@@ -235,8 +260,23 @@ public class TestMainActivity extends
 		solo.sleep(1000);
 		solo.clickOnText("Chat");
 		solo.sleep(2000);
-		solo.clickOnText("hehehehe");
+		solo.clickOnText("wycheungae");
 		solo.sleep(2000);
+        solo.typeText(0, "Testing1");
+        solo.sleep(2000);
 	}
+
+    public void testChatWithFriend() {
+        Solo solo = new Solo(getInstrumentation(), getActivity());
+        solo.sleep(1000);
+        solo.clickOnText("Chat");
+        solo.sleep(2000);
+        solo.clickOnActionBarItem(R.id.add);
+        solo.sleep(2000);
+        solo.typeText(0, "yhliaa");
+        solo.sleep(2000);
+        solo.clickOnActionBarItem(R.id.confirm);
+        solo.sleep(2000);
+    }
 
 }

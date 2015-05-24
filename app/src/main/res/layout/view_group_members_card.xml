@@ -43,7 +43,7 @@
                     android:layout_weight="0.74" />
 
                 <Button
-                    android:layout_width="54dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="@string/delete"
                     android:id="@+id/delButton"
