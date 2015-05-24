@@ -28,7 +28,7 @@ import hk.ust.comp4521.UasT.json.ApiResponseBase;
 
 // Used in course group list
 public class GroupMembersCardView extends ThreadCardView {
-    GroupMember groupMember;
+    private GroupMember groupMember;
 
 	public GroupMembersCardView(Context context) {
 		super(context);

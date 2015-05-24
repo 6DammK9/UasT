@@ -25,7 +25,7 @@ import hk.ust.comp4521.UasT.json.ApiResponseLike;
 
 // Used in course group list
 public class CourseTradingCardView extends ThreadCardView {
-    CourseTrading courseTrading;
+    private CourseTrading courseTrading;
 
 	public CourseTradingCardView(Context context) {
 		super(context);

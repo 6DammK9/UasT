@@ -16,9 +16,9 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "stuffs to trade", title = "Trading", type = "tradings", layout = R.layout.view_course_trading_card)
 public class CourseTrading extends ThreadPostItem {
-	long time;
-    int rating;
-    String courseId;
+	private long time;
+	private int rating;
+	private String courseId;
 	
 	@Override
 	public void load(JSONObject obj) throws JSONException {

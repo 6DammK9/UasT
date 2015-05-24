@@ -16,9 +16,9 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "stuffs to sharing", title = "Sharing", type = "sharings", layout = R.layout.view_course_sharing_card)
 public class CourseSharing extends ThreadPostItem {
-	long time;
-    int rating;
-	String courseId;
+	private long time;
+	private int rating;
+	private String courseId;
 
 	@Override
 	public void load(JSONObject obj) throws JSONException {

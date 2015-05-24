@@ -46,17 +46,17 @@ import hk.ust.comp4521.UasT.json.ApiResponseIMG;
 
 public class ChatFragment extends ThreadListFragment implements IMGUpload {
 
-    Chat chat;
-    ImageButton send;
-    ImageButton attachment;
-    ImageButton camera;
-    ImageButton image;
-    LinearLayout attachment_layout;
-    EditText message;
-    String[] ChatUsers;
-    static final String TAG = "UasT.ChatFragment";
+    private Chat chat;
+    private ImageButton send;
+    private ImageButton attachment;
+    private ImageButton camera;
+    private ImageButton image;
+    private LinearLayout attachment_layout;
+    private EditText message;
+    private String[] ChatUsers;
+    private static final String TAG = "UasT.ChatFragment";
     static ArrayList<CalendarEvent> groupCalEvents;
-    View view;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -309,7 +309,7 @@ public class ChatFragment extends ThreadListFragment implements IMGUpload {
         });
     }
 
-    public void AutoSendMSG(String msg, final Boolean clearMSG) {
+    private void AutoSendMSG(String msg, final Boolean clearMSG) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         ProgressBar bar = new ProgressBar(view.getContext(), null,
                 android.R.attr.progressBarStyleHorizontal);
@@ -342,7 +342,7 @@ public class ChatFragment extends ThreadListFragment implements IMGUpload {
                 });
     }
 
-    public void AutoSendIMG(String img, final Boolean clearMSG) {
+    private void AutoSendIMG(String img, final Boolean clearMSG) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         ProgressBar bar = new ProgressBar(view.getContext(), null,
                 android.R.attr.progressBarStyleHorizontal);

@@ -35,15 +35,15 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Multimedia_photo extends BaseFragment {
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
+    private static final int MEDIA_TYPE_IMAGE = 1;
+    private static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
     private static Uri fileUri;
     private static String outFileUri;
     static final String TAG = "UasT.Multimedia_photo";
-    View view;
-    IMGUpload chatFragment;
+    private View view;
+    private IMGUpload chatFragment;
 
     public void setParam(IMGUpload c){
         chatFragment = c;
@@ -169,14 +169,12 @@ public class Multimedia_photo extends BaseFragment {
 
     /* Checks if external storage is available for read and write */
     public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
     /* Checks if external storage is available to at least read */
     public static boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
     }
 }

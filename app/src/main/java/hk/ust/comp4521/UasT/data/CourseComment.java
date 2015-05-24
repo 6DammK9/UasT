@@ -16,8 +16,8 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Comment", title = "Comments", type = "comments", layout = R.layout.view_comment_card, header = R.layout.view_course_header_card)
 public class CourseComment extends ThreadPostItem {
-	long time;
-	int rating;
+	private long time;
+	private int rating;
 
 	@Override
 	public void load(JSONObject obj) throws JSONException {

@@ -45,14 +45,14 @@ import java.util.ArrayList;
 public class Multimedia_image extends BaseFragment {
 
     private View view;
-    GridView gridview;
-    ImageAdapter myImageAdapter0, myImageAdapter1, myImageAdapter2, myImageAdapter3;
-    Spinner FolderSpin;
+    private GridView gridview;
+    private ImageAdapter myImageAdapter0, myImageAdapter1, myImageAdapter2, myImageAdapter3;
+    private Spinner FolderSpin;
     private static final String TAG = "UasT.Multimedia_image";
-    IMGUpload chatFragment;
-    final static int DEFAULT_IMAGE_SIZE = 240;
-    final static int DEFAULT_IMAGE_PADDING = 8;
-    final static int MAX_PICTURE_SHOW = 10;
+    private IMGUpload chatFragment;
+    private final static int DEFAULT_IMAGE_SIZE = 240;
+    private final static int DEFAULT_IMAGE_PADDING = 8;
+    private final static int MAX_PICTURE_SHOW = 10;
 
     @Override
     public String getTitle() {
@@ -116,16 +116,16 @@ public class Multimedia_image extends BaseFragment {
 
         public void load(String targetPath) {
             File dir = new File(targetPath);
-            String extention = ".jpg";
+            String extension = ".jpg";
             File[] listFile = dir.listFiles();
             if (listFile != null) {
-                for (int i = 0; i < listFile.length; i++) {
-                    if (listFile[i].isDirectory()) {
-                        load(listFile[i].getAbsolutePath());
+                for (File aListFile : listFile) {
+                    if (aListFile.isDirectory()) {
+                        load(aListFile.getAbsolutePath());
                     } else {
                         if (getCount() > MAX_PICTURE_SHOW) return;
-                        if (listFile[i].getName().endsWith(extention)) {
-                            add(listFile[i].getAbsolutePath());
+                        if (aListFile.getName().endsWith(extension)) {
+                            add(aListFile.getAbsolutePath());
                         }
                     }
                 }
@@ -263,7 +263,7 @@ public class Multimedia_image extends BaseFragment {
         return BitmapFactory.decodeFile(path, options);
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;

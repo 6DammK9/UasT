@@ -33,13 +33,13 @@ public class Post extends ThreadItem {
 		return rating;
 	}
 
-	String content;
-	String[] attachments = new String[0];
-	String details;
-	String authorId;
-    String attachment = "";
-	long time;
-	int rating;
+	private String content;
+	private String[] attachments = new String[0];
+	private String details;
+	private String authorId;
+	private String attachment = "";
+	private long time;
+	private int rating;
 
 	@Override
 	public void load(JSONObject obj) throws JSONException {

@@ -43,11 +43,11 @@ public class ThreadListFragment extends BaseFragment {
 	protected ThreadItemInfo pinfo;
 	protected ThreadItem item;
 
-	ThreadCardView header;
-	SearchView searchView;
-	MenuItem searchMenu;
+	private ThreadCardView header;
+	private SearchView searchView;
+	private MenuItem searchMenu;
 	boolean isSearchExpanded = false;
-	String filter;
+	private String filter;
 	
 	public String getKey() {
 		return key;

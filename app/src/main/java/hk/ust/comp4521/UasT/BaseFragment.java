@@ -19,10 +19,10 @@ public abstract class BaseFragment extends Fragment {
 		return false;
 	}
 	
-	BaseFragment[] fragments;	
-	ActionBar bar;
+	private BaseFragment[] fragments;
+	private ActionBar bar;
 	
-	public void setNavigation(BaseFragment[] fragments) {
+	void setNavigation(BaseFragment[] fragments) {
 		this.fragments = fragments;
 	}
 	

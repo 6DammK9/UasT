@@ -19,8 +19,8 @@ import hk.ust.comp4521.UasT.R;
 @ThreadItemInfo(sort = true, title = "Group Members", type = "groupinfos", typeName = "Group", layout = R.layout.view_group_members_card, header = R.layout.view_group_header_card)
 public class GroupMember extends ThreadItem {
 
-	long time;
-    String leaderId, classId, groupId;
+	private long time;
+    private String leaderId, groupId;
 
     public void setParam(String LeaderId, String GroupId) {
         this.leaderId = LeaderId;

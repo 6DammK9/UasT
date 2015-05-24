@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ApiResponseBase {
-	protected JSONObject obj;
+	private JSONObject obj;
 
 	public void load(JSONObject obj) throws JSONException {
 		this.obj = obj;
@@ -20,8 +20,8 @@ public class ApiResponseBase {
 			msg = obj.getString("msg");
 	}
 
-	int code;
-	String msg;
+	private int code;
+	private String msg;
 
 	public int getCode() {
 		return code;

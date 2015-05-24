@@ -138,13 +138,13 @@ public class ChatCardView extends ThreadCardView {
         vh.bg.setBackground(bg);
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vh.bg
                 .getLayoutParams();
-        params.gravity = isMine ? Gravity.RIGHT : Gravity.LEFT;
+        params.gravity = isMine ? Gravity.END : Gravity.START;
         vh.bg.setLayoutParams(params);
 
         LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) vh.title
                 .getLayoutParams();
         params2.setMargins(isMine ? 0 : 10, 8, isMine ? 10 : 0, 0);
-        params2.gravity = isMine ? Gravity.RIGHT : Gravity.LEFT;
+        params2.gravity = isMine ? Gravity.END : Gravity.START;
         vh.title.setLayoutParams(params2);
 
         boolean hasIMG = (chat.getIMGId() != null);

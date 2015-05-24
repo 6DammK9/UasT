@@ -43,6 +43,6 @@ public class ChatItems extends DataType {
 		return users;
 	}
 
-	ChatItem[] chats;
-	String[] users;
+	private ChatItem[] chats;
+	private String[] users;
 }

@@ -26,10 +26,10 @@ import java.util.Map;
 import hk.ust.comp4521.UasT.json.ApiResponseData;
 
 public class Database {
-    public static final String TAG = "UasT.Database";
-    static Context context;
-    static SharedPreferences pref;
-    static SharedPreferences config;
+    private static final String TAG = "UasT.Database";
+    private static Context context;
+    private static SharedPreferences pref;
+    private static SharedPreferences config;
 
     public static void init(Context context) {
         Database.context = context;
@@ -98,7 +98,7 @@ public class Database {
         });
     }
 
-    public static void getData(final String type, final String key,
+    private static void getData(final String type, final String key,
                                final DatabaseLoad<JSONObject> handler) {
         final String fullName = type + (key == null ? "" : "_" + key);
         String hash = pref.getString(fullName, null);
@@ -138,7 +138,7 @@ public class Database {
         });
     }
 
-    public static JSONObject loadJSON(File file) {
+    private static JSONObject loadJSON(File file) {
         try {
             InputStream is = context.openFileInput(file.getName());
             int size = is.available();
@@ -155,7 +155,7 @@ public class Database {
         }
     }
 
-    public static boolean saveJSON(File file, JSONObject obj) {
+    private static boolean saveJSON(File file, JSONObject obj) {
         try {
             FileOutputStream is = context.openFileOutput(file.getName(),
                     Context.MODE_PRIVATE);
@@ -169,7 +169,7 @@ public class Database {
         }
     }
 
-    static UserData user;
+    private static UserData user;
 
     public static UserData getUser() {
         if (user == null) {

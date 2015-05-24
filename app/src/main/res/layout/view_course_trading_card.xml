@@ -30,7 +30,7 @@
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="sub"
+                    android:text="@string/subtitle"
                     android:textColor="@android:color/secondary_text_light"
                     android:textSize="12sp"
                     android:layout_marginBottom="8dp" />
@@ -39,7 +39,8 @@
                     android:layout_width="35dp"
                     android:layout_height="30dp"
                     android:id="@+id/likeButton"
-                    android:background="@drawable/icon_like" />
+                    android:background="@drawable/icon_like"
+                    android:contentDescription="@string/view_img" />
 
                 <TextView
                     android:id="@+id/likeMessage"

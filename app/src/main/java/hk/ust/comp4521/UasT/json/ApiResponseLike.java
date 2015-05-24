@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ApiResponseLike extends ApiResponseBase {
-    int num;
+    private int num;
 
     public void load(JSONObject obj) throws JSONException {
         super.load(obj);

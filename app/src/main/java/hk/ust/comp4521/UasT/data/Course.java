@@ -18,9 +18,9 @@ import hk.ust.comp4521.UasT.ThreadListFragment;
 
 @ThreadItemInfo(favorite = true, filter = true, sort = true, typeName = "Chat", title = "Courses", type = "courses", hint = "Code or Name?", layout = R.layout.view_course_card)
 public class Course extends ThreadItem {
-	String desc;
-	double credit;
-	int rating, ratingTotal;
+	private String desc;
+	private double credit;
+	private int rating, ratingTotal;
 
 	@Override
 	public void load(JSONObject obj) throws JSONException {

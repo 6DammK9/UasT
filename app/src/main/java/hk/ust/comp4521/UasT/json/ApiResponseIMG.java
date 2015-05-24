@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class ApiResponseIMG extends ApiResponseBase {
 
-    String name;
+    private String name;
 
     public void load(JSONObject obj) throws JSONException {
         super.load(obj);

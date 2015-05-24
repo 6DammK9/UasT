@@ -50,8 +50,8 @@ public class CourseHeaderCardView  extends ThreadCardView {
 			
 		});
 	}
-	
-	Course current;
+
+	private Course current;
 
 	@Override
 	public void setThread(ThreadItem thread) {

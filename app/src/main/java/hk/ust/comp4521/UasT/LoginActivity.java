@@ -28,8 +28,8 @@ import hk.ust.comp4521.UasT.json.ApiResponseBase;
 import hk.ust.comp4521.UasT.json.ApiResponseValidate;
 
 public class LoginActivity extends Activity {
-    Button reset, login, set;
-    EditText email, code, name, address;
+	private Button reset, login, set;
+	private EditText email, code, name, address;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

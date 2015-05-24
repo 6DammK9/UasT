@@ -20,7 +20,7 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(filter = true, sort = true, add = true, typeName = "Group", title = "Groups", type = "groups", layout = R.layout.view_group_card)
 public class CourseGroup extends ThreadPostItem {
-	long time;
+	private long time;
 	
 	@Override
 	public void load(JSONObject obj) throws JSONException {

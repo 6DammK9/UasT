@@ -38,19 +38,19 @@ public class CalendarFragment extends BaseFragment
 {
     //static final String TAG = "UasT.CalendarFragment";
     CalendarView cal_m;
-    GridView cal_d;
-    View view;
-    Button new_event;
+    private GridView cal_d;
+    private View view;
+    private Button new_event;
 
-	boolean isGroup;
+    private boolean isGroup;
 
     ArrayList<CalendarEvent> CalEvents;
     ArrayList<Integer> CalEventsFilteredIndex;
-    long selectedDate;
+    private long selectedDate;
 
-	OnItemClickListener personalListener;
-	OnItemClickListener groupListener;
-    View.OnClickListener new_eventListener;
+    private OnItemClickListener personalListener;
+    private OnItemClickListener groupListener;
+    private View.OnClickListener new_eventListener;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -154,7 +154,7 @@ public class CalendarFragment extends BaseFragment
 		return super.onBackPressed();
 	}
 
-	public void updatePersonal()
+    private void updatePersonal()
 	{
         CalEventsFilteredIndex = filterEvent(selectedDate);
 
@@ -175,7 +175,7 @@ public class CalendarFragment extends BaseFragment
         cal_d.setAdapter(adapter);
 	}
 
-	public void updateGroup()
+    private void updateGroup()
 	{
         CalEventsFilteredIndex = filterEvent(selectedDate);
 
@@ -203,7 +203,7 @@ public class CalendarFragment extends BaseFragment
         //CalEvents.add(new CalendarEvent());
     }
 
-    public ArrayList<Integer> filterEvent (long time) {
+    private ArrayList<Integer> filterEvent (long time) {
         // Wasted some RAM spaces for unwanted index
         //Log.i(TAG, "filterEvent");
         if (CalEvents == null) {return null;}

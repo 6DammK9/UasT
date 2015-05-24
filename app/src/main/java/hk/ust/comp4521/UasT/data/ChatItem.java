@@ -17,9 +17,9 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(sort = true, title = "Conversations", type = "chatDatas", typeName = "Chat", layout = R.layout.view_chat_item_card)
 public class ChatItem extends ThreadPostItem {
-	long time;
-	String imgId;
-	String imgName;
+	private long time;
+	private String imgId;
+	private String imgName;
 
 	public String getIMGId() {
 		return imgId;

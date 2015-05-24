@@ -46,7 +46,7 @@ public class MatchRecord extends BaseFragment {
     private ArrayList<Date> CalStart, CalEnd;
     private ArrayList<String> CalFreq;
 
-    static final String TAG = "UasT.MatchRecord";
+    private static final String TAG = "UasT.MatchRecord";
 
     public void setParam(ArrayList<String> JointCalStart, ArrayList<String> JointCalEnd, ArrayList<String> JointCalFreq) {
         CalStart = new ArrayList<Date>();
@@ -118,7 +118,7 @@ public class MatchRecord extends BaseFragment {
         return "Calendar";
     }
 
-    public final OnClickListener FromListener = new OnClickListener() {
+    private final OnClickListener FromListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             MainActivity main = (MainActivity) getActivity();
@@ -129,7 +129,7 @@ public class MatchRecord extends BaseFragment {
         }
     };
 
-    public final OnClickListener DurListener = new OnClickListener() {
+    private final OnClickListener DurListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             MainActivity main = (MainActivity) getActivity();
@@ -140,7 +140,7 @@ public class MatchRecord extends BaseFragment {
         }
     };
 
-    public final OnClickListener RangeListener = new OnClickListener() {
+    private final OnClickListener RangeListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             MainActivity main = (MainActivity) getActivity();
@@ -151,7 +151,7 @@ public class MatchRecord extends BaseFragment {
         }
     };
 
-    public final OnClickListener showBtnListener = new OnClickListener() {
+    private final OnClickListener showBtnListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             //Multithreading issue - reset groupCalEvents
@@ -200,7 +200,7 @@ public class MatchRecord extends BaseFragment {
         }
     };
 
-    public final OnClickListener exitBtnListener = new OnClickListener() {
+    private final OnClickListener exitBtnListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             ((MainActivity) getActivity()).popFragment();

@@ -37,10 +37,10 @@ import hk.ust.comp4521.UasT.json.ApiResponseData;
 public class UserAddFragment extends BaseFragment {
 
 	ThreadItemInfo info;
-	String code;
-	EditText destITSC;
-    ListView list;
-    ArrayList<String> FriendList;
+    private String code;
+    private EditText destITSC;
+    private ListView list;
+    private ArrayList<String> FriendList;
 
 	public UserAddFragment() {
 

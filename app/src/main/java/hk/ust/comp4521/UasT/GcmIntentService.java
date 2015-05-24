@@ -27,13 +27,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GcmIntentService extends IntentService {
-	static final String TAG = "UasT.GcmIntentService";
-	public static final int NOTIFICATION_ID = 1;
-	static final long[] vibraPattern = { 0, 500, 250, 500 };
+	private static final String TAG = "UasT.GcmIntentService";
+	private static final int NOTIFICATION_ID = 1;
+	private static final long[] vibraPattern = { 0, 500, 250, 500 };
 
-	final ArrayList<String> messages = new ArrayList<String>();
-	final Map<String, String> senders = new HashMap<String, String>();
+	private final ArrayList<String> messages = new ArrayList<String>();
+	private final Map<String, String> senders = new HashMap<String, String>();
+	private MainActivity main;
 
+	public void setCallback(MainActivity main) {
+		this.main = main;
+	}
 	public GcmIntentService() {
 		super("GcmIntentService");
 	}
@@ -143,11 +147,6 @@ public class GcmIntentService extends IntentService {
 		mNotificationManager.cancel(NOTIFICATION_ID);
 		messages.clear();
 		senders.clear();
-	}
-	
-	MainActivity main;
-	public void setCallback(MainActivity main) {
-		this.main = main;
 	}
 }
 

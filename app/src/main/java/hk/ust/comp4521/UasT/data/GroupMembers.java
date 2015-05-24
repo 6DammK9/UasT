@@ -36,8 +36,7 @@ public class GroupMembers extends ThreadItem {
 		}
 	}
 
-	GroupMember[] members;
-    String courseId;
+	private GroupMember[] members;
 	
 	public GroupMember[] getMembers() {
 		return members;

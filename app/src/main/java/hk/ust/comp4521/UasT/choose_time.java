@@ -26,8 +26,8 @@ import hk.ust.comp4521.UasT.data.CalendarEvent;
  */
 public class choose_time extends BaseFragment {
     private String curStr;
-    Record _parent;
-    MatchRecord _parent2;
+    private Record _parent;
+    private MatchRecord _parent2;
     private String _target;
 
     private View view;
@@ -85,7 +85,7 @@ public class choose_time extends BaseFragment {
         return "Calendar";
     }
 
-    public final OnClickListener AcceptListener = new OnClickListener()
+    private final OnClickListener AcceptListener = new OnClickListener()
     {
         @Override
         public void onClick(View v)

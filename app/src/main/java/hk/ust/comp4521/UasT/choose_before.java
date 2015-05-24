@@ -23,11 +23,11 @@ import hk.ust.comp4521.UasT.data.CalendarEvent;
  * Main purpose: To choose time amount through GUI.
  */
 public class choose_before extends BaseFragment {
-    Record _parent;
-    MatchRecord _parent2;
-    Date _from;
-    String _target;
-    int[] choices; //Day, Hour, Min, Second
+    private Record _parent;
+    private MatchRecord _parent2;
+    private Date _from;
+    private String _target;
+    private int[] choices; //Day, Hour, Min, Second
 
     private View view;
     private NumberPicker numDay;
@@ -116,7 +116,7 @@ public class choose_before extends BaseFragment {
         return "Calendar";
     }
 
-    public final View.OnClickListener AcceptListener = new View.OnClickListener()
+    private final View.OnClickListener AcceptListener = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -143,7 +143,7 @@ public class choose_before extends BaseFragment {
     };
 
     //123D 23H 23M 23S
-    public static long UIStringToLong(String input) {
+    private static long UIStringToLong(String input) {
         if (input == null) {return 0;}
         if (input.equals("")) {return 0;}
         String[] timeStr = input.split(" ");

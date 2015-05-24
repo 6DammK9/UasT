@@ -17,8 +17,8 @@ import hk.ust.comp4521.UasT.R;
 
 @ThreadItemInfo(add = true, filter = true, sort = true, title = "Conversations", type = "chats", typeName = "Chat", layout = R.layout.view_chat_card)
 public class Chat extends ThreadItem  {
-	long time;
-	boolean isGroup;
+	private long time;
+	private boolean isGroup;
 	
 	public long getTime() {
 		return time;

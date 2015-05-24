@@ -32,14 +32,13 @@ import hk.ust.comp4521.UasT.json.ApiResponseIMG;
 
 public class PostFragment extends BaseFragment implements IMGUpload {
 
-	ThreadItemInfo info;
-	String code;
-	EditText title, details, content, attachment;
-	RatingBar rating;
-    ImageButton camera, image;
+	private ThreadItemInfo info;
+	private String code;
+	private EditText title, details, content, attachment;
+	private RatingBar rating;
+	private ImageButton camera, image;
 
-    View view;
-
+	private View view;
 
 	public PostFragment() {
 
@@ -136,9 +135,7 @@ public class PostFragment extends BaseFragment implements IMGUpload {
 						@Override
 						public void onSuccess(ApiResponseBase response) {
 							dialog.dismiss();
-							Toast.makeText(getActivity(),
-									response.getMessage(), Toast.LENGTH_LONG)
-									.show();
+							Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
 							MainActivity main = (MainActivity) getActivity();
 							main.popFragment();
 						}
@@ -178,7 +175,9 @@ public class PostFragment extends BaseFragment implements IMGUpload {
                 File tmp_file = new File(img);
                 File target_file = new File(mediaStorageDir.getPath() + File.separator + response.getIMG());
                 attachment.setText(response.getIMG());
-                tmp_file.renameTo(target_file);
+				if (!tmp_file.renameTo(target_file)) {
+					Toast.makeText(view.getContext(), "Failed to rename file.", Toast.LENGTH_LONG).show();
+				}
             }
 
             @Override

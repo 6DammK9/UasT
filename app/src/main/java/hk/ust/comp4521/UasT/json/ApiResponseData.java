@@ -12,8 +12,8 @@ import org.json.JSONObject;
 
 public class ApiResponseData extends ApiResponseBase {
 	
-	JSONObject data;
-	String hash;
+	private JSONObject data;
+	private String hash;
 	
 	public void load(JSONObject obj) throws JSONException {
 		super.load(obj);

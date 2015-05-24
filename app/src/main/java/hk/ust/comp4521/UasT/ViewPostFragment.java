@@ -40,12 +40,18 @@ import hk.ust.comp4521.UasT.json.ApiResponseAddChat;
 import hk.ust.comp4521.UasT.json.ApiResponseBase;
 
 public class ViewPostFragment extends BaseFragment {
+	private final static String TAG = "UasT.ViewPost";
+	private TextView content;
+	private ImageView view_img;
+	private Post postData;
+	private View view;
+
 	public ViewPostFragment() {
 
 	}
 
 	ThreadItemInfo info;
-	ThreadPostItem post;
+	private ThreadPostItem post;
 
 	public void setCode(ThreadPostItem post) {
 		this.info = post.getClass().getAnnotation(ThreadItemInfo.class);
@@ -62,11 +68,6 @@ public class ViewPostFragment extends BaseFragment {
 		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
 	}
-
-	TextView content;
-    ImageView view_img;
-	Post postData;
-    View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +87,7 @@ public class ViewPostFragment extends BaseFragment {
 		return view;
 	}
 
-	void updateView() {
+	private void updateView() {
 		if (postData != null) {
             content.setText(postData.getContent());
             if (!postData.getAttachment().equals("")) {
@@ -100,7 +101,7 @@ public class ViewPostFragment extends BaseFragment {
                     if (thumbnail != null) {
                         view_img.setImageBitmap(thumbnail);
                     } else {
-                        Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                        Log.i(TAG, "FAIL AFTER DOWNLOADING");
                     }
                 }
 
@@ -123,7 +124,7 @@ public class ViewPostFragment extends BaseFragment {
 
                                 main.gotoFragment(0, img);
                             } else {
-                                Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                                Log.i(TAG, "FAIL AFTER DOWNLOADING");
                             }
                         } else {
 
@@ -145,6 +146,7 @@ public class ViewPostFragment extends BaseFragment {
                                     try {
                                         CopyFile(temp_img, target_img);
                                     } catch (IOException ioe) {
+										Log.i(TAG, ioe.toString());
                                     } finally {
                                         dialog.dismiss();
                                         //Toast.makeText(ChatCardView.this.getContext(), response.getMessage(),
@@ -153,7 +155,7 @@ public class ViewPostFragment extends BaseFragment {
                                         if (thumbnail != null) {
                                             view_img.setImageBitmap(thumbnail);
                                         } else {
-                                            Log.i("UasT.ViewPost", "FAIL AFTER DOWNLOADING");
+                                            Log.i(TAG, "FAIL AFTER DOWNLOADING");
                                         }
                                     }
                                 }

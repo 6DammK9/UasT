@@ -24,12 +24,12 @@ import android.util.Log;
  */
 
 public class PlayReceiver extends BroadcastReceiver {
-    static final String TAG = "UasT.PlayReceiver";
-    public static final int NOTIFICATION_ID = 2;
-    static final long[] vibPattern = { 0, 500, 250, 500 };
-    String title, body;
-    MainActivity main;
-    CalendarFragment cal;
+    private static final String TAG = "UasT.PlayReceiver";
+    private static final int NOTIFICATION_ID = 2;
+    private static final long[] vibPattern = { 0, 500, 250, 500 };
+    private String title, body;
+    private MainActivity main;
+    private CalendarFragment cal;
 
     @Override
     public void onReceive(Context context, Intent intent) {

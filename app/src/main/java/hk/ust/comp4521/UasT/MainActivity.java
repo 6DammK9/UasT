@@ -45,23 +45,23 @@ import hk.ust.comp4521.UasT.data.Database;
 import hk.ust.comp4521.UasT.json.ApiResponseBase;
 
 public class MainActivity extends Activity {
-    static final String TAG = "UasT.MainActivity";
+    private static final String TAG = "UasT.MainActivity";
     //static final String SENDER_ID = "479417287507";
-    static final String SENDER_ID = "254106385173";
+    private static final String SENDER_ID = "254106385173";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
-    FragmentManager fragmentManager;
-    RadioGroup tab;
-    int curTab;
-    Context context;
-    GoogleCloudMessaging gcm;
+    private FragmentManager fragmentManager;
+    private RadioGroup tab;
+    private int curTab;
+    private Context context;
+    private GoogleCloudMessaging gcm;
     static String regid;
-    PlayReceiver ReminderService;
+    private PlayReceiver ReminderService;
     private GcmIntentService mBoundService;
-    boolean mIsBound;
-    boolean showError = false;
+    private boolean mIsBound;
+    private boolean showError = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +172,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    final List<Stack<BaseFragment>> stacks = new ArrayList<Stack<BaseFragment>>();
+    private final List<Stack<BaseFragment>> stacks = new ArrayList<Stack<BaseFragment>>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -410,13 +410,13 @@ public class MainActivity extends Activity {
         }
     };
 
-    void doBindService() {
+    private void doBindService() {
         bindService(new Intent(this, GcmIntentService.class), mConnection,
                 Context.BIND_AUTO_CREATE);
         mIsBound = true;
     }
 
-    void doUnbindService() {
+    private void doUnbindService() {
         if (mIsBound) {
             unbindService(mConnection);
             mIsBound = false;

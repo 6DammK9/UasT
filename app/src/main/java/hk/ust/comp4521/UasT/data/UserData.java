@@ -21,9 +21,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserData {
-    String email = "", auth, name = "User " + Math.abs(new Random().nextInt());
-    final Map<String, String> favorite = new HashMap<String, String>();
-    ArrayList<CalendarEvent> calendar2;
+    private String email = "", auth, name = "User " + Math.abs(new Random().nextInt());
+    private final Map<String, String> favorite = new HashMap<String, String>();
+    private ArrayList<CalendarEvent> calendar2;
 
     public ArrayList<CalendarEvent> getCalendar2() {
         if (calendar2 == null) {
@@ -63,7 +63,7 @@ public class UserData {
                 && !auth.isEmpty();
     }
 
-    static final Pattern itscPattern = Pattern.compile(
+    private static final Pattern itscPattern = Pattern.compile(
             "^([A-Z._]+)@[A-Z.]*ust\\.hk$", Pattern.CASE_INSENSITIVE);
 
     public String getITSC() {

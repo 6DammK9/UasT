@@ -61,9 +61,9 @@
 
         <EditText
             android:id="@+id/attachment"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Please upload a photo"
+            android:hint="@string/photo_prompt"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             android:layout_weight="1.04"
@@ -75,7 +75,8 @@
             android:layout_height="50dp"
             android:id="@+id/camera"
             android:src="@drawable/camera"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/camera" />
 
         <ImageButton
             android:layout_width="60dp"
@@ -83,7 +84,8 @@
             android:id="@+id/image"
             android:src="@drawable/image"
             android:layout_gravity="top"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/image" />
 
     </LinearLayout>
 

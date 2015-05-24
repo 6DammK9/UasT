@@ -30,9 +30,9 @@ import hk.ust.comp4521.UasT.data.ThreadItem;
 import hk.ust.comp4521.UasT.json.ApiResponseBase;
 
 public class EditGroupFragment extends ThreadListFragment {
-	CourseGroup group;
-	boolean isJoined = false;
-	boolean loaded = false;
+	private CourseGroup group;
+	private boolean isJoined = false;
+	private boolean loaded = false;
 
 	public void setParam(CourseGroup group) {
 		this.group = group;

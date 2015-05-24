@@ -32,13 +32,13 @@ import android.widget.ImageView;
  * I almost forgot this. Zooming function is desired.
  */
 public class Multimedia_showIMG extends BaseFragment {
-    final static String TAG = "UasT.showIMG";
-    String path;
-    View view;
-    ImageView img;
-    private PointF startPoint = new PointF();
-    private Matrix matrix = new Matrix();
-    private Matrix currentMaritx = new Matrix();
+    private final static String TAG = "UasT.showIMG";
+    private String path;
+    private View view;
+    private ImageView img;
+    private final PointF startPoint = new PointF();
+    private final Matrix matrix = new Matrix();
+    private final Matrix currentMaritx = new Matrix();
 
     private int mode = 0;
     private static final int DRAG = 1;

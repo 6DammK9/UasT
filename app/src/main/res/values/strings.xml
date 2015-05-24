@@ -67,6 +67,7 @@
     <string name="contact">Contact</string>
     <string name="camera">Camera</string>
     <string name="image">Image</string>
+    <string name="photo_prompt">Please upload a photo</string>
 
     <string name="frequency_prompt">Frequency:</string>
     <string-array name="frequency_choice">

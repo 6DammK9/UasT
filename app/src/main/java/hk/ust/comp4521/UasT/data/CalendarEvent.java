@@ -21,7 +21,7 @@ public class CalendarEvent {
     private String Freq;
     private String Loc;
     private Date Remind;
-    public final static long ONE_HOUR = 1000 * 60 * 60;
+    private final static long ONE_HOUR = 1000 * 60 * 60;
     public final static long ONE_DAY = 1000 * 60 * 60 * 24;
     public final static long ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
     public final static long TWO_WEEK = 1000 * 60 * 60 * 24 * 7 * 2;
@@ -171,7 +171,7 @@ public class CalendarEvent {
         return false;
     }
 
-    public static long dif(long a, long b) {
+    private static long dif(long a, long b) {
         if (a > b) {
             return a - b;
         } else {
@@ -213,12 +213,12 @@ public class CalendarEvent {
         Remind = newDate;
     }
 
-    public String Body_OneLine(String Body) {
+    private String Body_OneLine(String Body) {
         String a = Body.replaceAll("\n", "\t");
         return a.split("\n")[0];
     }
 
-    public String Body_MultiLine(String in) {
+    private String Body_MultiLine(String in) {
         return in.replaceAll("\t", "\n");
     }
 }

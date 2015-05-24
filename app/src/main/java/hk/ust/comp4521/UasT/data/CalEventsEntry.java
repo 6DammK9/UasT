@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 public class CalEventsEntry extends ThreadPostItem {
 
-    String[] CalEventArr;
+    private String[] CalEventArr;
 
     public String[] getCalEventArr() {return CalEventArr;}
 

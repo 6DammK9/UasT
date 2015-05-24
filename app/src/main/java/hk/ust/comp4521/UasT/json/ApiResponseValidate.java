@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 
 public class ApiResponseValidate extends ApiResponseBase {
-	String auth;
+	private String auth;
 	
 	public void load(JSONObject obj) throws JSONException {
 		super.load(obj);
