@@ -174,6 +174,7 @@ public class Multimedia_photo extends BaseFragment {
 
     /* Checks if external storage is available to at least read */
     public static boolean isExternalStorageReadable() {
+
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
     }
