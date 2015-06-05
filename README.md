@@ -37,14 +37,18 @@ Or just do it by yourself. Obviously there are rooms for improvement.
  -----------  
 
 ## History:  
+
 ### 2014 Spring:  
+
  * Jason's group created this for course project.   
  * Named Ex-UST. 1 carry, 1 deadline fighter, 1 freerider.  
  * Created the basic structure of Android client - Course, Calendar, Chat.  
  * Created server.js and download.js.  
  * Thought to use MongoDB. Due to XXX issues, server handle the data instead.  
  * Used SVN but you know, Google shut it down.  
+
 ### 2015 Spring:   
+
  * Darren's group continued this for course project (same course).   
  * Named UasT. 1 carry, 1 deadline fighter, 1 freerider.  
  * Added image supporting (JPG only, hard-coded) for all components.  
@@ -53,7 +57,7 @@ Or just do it by yourself. Obviously there are rooms for improvement.
  * Didn't think for using MongoDB. But the review reminded me a lot.  
 
  -----------  
- 
+
 Copyright (C) 2015 Darren Lau, Hugo Cheung, Starry Ho, Jason Chan, and those who worked before  
   
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
